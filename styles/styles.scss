@@ -1,0 +1,115 @@
+@import 'variables';
+@import '../node_modules/swiper/swiper.scss';
+@import '../node_modules/swiper/components/navigation/navigation.scss';
+@import '../node_modules/swiper/components/pagination/pagination.scss';
+body{
+	overflow: hidden;
+}
+:root {
+	--swiper-navigation-size: 16px;
+	--app-height: 100vh;
+}
+a{
+	cursor: pointer;
+}
+
+.active-menu{
+
+	>span{
+		position:relative;
+		font-weight: 600;
+		color:$primary-color;
+		&:after{
+			content:'';
+			position: absolute;
+			width: 100%;
+			height:1px;
+			background-color:$primary-color;
+			bottom:-10px;
+			left:0;
+		}
+		//&:before{
+		//	content:'';
+		//	position: absolute;
+		//	width: 100%;
+		//	height:1px;
+		//	background-color:$secondary-color;
+		//	top:-10px;
+		//	left:0;
+		//}
+	}
+}
+
+.title-page{
+	font-size:1.75rem;
+	color: #b4b4b4;
+	font-weight: 600;
+}
+
+.MuiLink-root{
+	transition: color .3s ease;
+	color: '#000';
+	&:hover{
+		color:$primary-darken;
+	}
+}
+
+*{
+	@include scrollbars(10px, lighten($primary-lighten, 25%), rgba($primary-lighten, .15));
+}
+
+.dropdown-angle .MuiPaper-root:after {
+	content: '';
+	width: 0;
+	height: 0;
+	border-bottom: 10px solid #fff;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 10px solid transparent;
+	position: absolute;
+	bottom: 100%;
+	transform: translateX(-50%);
+	left: 50%;
+}
+
+.overlay-menu{
+	position: fixed;
+	top:0;
+	left: 0;
+	width: 100%;
+	height:100%;
+	content:'';
+	background:rgba(0,0,0,.67);
+	z-index: 9;
+	transform: translateX(-100%);
+	transition: all .3s ease;
+}
+
+.swiper-button-prev, .swiper-button-next{
+	transform: translate3d(0,0,0);
+	&:before{
+		content: '';
+		background: rgb(0,108,255);
+		background: radial-gradient(circle, rgba(0,108,255,1) 0%, rgba(98,164,255,1) 100%);
+		width: 35px;
+		height: 35px;
+		position: absolute;
+		border-radius: 50%;
+	}
+	&:after{
+		z-index: 2;
+		color:#fff;
+	}
+}
+
+.swiper-container{
+	padding: 0 1rem 2rem;
+	margin: 0 -1rem;
+	.swiper-button-prev{
+		left: 25px;
+	}
+	.swiper-button-next{
+		right: 25px;
+	}
+}
+
