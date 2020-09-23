@@ -1,11 +1,10 @@
-
 ### Installation
 
 Clone repo:
 
 ```sh
 git clone https://github.com/chipcop106/ElearningNextJs.git
-cd ElearningNextJs
+cd e-talk.vn
 ```
 
 Install the dependencies:
