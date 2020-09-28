@@ -1,13 +1,12 @@
-import React from 'react'
-import Authentication from './auth'
-import Home from '~/pages/home'
-import { getLayout } from '~/components/Layout'
+import React from 'react';
+import { getLayout } from '~/components/Layout';
+import Home from '~/pages/home';
 const Index = () => (
 	<React.Fragment>
 		<Home />
 	</React.Fragment>
-)
+);
 
-Index.getLayout = getLayout
+Index.getLayout = getLayout;
 
-export default Index
+export default Index;

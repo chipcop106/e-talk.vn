@@ -1,324 +1,144 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import {
-	Box,
-	Container,
-	Avatar,
-	Typography,
-	Menu,
-	Fade,
-} from '@material-ui/core';
-import styles from './header.module.scss';
-import {
-	Notifications,
-	ArrowDropDown,
-	Menu as MenuIcon,
-	AccountCircle,
-	ExitToApp,
-} from '@material-ui/icons';
-//import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/styles';
-import Hidden from '@material-ui/core/Hidden';
-import { colors } from '~/config';
-import CloseIcon from '@material-ui/icons/Close';
-import Badge from '@material-ui/core/Badge';
-import { useRouter } from 'next/router';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import List from '@material-ui/core/List';
-
-const useStyles = makeStyles((theme) => ({
-	menuButton: {
-		marginRight: theme.spacing(2),
-	},
-	activeMenu: {
-		'& > a ': {
-			position: 'relative',
-		},
-		'&:after': {
-			content: '',
-			position: 'absolute',
-			width: '100%',
-			height: 1,
-			backgroundColor: colors.secondary,
-			bottom: '-10px',
-			left: 0,
-		},
-	},
-	dropdown: {
-		boxShadow: '0px 4px 10px 0px rgba(0,0,0,.15)',
-		zIndex: 9999,
-	},
-	headerContainer: {
-		backgroundColor: '#fff',
-		boxShadow: '0px 4px 8px 0px rgba(0,0,0,.15)',
-		zIndex: 9,
-	},
-	divider: {
-		marginRight: '1.25rem !important',
-	},
-}));
-
-const DropDownMenu = (props) => {
-	return (
-		<Menu
-			elevation={3}
-			getContentAnchorEl={null}
-			anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'center',
-			}}
-			transformOrigin={{
-				vertical: 'top',
-				horizontal: 'center',
-			}}
-			{...props}
-		/>
-	);
-};
 
 const Header = () => {
-	const [notiEl, setNotiEl] = useState(null);
-	const [userMenuEl, setUserMenuEl] = useState(null);
-	const [menuMobileShow, setMenuMobileShow] = useState(false);
-	const router = useRouter();
-	console.log(router);
-	const showNotification = (event) => {
-		setNotiEl(event.currentTarget);
-	};
-	const closeNotification = (event) => {
-		setNotiEl(null);
-	};
-	const showUserMenu = (event) => {
-		setUserMenuEl(event.currentTarget);
-	};
-	const closeUserMenu = (event) => {
-		setUserMenuEl(null);
-	};
-	const toggleMenuMobile = () => {
-		setMenuMobileShow(!menuMobileShow);
-	};
-
-	const classes = useStyles();
 	return (
-		<Box
-			className={classes.headerContainer}
-			py={2}
-			display={`flex`}
-			alignItems={`center`}
-			height={80}
-			flexShrink={0}
-		>
-			<Container maxWidth="xl">
-				<Box display="flex" justifyContent="space-between" alignItems="center">
-					<Box display="flex" alignItems="center">
-						<Hidden mdUp>
-							<IconButton
-								edge="start"
-								className={classes.menuButton}
-								color="inherit"
-								aria-label="menu"
-								onClick={toggleMenuMobile}
+		<>
+			<aside className="aside aside-fixed">
+				<div className="aside-header">
+					<a href="/home" className="aside-logo">
+						Etalk<span style={{ fontWeight: 200 }}> VN</span>
+					</a>{' '}
+					<a href={true} className="aside-menu-link">
+						<i className="fas fa-bars"></i> <i className="fas fa-times"></i>
+					</a>
+				</div>
+				<div className="aside-body tx-14">
+					<div className="aside-loggedin">
+						<div className="aside-loggedin-user tx-center">
+							<div className="d-flex align-items-center justify-content-center">
+								<a href="#loggedinMenu" data-toggle="collapse" className="">
+									<img
+										src="/static/img/avatar.jpg"
+										className="rounded-circle avatar-xl object-fit"
+										alt=""
+									/>
+								</a>
+							</div>
+							<a
+								href="#loggedinMenu"
+								className="d-flex align-items-center justify-content-center mg-b-0 mg-t-10"
+								data-toggle="collapse"
 							>
-								<MenuIcon />
-							</IconButton>
-						</Hidden>
-
-						<Link href="/">
-							<Box
-								component="a"
-								display="inline-flex"
-								alignItems="center"
-								className={styles.logoWrap}
-							>
-								<img
-									src="/static/img/logo.png"
-									className={`logo ${styles.logo}`}
-									alt="logo"
-								/>
-							</Box>
-						</Link>
-						<Hidden mdDown>
-							<Divider
-								orientation="vertical"
-								className={styles.divider + ' ' + classes.divider}
-							/>
-						</Hidden>
-						<Box
-							display="flex"
-							alignItems="center"
-							id={`main-menu`}
-							className={`${menuMobileShow ? 'mobile-open' : ''}`}
-						>
-							<Hidden mdUp>
-								<Box
-									display={`flex`}
-									justifyContent={`space-between`}
-									alignItems={`center`}
-									style={{
-										padding: '0.75rem',
-										borderBottom: '1px solid #e1e1e1',
-									}}
-								>
-									<Link href="/home">
-										<Box
-											onClick={() => setMenuMobileShow(false)}
-											component="a"
-											display="inline-flex"
-											alignItems="center"
-											className={styles.logoWrap}
-										>
-											<img
-												src="/static/img/logo.png"
-												className={`logo ${styles.logo}`}
-												alt="logo"
-											/>
-										</Box>
-									</Link>
-									<IconButton
-										color="inherit"
-										aria-label="menu"
-										onClick={toggleMenuMobile}
-									>
-										<CloseIcon />
-									</IconButton>
-								</Box>
-							</Hidden>
+								<h6 className="tx-semibold tx-16 mg-b-0 tx-white">
+									Huỳnh Thi Phương Loan
+								</h6>
+								<i className="fas fa-angle-down mg-l-10 tx-white"></i>
+							</a>
+							<p className="tx-white tx-12 mg-b-0 mg-t-5">Teacher</p>
+						</div>
+						<div className="collapse" id="loggedinMenu">
+							<ul className="nav nav-aside mg-b-0 ">
+								<li className="nav-label mg-t-25">Account</li>
+								<li className="nav-item">
+									<a href className="nav-link">
+										<i className="fas fa-user-edit"></i>{' '}
+										<span>Edit Profile</span>
+									</a>
+								</li>
+								<li className="nav-item">
+									<a href className="nav-link">
+										<i className="fas fa-key"></i> <span>Change password</span>
+									</a>
+								</li>
+								<li className="nav-item">
+									<a href className="nav-link">
+										<i className="fas fa-sign-out-alt"></i>{' '}
+										<span>Sign Out</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<ul className="nav nav-aside">
+						<li className="nav-label mg-t-25">Statistics</li>
+						<li className="nav-item active">
 							<Link href="/home">
-								<Box
-									onClick={() => setMenuMobileShow(false)}
-									component="a"
-									display="inline-block"
-									className={`${styles.linkMenu} ${
-										router.pathname.includes('/home') || router.pathname === '/'
-											? 'active-menu'
-											: ''
-									}`}
-								>
-									<span className={styles.link}>Trang chủ</span>
-								</Box>
+								<a href={true} className="nav-link">
+									<i className="fas fa-tachometer-alt"></i>
+									<span>Dashboard</span>
+								</a>
 							</Link>
-							<Link href="/my-course">
-								<Box
-									onClick={() => setMenuMobileShow(false)}
-									component="a"
-									display="inline-block"
-									className={`${styles.linkMenu} ${
-										router.pathname.includes('/my-course') ? 'active-menu' : ''
-									}`}
-								>
-									<span className={styles.link}>Khóa học của tôi</span>
-								</Box>
-							</Link>
-							<Link href="/result">
-								<Box
-									onClick={() => setMenuMobileShow(false)}
-									component="a"
-									display="inline-block"
-									className={`${styles.linkMenu} ${
-										router.pathname.includes('/result') ? 'active-menu' : ''
-									}`}
-								>
-									<span className={styles.link}>Kết quả học tập</span>
-								</Box>
-							</Link>
-							<Link href="/blog">
-								<Box
-									component="a"
-									display="inline-block"
-									className={`${styles.linkMenu} ${
-										router.pathname.includes('/blog') ? 'active-menu' : ''
-									}`}
-									onClick={() => setMenuMobileShow(false)}
-								>
-									<span className={styles.link}>Tin tức</span>
-								</Box>
-							</Link>
-						</Box>
-						<div
-							className={`overlay-menu`}
-							onClick={() => setMenuMobileShow(false)}
-						/>
-					</Box>
-					<Box className="header-right" display="flex" alignItems="center">
-						<Box>
-							<Badge
-								badgeContent={100}
-								max={99}
-								color="primary"
-								onClick={showNotification}
-								overlap="circle"
-							>
-								<Notifications
-									aria-controls="notification"
-									aria-haspopup="true"
-									className={styles.iconColor}
-									fontSize="large"
-								/>
-							</Badge>
+						</li>
 
-							<DropDownMenu
-								id="notification"
-								anchorEl={notiEl}
-								keepMounted
-								open={Boolean(notiEl)}
-								onClose={closeNotification}
-								className={`dropdown-angle`}
-							>
-								<Box p={2}>Nội dung notification</Box>
-							</DropDownMenu>
-						</Box>
-						<Divider
-							orientation="vertical"
-							flexItem
-							className={styles.divider}
-						/>
+						<li className="nav-label mg-t-25">Booking schedule</li>
 
-						<Box display="flex" onClick={showUserMenu} className={styles.link}>
-							<Avatar alt="Remy Sharp" src="/static/img/avatar.jpg" />
-							<Box display="flex" alignItems="center" ml={1}>
-								<Hidden xsDown>
-									<Typography>Huỳnh Thị Phương Anh</Typography>
-								</Hidden>
-								<ArrowDropDown />
-							</Box>
-						</Box>
-						<DropDownMenu
-							id="user-information"
-							anchorEl={userMenuEl}
-							keepMounted
-							open={Boolean(userMenuEl)}
-							onClose={closeUserMenu}
-							TransitionComponent={Fade}
-							className={`${classes.dropdown} dropdown-angle`}
-						>
-							<Box px={2}>
-								<List component="nav" aria-label="account profile">
-									<Link href={`/profile`} as={`/profile`}>
-										<ListItem button onClick={() => setUserMenuEl(false)}>
-											<ListItemIcon>
-												<AccountCircle />
-											</ListItemIcon>
+						<li className="nav-item">
+							<Link href="/schedule/manage-slot">
+								<a href={true} className="nav-link">
+									<i className="far fa-calendar"></i>
+									<span>Booking schedule</span>
+								</a>
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link href="/schedule/booked-slot">
+								<a href={true} className="nav-link">
+									<i className="far fa-calendar-alt"></i>{' '}
+									<span>Booked schedule</span>
+								</a>
+							</Link>
+						</li>
 
-											<ListItemText primary="Thông tin tài khoản" />
-										</ListItem>
-									</Link>
-									<ListItem button>
-										<ListItemIcon>
-											<ExitToApp />
-										</ListItemIcon>
-										<ListItemText primary="Đăng xuất" />
-									</ListItem>
-								</List>
-							</Box>
-						</DropDownMenu>
-					</Box>
-				</Box>
-			</Container>
-		</Box>
+						<li className="nav-label mg-t-25">Classrooms</li>
+						<li className="nav-item">
+							<a href="kho-sanpham.html" className="nav-link">
+								<i className="fas fa-user-friends" /> <span>All classes</span>
+							</a>
+						</li>
+						<li className="nav-item">
+							<a href="kho-danhsach.html" className="nav-link">
+								<i className="fas fa-user-clock" />{' '}
+								<span>Upcoming classes</span>
+							</a>
+						</li>
+						<li className="nav-item">
+							<a href="kho-nhapkho.html" className="nav-link">
+								<i className="fas fa-user-check" />{' '}
+								<span>Finished classes</span>
+							</a>
+						</li>
+						<li className="nav-item">
+							<a href="kho-nhapkho.html" className="nav-link">
+								<i className="fas fa-comment-dots" />{' '}
+								<span>Missing evaluation classes</span>
+							</a>
+						</li>
+
+						<li className="nav-label mg-t-25">Notification</li>
+						<li className="nav-item">
+							<a href="sanpham-danhsach.html" className="nav-link">
+								<i className="fas fa-procedures" /> <span>Holidays</span>
+							</a>
+						</li>
+						<li className="nav-item">
+							<a href="sanpham-danhmuc.html" className="nav-link">
+								<i className="fas fa-user-graduate" />{' '}
+								<span>End date of student's package</span>
+							</a>
+						</li>
+
+						<li className="nav-label mg-t-25">Message</li>
+						<li className="nav-item">
+							<a href="../../components" className="nav-link">
+								<i className="fas fa-envelope-open-text"></i>
+								<span>Message manager</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</aside>
+		</>
 	);
 };
 

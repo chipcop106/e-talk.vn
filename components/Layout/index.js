@@ -1,91 +1,156 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
-import { Box, IconButton } from '@material-ui/core';
-import { KeyboardArrowUp } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-	btnPrimary: {
-		color: '#fff',
-		backgroundColor: theme.palette.primary.main,
-		'&:hover': {
-			color: '#fff',
-			backgroundColor: theme.palette.primary.light,
-		},
-	},
-	showBtn: {
-		opacity: '1 !important',
-		pointerEvents: 'auto !important',
-	},
-}));
 
 const Layout = ({ children }) => {
-	const classes = useStyles();
-	const contentRef = useRef(null);
-	const [visibleSTT, setVisibleSTT] = useState(false);
-
-	const scrollToTop = () => {
-		if (!contentRef.current) return;
-		const target = contentRef.current;
-		const c = target.scrollTop;
-		if (c > 0) {
-			window.requestAnimationFrame(scrollToTop);
-			target.scrollTo(0, c - c / 10);
-		}
-	};
-
-	const showScrollTopBtn = () => {
-		if (contentRef.current.scrollTop > 0) {
-			setVisibleSTT(true);
-		} else {
-			setVisibleSTT(false);
-		}
-	};
-
 	useEffect(() => {
-		if (contentRef.current) {
-			contentRef.current.addEventListener('scroll', showScrollTopBtn);
-		}
-
-		return () => {
-			contentRef.current = false;
-			contentRef.current.removeEventListener('scroll', showScrollTopBtn);
-		};
+		feather && feather.replace();
 	}, []);
-
 	return (
-		<Box
-			display="flex"
-			flexDirection="column"
-			style={{ height: 'var(--app-height)' }}
-		>
+		<>
 			<Header />
-			<Box ref={contentRef} flexGrow={1} style={{ overflow: 'auto' }}>
-				{children}
-			</Box>
+			<div className="content ht-100vh pd-0-f">
+				<div className="content-header">
+					<div className="navbar-left"></div>
+					<div className="navbar-right">
+						<div className="dropdown dropdown-notification">
+							<a
+								href
+								className="dropdown-link new-indicator"
+								data-toggle="dropdown"
+							>
+								<i data-feather="bell" /> <span>2</span>
+							</a>
+							<div className="dropdown-menu dropdown-menu-right">
+								<div className="dropdown-header">Thông báo</div>
+								<a href className="dropdown-item">
+									<div className="media">
+										<div className="avatar avatar-sm avatar-online">
+											<img
+												src="https://via.placeholder.com/350"
+												className="rounded-circle"
+												alt=""
+											/>
+										</div>
+										<div className="media-body mg-l-15">
+											<p>
+												Nguyễn Hoàng đã nhập 30{' '}
+												<strong>Máy khoan Muraz siêu việt GS-2000</strong>vào
+												Kho Hà Nội
+											</p>
+											<span>Mar 15 12:32pm</span>
+										</div>
+									</div>
+								</a>
+								<a href className="dropdown-item">
+									<div className="media">
+										<div className="avatar avatar-sm avatar-online">
+											<img
+												src="https://via.placeholder.com/500"
+												className="rounded-circle"
+												alt=""
+											/>
+										</div>
+										<div className="media-body mg-l-15">
+											<p>
+												Nguyễn Hoàng đã nhập{' '}
+												<strong>30 Máy khoan Muraz siêu việt GS-2000</strong>{' '}
+												vào <strong>Kho Hà Nội</strong>
+											</p>
+											<span>Mar 15 12:32pm</span>
+										</div>
+									</div>
+								</a>
+								<a href className="dropdown-item">
+									<div className="media">
+										<div className="avatar avatar-sm avatar-online">
+											<img
+												src="https://via.placeholder.com/600"
+												className="rounded-circle"
+												alt=""
+											/>
+										</div>
+										<div className="media-body mg-l-15">
+											<p>
+												Trương Thức đã xuất kho 30 sản phẩm{' '}
+												<strong>Máy khoan Muraz siêu việt GS-2000</strong> từ
+												kho HCM
+											</p>
+											<span>Mar 13 02:56am</span>
+										</div>
+									</div>
+								</a>
+								<a href className="dropdown-item">
+									<div className="media">
+										<div className="avatar avatar-sm avatar-online">
+											<img
+												src="https://via.placeholder.com/500"
+												className="rounded-circle"
+												alt=""
+											/>
+										</div>
+										<div className="media-body mg-l-15">
+											<p>
+												Nguyễn Thảo Ly vừa xuất hoá đơn bán lẻ{' '}
+												<strong>#HD332212</strong> số tiền 3.000.000 tại kho HCM
+											</p>
+											<span>Mar 12 10:40pm</span>
+										</div>
+									</div>
+								</a>
+								<div className="dropdown-footer">
+									<a href>Xem tất cả thông báo</a>
+								</div>
+							</div>
+						</div>
+						<div className="dropdown dropdown-profile">
+							<a
+								href
+								className="dropdown-link d-flex align-items-center tx-black"
+								data-toggle="dropdown"
+								data-display="static"
+							>
+								<div className="avatar avatar-sm mg-r-5">
+									<img
+										src="/static/img/avatar.jpg"
+										className="rounded-circle"
+										alt=""
+									/>
+								</div>
+								<div className="d-flex align-items-center">
+									<span className="nam">Huỳnh Thị Phương Loan</span>{' '}
+									<i className="fa fa-angle-down mg-l-5" />
+								</div>
+							</a>
+							<div className="dropdown-menu dropdown-menu-right tx-13">
+								<div className="avatar avatar-lg mg-b-15">
+									<img
+										src="/static/img/avatar.jpg"
+										className="rounded-circle"
+										alt=""
+									/>
+								</div>
+								<h6 className="tx-semibold mg-b-5">Mona Media</h6>
+								<p className="mg-b-25 tx-12 tx-color-03">Administrator</p>
+								<a href="page-profile-view.html" className="dropdown-item">
+									<i data-feather="user" /> View Profile
+								</a>
+								<div className="dropdown-divider" />
+								<a href="page-signin.html" className="dropdown-item">
+									<i data-feather="log-out" />
+									Sign Out
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="content-body" id="body-content">
+					{children}
+				</div>
+			</div>
+
 			<Footer />
-			<Box
-				style={{
-					position: 'fixed',
-					bottom: '4.5rem',
-					right: '2rem',
-					opacity: 0,
-					zIndex: 12,
-					pointerEvents: 'none',
-					transition: 'opacity .3s ease',
-				}}
-				className={visibleSTT && classes.showBtn}
-			>
-				<IconButton
-					onClick={scrollToTop}
-					color="primary"
-					className={classes.btnPrimary}
-				>
-					<KeyboardArrowUp size="large" />
-				</IconButton>
-			</Box>
-		</Box>
+		</>
 	);
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/styles';
 
 class MyDocument extends Document {
 	render() {
@@ -19,8 +18,14 @@ class MyDocument extends Document {
 				</Head>
 				<body>
 					<Main />
+					<script src="/static/lib/jquery/dist/jquery.min.js"></script>
+					<script src="/static/js/bootstrap.bundle.min.js"></script>
+					<script src="/static/lib/feather-icons/dist/feather.min.js"></script>
+					<script src="/static/lib/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+					<script src="/static/assets/js/dashforge.js"></script>
+					<script src="/static/assets/js/dashforge.aside.js"></script>
+					<script src="/static/js/custom.js"></script>
 					<NextScript />
-					<script type="text/javascript" src="static/js/custom.js"></script>
 				</body>
 			</html>
 		);
@@ -51,12 +56,11 @@ MyDocument.getInitialProps = async (ctx) => {
 	// 4. page.render
 
 	// Render app and page and get the context of the page with collected side effects.
-	const sheets = new ServerStyleSheets();
 	const originalRenderPage = ctx.renderPage;
 
 	ctx.renderPage = () =>
 		originalRenderPage({
-			enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+			enhanceApp: (App) => (props) => <App {...props} />,
 		});
 
 	const initialProps = await Document.getInitialProps(ctx);
@@ -65,10 +69,7 @@ MyDocument.getInitialProps = async (ctx) => {
 		...initialProps,
 		// Styles fragment is rendered after the app and page rendering finish.
 		styles: [
-			<React.Fragment key="styles">
-				{initialProps.styles}
-				{sheets.getStyleElement()}
-			</React.Fragment>,
+			<React.Fragment key="styles">{initialProps.styles}</React.Fragment>,
 		],
 	};
 };

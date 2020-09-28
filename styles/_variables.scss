@@ -1,87 +1,50 @@
-@charset "utf-8";
-//
-//VARIABLE :: BEGIN
-//
-$large-w: 1920px;
-$main-w: 1280px;
-$tb-w: 960px;
-$mb-w: 600px;
+// Brand Colors
+$color-brand-01: #fa005e; //#1F4069;
+$color-brand-02: #fc0d69; //#1F4069;
+$color-brand-03: #de0055; //#203f64;
 
-$primary-color: #006cff;
-$primary-darken:#004bb2;
-$primary-lighten:#3389ff;
-$secondary-color:#f50057;
-$secondary-darken:#ab003c;
-$secondary-lighten:#f73378;
+// Inverse Colors
+$color-inverse-01: #001737;
+$color-inverse-02: #1b2e4b;
 
+// Text Colors
+$color-text-01: $color-inverse-01;
+$color-text-02: $color-inverse-02;
+$color-text-03: #8392a5;
+$color-text-04: #c0ccda;
 
-@mixin box-shadow($shadow...) {
-	-webkit-box-shadow: $shadow; // iOS <4.3 & Android <4.1
-	box-shadow: $shadow;
-}
+// UI Colors
+$color-ui-01: #f5f6fa;
+$color-ui-02: #e5e9f2;
+$color-ui-03: #c0ccda;
+$color-ui-04: #8392a5;
 
-@mixin coverbg($url) {
-	background: url($url) no-repeat center center;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	-ms-background-size: cover;
-	background-size: cover;
-}
+// Height
+$height-base: 38px;
+$height-header: 60px;
+$height-header-mobile: 55px;
+$height-footer: 46px;
 
-@mixin transition($s) {
-	-webkit-transition: all $s ease-in-out;
-	-moz-transition: all $s ease-in-out;
-	-o-transition: all $s ease-in-out;
-	-ms-transition: all $s ease-in-out;
-	transition: all $s ease-in-out;
-}
+// Width
+$width-sidebar: 240px;
 
-@mixin max-media($point) {
-	@media screen and (max-width: $point) {
-		@content;
-	}
-}
+// Marker
+$marker-icon-size: 16px;
 
-@mixin min-media($point) {
-	@media screen and (min-width: $point) {
-		@content;
-	}
-}
+// Fonts
+$font-family-roboto: 'Roboto', sans-serif;
+$font-family-interui: 'Inter UI', sans-serif;
+$font-family-lato: 'Lato', sans-serif;
+$font-family-rubik: 'Rubik', sans-serif;
+$font-family-system: -apple-system, BlinkMacSystemFont, 'Inter UI', Roboto,
+	sans-serif;
 
-%clear {
-	&:after {
-		content: "";
-		display: table;
-		clear: both;
-	}
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
 
-	&:before {
-		display: table;
-		content: " ";
-	}
-}
-
-@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white, 50%)) {
-	&::-webkit-scrollbar {
-		width: $size;
-		height: $size;
-		border-radius: 10px;
-	}
-	&::-webkit-scrollbar-thumb {
-		background: $foreground-color;
-		border-radius: 10px;
-	}
-	&::-webkit-scrollbar-track {
-		background: $background-color;
-		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-	}
-	&::-webkit-scrollbar-thumb:hover {
-		background: darken($foreground-color, 10%);
-	}
-	// For Internet Explorer
-	& {
-		scrollbar-face-color: $foreground-color;
-		scrollbar-track-color: $background-color;
-	}
-}
+$red: #ce2d4f;
+$green: #00a6a6;
+$blue: #2a64f7;
+$orange: #fd7e14;
+$yellow: #f9dc5c;
