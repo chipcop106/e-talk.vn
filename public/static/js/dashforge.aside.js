@@ -3,11 +3,9 @@ $(function () {
 
 	$('[data-toggle="tooltip"]').tooltip();
 	let asideScroll = document.querySelector('.aside-body');
-
 	const asideBody = new PerfectScrollbar(asideScroll, {
 		suppressScrollX: true,
 	});
-
 	if ($('.aside-backdrop').length === 0) {
 		$('body').append('<div class="aside-backdrop"></div>');
 	}

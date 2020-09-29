@@ -1,7 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
-
+import dynamic from 'next/dynamic';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Layout = ({ children }) => {
 	useEffect(() => {
 		feather && feather.replace();
@@ -19,7 +20,7 @@ const Layout = ({ children }) => {
 								className="dropdown-link new-indicator"
 								data-toggle="dropdown"
 							>
-								<i data-feather="bell" /> <span>2</span>
+								<FontAwesomeIcon data-feather="bell" /> <span>2</span>
 							</a>
 							<div className="dropdown-menu dropdown-menu-right">
 								<div className="dropdown-header">Thông báo</div>
@@ -119,7 +120,10 @@ const Layout = ({ children }) => {
 								</div>
 								<div className="d-flex align-items-center">
 									<span className="nam">Huỳnh Thị Phương Loan</span>{' '}
-									<i className="fa fa-angle-down mg-l-5" />
+									<FontAwesomeIcon
+										icon="angle-down"
+										className="fa fa-angle-down mg-l-5"
+									/>
 								</div>
 							</a>
 							<div className="dropdown-menu dropdown-menu-right tx-13">
@@ -153,6 +157,8 @@ const Layout = ({ children }) => {
 		</>
 	);
 };
+
+const NoSSRLayout = dynamic(() => Promise.resolve(Layout), { ssr: false });
 
 export const getLayout = (page) => <Layout>{page}</Layout>;
 

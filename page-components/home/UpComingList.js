@@ -121,7 +121,7 @@ const UpComingList = ({ itemShow }) => {
 			<div className="course-horizental">
 				<div className="list-wrap ">
 					<div className="table-responsive">
-						<table className="table table-custom table-borderless responsive-table">
+						<table className="table table-borderless responsive-table">
 							<thead>
 								<tr className="tx-gray-600 tx-normal">
 									<th>Time</th>
@@ -154,60 +154,43 @@ const UpComingList = ({ itemShow }) => {
 										(ls, index) =>
 											index < itemShow.value && (
 												<tr key={`${index}`}>
-													<td>
-														<div className="mg-b-0">
-															<span className=" mg-r-5">
-																<i className="fa fa-clock tx-primary"></i> VN
-																time:
+													<td className="clr-time">
+														<div className="mg-b-5">
+															<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
+																<i className="fa fa-clock tx-primary"></i>{' '}
+																<span className="tx-medium">VN time</span>:
 															</span>
-															<span className="tx-gray-500">
-																{ls.ScheduleTimeVN}
-															</span>
+															<span className="">{ls.ScheduleTimeVN}</span>
 														</div>
-														<div className="mg-b-0">
-															<span className=" mg-r-5">
-																<i className="fa fa-clock tx-primary"></i> Your
-																time:
+														<div className="">
+															<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
+																<i className="fa fa-clock tx-primary"></i>{' '}
+																<span className="tx-medium">Your time</span>:
 															</span>
-															<span className="tx-gray-500">
-																{ls.ScheduleTimeUTC}
-															</span>
+															<span className="">{ls.ScheduleTimeUTC}</span>
 														</div>
 													</td>
-													<td>
-														<div className="mg-b-0">
-															<span className=" mg-r-5">Course:</span>
-															<span className="tx-gray-500">
-																{ls.DocumentName}
-															</span>
+													<td className="clr-lesson">
+														<div className="mg-b-5">
+															<span className=" mg-r-5 tx-medium">Course:</span>
+															<span className="">{ls.DocumentName}</span>
 														</div>
-														<div className="mg-b-0">
-															<span className=" mg-r-5">Lesson:</span>
-															<span className="tx-gray-500">
-																{ls.LessionName}
-															</span>
+														<div className="">
+															<span className=" mg-r-5 tx-medium">Lesson:</span>
+															<span className="">{ls.LessionName}</span>
 														</div>
 													</td>
 													<td className="lg-valign-middle">
-														<div className="d-flex align-items-center">
-															<span className="avatar avatar-sm d-inline-block mg-r-10">
-																<img
-																	src="/static/img/avatar.jpg"
-																	alt="avatar"
-																	className="rounded-circle"
-																/>
-															</span>
-															<a
-																href={true}
-																onClick={(e) => {
-																	e.preventDefault();
-																	showStudentModal(ls.StudentUID);
-																}}
-																className="mg-b-0 d-inline-block tx-black"
-															>
-																{ls.StudentName}
-															</a>
-														</div>
+														<a
+															href={true}
+															onClick={(e) => {
+																e.preventDefault();
+																showStudentModal(ls.StudentUID);
+															}}
+															className="mg-b-0 d-inline-block tx-black"
+														>
+															{ls.StudentName}
+														</a>
 													</td>
 													<td className="tx-nowrap tx-right">
 														<a

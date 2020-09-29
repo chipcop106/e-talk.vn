@@ -165,3 +165,13 @@ export const toastInit = {
 	draggable: true,
 	progress: undefined,
 };
+
+export const decodeHTML = (encodeHTML) => {
+	let result = encodeHTML;
+	if (document) {
+		const el = document.createElement('textarea');
+		el.innerHTML = encodeHTML;
+		result = el.value;
+	}
+	return result;
+};

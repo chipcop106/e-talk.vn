@@ -74,7 +74,7 @@ const StudentInformationModal = React.forwardRef(({ studentId }, ref) => {
 									{!isLoading ? (
 										<img
 											src={state.stImageUrl}
-											className="avatar-xxl avatar-xl rounded"
+											className="avatar-xxl avatar-xl rounded object-fit"
 										/>
 									) : (
 										<Skeleton circle={true} height={100} width={100} />

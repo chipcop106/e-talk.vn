@@ -9,6 +9,11 @@ body {
 }
 a {
 	cursor: pointer;
+	color: #000;
+	@include transition(0.3s);
+	&:hover {
+		color: $primary-color;
+	}
 }
 
 // @import 'sidemenu';
@@ -310,6 +315,11 @@ body {
 
 	th {
 		padding: 10px 1rem;
+	}
+	thead {
+		th {
+			vertical-align: middle;
+		}
 	}
 }
 
@@ -6527,7 +6537,6 @@ footer.footer {
 
 //New 15/06/2020
 
-
 .profile-info-list {
 	svg {
 		margin-right: 10px;
@@ -7556,7 +7565,7 @@ blockquote.messageText {
 		}
 
 		&:after {
-			color: #fff;
+			color: $primary-color-dark;
 			font-size: 1.15rem;
 			display: block;
 			background: linear-gradient(
@@ -8822,7 +8831,7 @@ input[type='month'].form-control {
 }
 
 .table-hover tbody tr:hover {
-	background-color: #fffbf5;
+	background-color: rgba(245, 245, 245, 0.85);
 }
 
 @include media(768px) {
@@ -8844,7 +8853,10 @@ input[type='month'].form-control {
 				margin-bottom: -1px;
 
 				&:nth-child(even) {
-					background: rgba(247, 125, 20, 0.07);
+					background: $secondary-lighten;
+					td {
+						border-bottom-color: #e6e6e6;
+					}
 				}
 			}
 		}
@@ -9094,6 +9106,10 @@ input[type='month'].form-control {
 	color: #ccc;
 }
 
-#body-content {
-	overflow: hidden;
+.bg-white-f {
+	background-color: #fff !important;
+}
+
+.star-color {
+	color: $yellow;
 }

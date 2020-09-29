@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import Head from 'next/head';
 import App from 'next/app';
 import Router from 'next/router';
-import '@fortawesome/fontawesome-free/js/fontawesome';
-import '@fortawesome/fontawesome-free/js/solid';
-import '@fortawesome/fontawesome-free/js/regular';
-import '@fortawesome/fontawesome-free/js/brands';
+import { config, library } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
 import 'react-toastify/scss/main.scss';
 import '~/components/Header/header.scss';
 import '~/styles/dashforge.scss';
@@ -14,7 +14,9 @@ import '~/styles/styles.scss';
 import '~/components/Layout/layout.scss';
 import '~/styles/responsive.scss';
 import NProgress from 'nprogress'; //nprogress module
-// import 'nprogress/nprogress.css';
+import 'nprogress/nprogress.css';
+config.autoAddCss = false;
+library.add(fas, far);
 //Binding events.
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -48,7 +50,9 @@ export default class MyApp extends App {
 				<Head>
 					<title>E-talk Elearning</title>
 				</Head>
-				{getLayout(<Component {...pageProps} />)}
+				{getLayout(
+					typeof window !== 'undefined' ? <Component {...pageProps} /> : null,
+				)}
 			</>
 		);
 	}

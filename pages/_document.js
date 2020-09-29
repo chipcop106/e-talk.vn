@@ -18,14 +18,14 @@ class MyDocument extends Document {
 				</Head>
 				<body>
 					<Main />
+					<NextScript />
 					<script src="/static/lib/jquery/dist/jquery.min.js"></script>
 					<script src="/static/js/bootstrap.bundle.min.js"></script>
 					<script src="/static/lib/feather-icons/dist/feather.min.js"></script>
 					<script src="/static/lib/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
 					<script src="/static/assets/js/dashforge.js"></script>
-					<script src="/static/assets/js/dashforge.aside.js"></script>
+					<script src="/static/js/dashforge.aside.js"></script>
 					<script src="/static/js/custom.js"></script>
-					<NextScript />
 				</body>
 			</html>
 		);

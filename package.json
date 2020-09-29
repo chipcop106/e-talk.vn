@@ -12,6 +12,10 @@
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^5.14.0",
+		"@fortawesome/fontawesome-svg-core": "^1.2.30",
+		"@fortawesome/free-regular-svg-icons": "^5.14.0",
+		"@fortawesome/free-solid-svg-icons": "^5.14.0",
+		"@fortawesome/react-fontawesome": "^0.1.11",
 		"@fullcalendar/core": "^5.3.1",
 		"@fullcalendar/daygrid": "^5.3.2",
 		"@fullcalendar/interaction": "^5.3.1",
@@ -33,10 +37,13 @@
 		"react-axe": "^3.4.1",
 		"react-bootstrap": "^1.2.2",
 		"react-dom": "^16.13.1",
+		"react-flatpickr": "^3.10.6",
 		"react-js-pagination": "^3.0.3",
 		"react-loading-skeleton": "^2.1.1",
+		"react-perfect-scrollbar": "^1.5.8",
 		"react-select": "^3.1.0",
-		"react-toastify": "^6.0.8"
+		"react-toastify": "^6.0.8",
+		"swiper": "^6.3.2"
 	},
 	"scripts": {
 		"dev": "next",
