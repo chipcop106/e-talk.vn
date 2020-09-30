@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.module.scss';
-import { getTeacherDashboard } from '~//api/teacherAPI';
+import { getTeacherDashboard } from '~/api/teacherAPI';
 import Skeleton from 'react-loading-skeleton';
 import UpComingList from '~/page-components/home/UpComingList';
 import { ToastContainer } from 'react-toastify';

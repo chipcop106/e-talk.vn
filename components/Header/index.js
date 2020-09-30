@@ -9,9 +9,11 @@ const Header = () => {
 		<>
 			<aside className="aside aside-fixed">
 				<div className="aside-header">
-					<a href="/home" className="aside-logo">
-						Etalk<span style={{ fontWeight: 200 }}> VN</span>
-					</a>{' '}
+					<Link href="/home">
+						<a href={true} className="aside-logo">
+							Etalk<span style={{ fontWeight: 200 }}> VN</span>
+						</a>
+					</Link>{' '}
 					<a href={true} className="aside-menu-link">
 						<FontAwesomeIcon icon="bars" className="fas fa-bars" />{' '}
 						<FontAwesomeIcon icon="times" className="fas fa-times" />
@@ -149,57 +151,72 @@ const Header = () => {
 
 						<li className="nav-label mg-t-25">Classrooms</li>
 						<li className="nav-item">
-							<a href="/classes/all-class" className="nav-link">
-								<FontAwesomeIcon
-									icon="user-friends"
-									className="fas fa-user-friends"
-								/>{' '}
-								<span>All classes</span>
-							</a>
+							<Link href="/classes/all-class">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="user-friends"
+										className="fas fa-user-friends"
+									/>{' '}
+									<span>All classes</span>
+								</a>
+							</Link>
 						</li>
 						<li className="nav-item">
-							<a href="/classes/upcoming-class" className="nav-link">
-								<FontAwesomeIcon
-									icon="user-clock"
-									className="fas fa-user-clock"
-								/>{' '}
-								<span>Upcoming classes</span>
-							</a>
+							<Link href="/classes/upcoming-class">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="user-clock"
+										className="fas fa-user-clock"
+									/>{' '}
+									<span>Upcoming classes</span>
+								</a>
+							</Link>
 						</li>
 						<li className="nav-item">
-							<a href="/classes/missing-evaluation" className="nav-link">
-								<FontAwesomeIcon
-									icon="comment-dots"
-									className="fas fa-comment-dots"
-								/>{' '}
-								<span>Wait for evaluate</span>
-							</a>
+							<Link href="/classes/missing-evaluation">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="comment-dots"
+										className="fas fa-comment-dots"
+									/>{' '}
+									<span>Wait for evaluate</span>
+								</a>
+							</Link>
 						</li>
 						<li className="nav-item">
-							<a href="/classes/evaluated-class" className="nav-link">
-								<FontAwesomeIcon
-									icon="file-signature"
-									className="fas fa-file-signature"
-								/>{' '}
-								<span>Evaluated</span>
-							</a>
+							<Link href="/classes/evaluated-class">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="file-signature"
+										className="fas fa-file-signature"
+									/>{' '}
+									<span>Evaluated</span>
+								</a>
+							</Link>
 						</li>
 
 						<li className="nav-label mg-t-25">Students</li>
 						<li className="nav-item">
-							<a href="/feedback" className="nav-link">
-								<FontAwesomeIcon icon="comments" className="fas fa-comments" />{' '}
-								<span>Feedback</span>
-							</a>
+							<Link href="/feedback">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="comments"
+										className="fas fa-comments"
+									/>{' '}
+									<span>Feedback</span>
+								</a>
+							</Link>
 						</li>
 						<li className="nav-item">
-							<a href="/student-package" className="nav-link">
-								<FontAwesomeIcon
-									icon="user-graduate"
-									className="fas fa-user-graduate"
-								/>{' '}
-								<span>End date of student's package</span>
-							</a>
+							<Link href="/student-package">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="user-graduate"
+										className="fas fa-user-graduate"
+									/>{' '}
+									<span>End date of student's package</span>
+								</a>
+							</Link>
 						</li>
 
 						<li className="nav-label mg-t-25">Help center</li>
@@ -213,19 +230,23 @@ const Header = () => {
 						</li>
 
 						<li className="nav-item">
-							<a href="/notification" className="nav-link">
-								<FontAwesomeIcon icon="bell" className="fas fa-bell" />{' '}
-								<span>Notification</span>
-							</a>
+							<Link href="/notification">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon icon="bell" className="fas fa-bell" />{' '}
+									<span>Notification</span>
+								</a>
+							</Link>
 						</li>
 						<li className="nav-item">
-							<a href="/support" className="nav-link">
-								<FontAwesomeIcon
-									icon="envelope-open-text"
-									className="fas fa-envelope-open-text"
-								/>
-								<span>Ticket support</span>
-							</a>
+							<Link href="/support">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="envelope-open-text"
+										className="fas fa-envelope-open-text"
+									/>
+									<span>Ticket support</span>
+								</a>
+							</Link>
 						</li>
 					</ul>
 				</div>

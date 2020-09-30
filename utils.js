@@ -170,7 +170,7 @@ export const toastInit = {
 
 export const decodeHTML = (encodeHTML) => {
 	let result = encodeHTML;
-	if (document) {
+	if (window && typeof window !== 'undefined') {
 		const el = document.createElement('textarea');
 		el.innerHTML = encodeHTML;
 		result = el.value;

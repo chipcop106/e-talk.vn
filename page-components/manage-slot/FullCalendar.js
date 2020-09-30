@@ -81,7 +81,9 @@ const FullCalendar = ({ data = [] }) => {
 				Date: dayjs(date).format('DD/MM/YYYY'),
 			}); // @string date dd/mm/yyyy
 			if (res.Code === 1 && res.Data.length > 0) {
-				const newEvents = res.Data.map((event) => {
+				const newEvents = res.Data.filter(
+					(item) => item.isEmptySlot === false,
+				).map((event) => {
 					return {
 						...event,
 						id: event.BookingID,

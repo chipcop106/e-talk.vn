@@ -519,9 +519,6 @@ function TeacherInformation() {
 												styles={appSettings.selectStyle}
 												placeholder="Select timezone..."
 												menuPosition="fixed"
-												menuPortalTarget={
-													document.getElementsByTagName('body')[0]
-												}
 												className={`${
 													!!errors && !!errors.timeZone ? 'error-form' : ''
 												}`}
@@ -557,9 +554,6 @@ function TeacherInformation() {
 												getOptionValue={(option) => `${option.ID}`}
 												styles={appSettings.selectStyle}
 												menuPosition="fixed"
-												menuPortalTarget={
-													document.getElementsByTagName('body')[0]
-												}
 												className={`${
 													!!errors && !!errors.levelOfPurpose
 														? 'error-form'
@@ -607,9 +601,6 @@ function TeacherInformation() {
 												styles={appSettings.selectStyle}
 												placeholder="Select level..."
 												menuPosition="fixed"
-												menuPortalTarget={
-													document.getElementsByTagName('body')[0]
-												}
 												className={`${
 													!!errors && !!errors.levelOfEducation
 														? 'error-form'
@@ -677,9 +668,6 @@ function TeacherInformation() {
 												getOptionValue={(option) => `${option.ID}`}
 												styles={appSettings.selectStyle}
 												placeholder="Select proficiency..."
-												menuPortalTarget={
-													document.getElementsByTagName('body')[0]
-												}
 												menuPosition="fixed"
 												className={`${
 													!!errors && !!errors.englishProficien

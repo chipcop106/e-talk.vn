@@ -53,7 +53,7 @@ export default class MyApp extends App {
 					<title>E-talk Elearning</title>
 				</Head>
 				{getLayout(
-					typeof window !== 'undefined' ? <Component {...pageProps} /> : null,
+					typeof window !== 'undefined' ? <Component {...pageProps} /> : <></>,
 				)}
 			</>
 		);
