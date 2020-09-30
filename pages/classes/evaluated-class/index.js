@@ -4,9 +4,10 @@ import { getScheduleLog } from '~/api/teacherAPI';
 import Pagination from 'react-js-pagination';
 import { getLayout } from '~/components/Layout';
 import Skeleton from 'react-loading-skeleton';
-import { getUpcomingClass, addScheduleLog } from '~/api/teacherAPI';
+import { getAllClass, addScheduleLog } from '~/api/teacherAPI';
 import { Popover, OverlayTrigger, Overlay } from 'react-bootstrap';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const FinishedRow = ({ data, showStudentModal }) => {
 	const {
 		BookingID,
@@ -38,14 +39,14 @@ const FinishedRow = ({ data, showStudentModal }) => {
 			<td className="clr-time">
 				<div className="mg-b-5">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">VN time</span>:
 					</span>
 					<span className="">{ScheduleTimeVN}</span>
 				</div>
 				<div className="">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">Your time</span>:
 					</span>
 					<span className="">{ScheduleTimeUTC}</span>
@@ -68,10 +69,13 @@ const FinishedRow = ({ data, showStudentModal }) => {
 						e.preventDefault();
 						showStudentModal(StudentUID);
 					}}
-					className="clrm-studentname"
+					className="clrm-studentname tx-info"
 				>
 					{StudentName}
-					<i
+					<FontAwesomeIcon
+						icon={
+							GenderID === 1 ? 'mars' : GenderID === 2 ? 'venus' : 'genderless'
+						}
 						className={`fa fa-${
 							GenderID === 1 ? 'mars' : GenderID === 2 ? 'venus' : 'genderless'
 						} mg-l-10 clrm-icon-male`}
@@ -80,16 +84,7 @@ const FinishedRow = ({ data, showStudentModal }) => {
 			</td>
 
 			<td className="clr-status tx-center">
-				<span
-					className={`badge badge-${
-						Status === 1 ? 'primary tx-white' : 'success'
-					} pd-5`}
-				>
-					{Status === 1 ? 'BOOKED' : 'FINISHED'}
-				</span>
-				<span
-					className={`badge badge-${Status === 1 ? 'warning' : 'success'} pd-5`}
-				>
+				<span className={`badge badge-secondary pd-5 tx-12`}>
 					{StatusString && StatusString.toString().toUpperCase()}
 				</span>
 				{/* {status === 1 && <span className="badge badge-warning pd-5">BOOKED</span>}
@@ -101,7 +96,11 @@ const FinishedRow = ({ data, showStudentModal }) => {
 					as={`/evaluation/detail/${BookingID}`}
 				>
 					<a href={true} className="btn btn-sm btn-success rounded-5">
-						<i className="fas fa-vote-yea mg-r-5" /> Detail
+						<FontAwesomeIcon
+							icon="vote-yea"
+							className="fas fa-vote-yea mg-r-5"
+						/>{' '}
+						Detail
 					</a>
 				</Link>
 			</td>
@@ -131,9 +130,9 @@ const EvaluatedClasses = () => {
 		return unMountComponents;
 	}, []);
 
-	const loadUpcomingClasses = async () => {
+	const loadFinishedClass = async () => {
 		try {
-			const res = await getUpcomingClass({ Page: pageNumber });
+			const res = await getAllClass({ Page: pageNumber, Status: 2 });
 			if (res?.Code && res.Code === 1) {
 				setData(res.Data);
 				setPageSize(res.PageSize);
@@ -151,7 +150,7 @@ const EvaluatedClasses = () => {
 	};
 
 	useEffect(() => {
-		loadUpcomingClasses();
+		loadFinishedClass();
 	}, [pageNumber]);
 
 	return (
@@ -166,7 +165,7 @@ const EvaluatedClasses = () => {
 									<th className="clr-time">Schedule</th>
 									<th className="clr-lesson">Lesson</th>
 									<th className="clr-student">Student</th>
-									<th className="clr-status tx-center">Status</th>
+									<th className="clr-status tx-center">Finished Type</th>
 									<th className="clr-action tx-center">Actions</th>
 								</tr>
 							</thead>

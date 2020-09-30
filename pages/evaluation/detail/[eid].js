@@ -157,9 +157,10 @@ const EvaluationDetail = () => {
 
 	return (
 		<>
+			<h1 className="main-title-page">Evaluation detail</h1>
 			<div className="row">
 				<div className="col-xl-4 col-lg-5 mg-b-30">
-					<div className="card card-custom lesson-sidebar">
+					<div className="card lesson-sidebar">
 						<div className="card-body">
 							<div className="row">
 								<div className="col-sm-12 mg-b-15">

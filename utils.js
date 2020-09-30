@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
+export const pad = (n) => (n < 10 ? '0' + n : n);
+
 export const randomId = () => {
 	let dt = new Date().getTime();
 	const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {

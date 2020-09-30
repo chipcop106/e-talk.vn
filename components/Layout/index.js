@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Layout = ({ children }) => {
 	useEffect(() => {
@@ -20,7 +21,7 @@ const Layout = ({ children }) => {
 								className="dropdown-link new-indicator"
 								data-toggle="dropdown"
 							>
-								<FontAwesomeIcon data-feather="bell" /> <span>2</span>
+								<i data-feather="bell" /> <span>2</span>
 							</a>
 							<div className="dropdown-menu dropdown-menu-right">
 								<div className="dropdown-header">Thông báo</div>
@@ -136,11 +137,13 @@ const Layout = ({ children }) => {
 								</div>
 								<h6 className="tx-semibold mg-b-5">Mona Media</h6>
 								<p className="mg-b-25 tx-12 tx-color-03">Administrator</p>
-								<a href="page-profile-view.html" className="dropdown-item">
-									<i data-feather="user" /> View Profile
-								</a>
+								<Link href="/profile">
+									<a href={true} className="dropdown-item">
+										<i data-feather="user" /> View Profile
+									</a>
+								</Link>
 								<div className="dropdown-divider" />
-								<a href="page-signin.html" className="dropdown-item">
+								<a href={true} className="dropdown-item">
 									<i data-feather="log-out" />
 									Sign Out
 								</a>

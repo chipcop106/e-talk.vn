@@ -6,6 +6,7 @@ import { getLayout } from '~/components/Layout';
 import Skeleton from 'react-loading-skeleton';
 import { getUpcomingClass, addScheduleLog } from '~/api/teacherAPI';
 import { Popover, OverlayTrigger, Overlay } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const UpcomingRow = ({ data, showStudentModal }) => {
 	const {
 		BookingID,
@@ -44,14 +45,14 @@ const UpcomingRow = ({ data, showStudentModal }) => {
 			<td className="clr-time">
 				<div className="mg-b-5">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">VN time</span>:
 					</span>
 					<span className="">{ScheduleTimeVN}</span>
 				</div>
 				<div className="">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">Your time</span>:
 					</span>
 					<span className="">{ScheduleTimeUTC}</span>
@@ -77,7 +78,10 @@ const UpcomingRow = ({ data, showStudentModal }) => {
 					className="clrm-studentname"
 				>
 					{StudentName}
-					<i
+					<FontAwesomeIcon
+						icon={
+							GenderID === 1 ? 'mars' : GenderID === 2 ? 'venus' : 'genderless'
+						}
 						className={`fa fa-${
 							GenderID === 1 ? 'mars' : GenderID === 2 ? 'venus' : 'genderless'
 						} mg-l-10 clrm-icon-male`}
@@ -97,7 +101,10 @@ const UpcomingRow = ({ data, showStudentModal }) => {
 							className="d-inline-block pd-5 tx-gray-500 text-hover-primary"
 							tabIndex="0"
 						>
-							<i className="fas fa-file-alt tx-24 "></i>
+							<FontAwesomeIcon
+								icon="file-alt"
+								className="fas fa-file-alt tx-24 "
+							/>
 						</a>
 					</OverlayTrigger>
 				)}
@@ -123,16 +130,24 @@ const UpcomingRow = ({ data, showStudentModal }) => {
 					href={LessionMaterial}
 					className="btn btn-sm btn-warning rounded-5 mg-r-10"
 					target="_blank"
-					rel="noopener"
+					rel="noreferrer"
 				>
-					<i className="fa fa-book-open clrm-icon" /> Material
+					<FontAwesomeIcon
+						icon="book-open"
+						className="fa fa-book-open clrm-icon"
+					/>{' '}
+					Material
 				</a>
 				<a
 					href={`skype:${SkypeID}?chat`}
 					className=" btn btn-sm btn-info rounded-5"
 					onClick={handleEnterClass}
 				>
-					<i className="fab fa-skype clrm-icon" /> Join class
+					<FontAwesomeIcon
+						icon={['fab', 'skype']}
+						className="fab fa-skype clrm-icon"
+					/>{' '}
+					Join class
 				</a>
 			</td>
 		</tr>

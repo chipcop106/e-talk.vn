@@ -10,6 +10,7 @@ import Skeleton from 'react-loading-skeleton';
 import './index.module.scss';
 import 'flatpickr/dist/flatpickr.css';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const DateTimeFormat = new Intl.DateTimeFormat('vi-VN', {
 	month: '2-digit',
 	day: '2-digit',
@@ -95,7 +96,10 @@ const AllClassRow = ({ data, showStudentModal }) => {
 					className="clrm-studentname "
 				>
 					{StudentName}
-					<i
+					<FontAwesomeIcon
+						icon={
+							GenderID === 1 ? 'mars' : GenderID === 2 ? 'venus' : 'genderless'
+						}
 						className={`fa fa-${
 							GenderID === 1 ? 'mars' : GenderID === 2 ? 'venus' : 'genderless'
 						} mg-l-10 clrm-icon-male`}
@@ -105,14 +109,14 @@ const AllClassRow = ({ data, showStudentModal }) => {
 			<td className="clr-time">
 				<div className="mg-b-5">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">VN time</span>:
 					</span>
 					<span className="">{ScheduleTimeVN}</span>
 				</div>
 				<div className="">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">Your time</span>:
 					</span>
 					<span className="">{ScheduleTimeUTC}</span>
@@ -153,7 +157,11 @@ const AllClassRow = ({ data, showStudentModal }) => {
 						target="_blank"
 						rel="noreferrer"
 					>
-						<i className="fa fa-book-open clrm-icon mg-r-5" /> Material
+						<FontAwesomeIcon
+							icon="book-open"
+							className="fa fa-book-open clrm-icon mg-r-5"
+						/>{' '}
+						Material
 					</a>
 				}
 				{Status === 1 && (
@@ -162,7 +170,11 @@ const AllClassRow = ({ data, showStudentModal }) => {
 						className=" btn btn-sm btn-info rounded-5 mg-5"
 						onClick={handleEnterClass}
 					>
-						<i className="fab fa-skype clrm-icon mg-r-5" /> Join class
+						<FontAwesomeIcon
+							icon={['fab', 'skype']}
+							className="fab fa-skype clrm-icon mg-r-5"
+						/>{' '}
+						Join class
 					</a>
 				)}
 				{Status === 2 && (
@@ -173,7 +185,11 @@ const AllClassRow = ({ data, showStudentModal }) => {
 							// rel="noreferrer"
 							className=" btn btn-sm btn-success btn-detail rounded-5 mg-5"
 						>
-							<i className="fas fa-vote-yea mg-r-5" /> Detail
+							<FontAwesomeIcon
+								icon="vote-yea"
+								className="fas fa-vote-yea mg-r-5"
+							/>{' '}
+							Detail
 						</a>
 					</Link>
 				)}
@@ -219,7 +235,7 @@ const AllClasses = () => {
 	};
 
 	const loadAllClassesData = async () => {
-		console.log(fromDate);
+		setIsLoading(true);
 		try {
 			const res = await getAllClass({
 				Page: parseInt(pageNumber),
@@ -238,11 +254,10 @@ const AllClasses = () => {
 			} else {
 				console.log('Code response khác 1');
 			}
-			setIsLoading(false);
 		} catch (error) {
 			console.log(error);
-			setIsLoading(false);
 		}
+		setIsLoading(false);
 	};
 	useEffect(() => {
 		console.log(filterStatusAllClass);
@@ -313,7 +328,7 @@ const AllClasses = () => {
 							className="btn btn-primary "
 							onClick={_onFilterDate}
 						>
-							<i className="fa fa-filter" /> Filter
+							<FontAwesomeIcon icon="filter" className="fa fa-filter" /> Filter
 						</button>
 					</div>
 				</div>

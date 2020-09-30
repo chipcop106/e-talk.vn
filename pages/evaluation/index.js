@@ -5,6 +5,7 @@ import './index.module.scss';
 import Skeleton from 'react-loading-skeleton';
 import Pagination from 'react-js-pagination';
 import { getLayout } from '~/components/Layout';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const feedbackDemo = [
 	{
 		id: randomId(),
@@ -94,9 +95,17 @@ const FeedbackRow = ({
 							) : (
 								[...Array(5)].map((el, index) =>
 									5 - index <= rating ? (
-										<i key={`${index}`} className="fas fa-star" />
+										<FontAwesomeIcon
+											icon="star"
+											key={`${index}`}
+											className="fas fa-star"
+										/>
 									) : (
-										<i key={`${index}`} className="far fa-star" />
+										<FontAwesomeIcon
+											icon={['far', 'star']}
+											key={`${index}`}
+											className="far fa-star"
+										/>
 									),
 								)
 							)}
@@ -147,7 +156,11 @@ const FeedbackRow = ({
 							target="_blank"
 							rel="noopener"
 						>
-							<i className="fas fa-vote-yea mg-r-5" /> View evaluation
+							<FontAwesomeIcon
+								icon="vote-yea"
+								className="fas fa-vote-yea mg-r-5"
+							/>{' '}
+							View evaluation
 						</a>
 					)}
 				</div>
@@ -222,11 +235,27 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Excellent{' '}
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>{' '}
+									Excellent{' '}
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -249,10 +278,23 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Good
+									<FontAwesomeIcon
+										className="fa fa-star tx-warning"
+										icon="star"
+									/>
+									<FontAwesomeIcon
+										className="fa fa-star tx-warning"
+										icon="star"
+									/>
+									<FontAwesomeIcon
+										className="fa fa-star tx-warning"
+										icon="star"
+									/>
+									<FontAwesomeIcon
+										className="fa fa-star tx-warning"
+										icon="star"
+									/>{' '}
+									Good
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -275,9 +317,19 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Average
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>{' '}
+									Average
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -300,8 +352,8 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Bad
+									<FontAwesomeIcon className="fa fa-star tx-warning" />
+									<FontAwesomeIcon className="fa fa-star tx-warning" /> Bad
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -324,7 +376,7 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i> Very bad
+									<FontAwesomeIcon className="fa fa-star tx-warning" /> Very bad
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -439,7 +491,11 @@ const Evaluation = () => {
 										/>
 										<div className="tx-center tx-danger tx-16">
 											No rating {filterValue}{' '}
-											<i className="fa fa-star tx-warning"></i> from students
+											<FontAwesomeIcon
+												icon="star"
+												className="fa fa-star tx-warning"
+											/>{' '}
+											from students
 										</div>
 									</div>
 								</div>

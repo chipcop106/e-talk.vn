@@ -7,6 +7,7 @@ import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 SwiperCore.use([Navigation]);
 
 const SkeletonCourse = () => {
@@ -53,7 +54,10 @@ const DocumentSlider = ({
 		<div className="foundations">
 			<div className="d-xl-flex align-items-center justify-content-between mg-b-15">
 				<h4 className="mg-b-0">
-					<i className={`fas ${titleIcon} mg-r-10-f`}></i>
+					<FontAwesomeIcon
+						icon={titleIcon}
+						className={`fas ${titleIcon} mg-r-10-f`}
+					/>
 					{slideTitle}
 				</h4>
 				{!!moreLink && (

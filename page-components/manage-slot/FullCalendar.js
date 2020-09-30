@@ -20,7 +20,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { getDifferentMinBetweenTime, convertDDMMYYYYtoMMDDYYYY } from '~/utils';
 import { randomId } from '~/utils';
 import dayjs from 'dayjs';
-
+import '@fortawesome/fontawesome-free';
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 import lottie from '~/node_modules/lottie-web/build/player/lottie.min.js';
@@ -460,14 +460,14 @@ const FullCalendar = ({ data = [] }) => {
 			expandRows: true,
 			slotMinTime: '06:00',
 			slotMaxTime: '23:00',
-			// events: data
-			// 	.filter((x) => x.isEmptySlot === false)
-			// 	.map((y) => ({
-			// 		...y,
-			// 		id: randomId(),
-			// 		loading: false,
-			// 	})),
-			event: [],
+			events: data
+				.filter((x) => x.isEmptySlot === false)
+				.map((y) => ({
+					...y,
+					id: randomId(),
+					loading: false,
+				})),
+			// event: [],
 			headerToolbar: {
 				start: 'timeGridWeek,dayGridMonth,listWeek', // will normally be on the left. if RTL, will be on the right
 				center: '',

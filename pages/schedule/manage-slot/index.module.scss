@@ -53,6 +53,15 @@
 			}
 		}
 
+		&.available-slot {
+			background-color: #d9ecf2;
+			border-color: #d9ecf2;
+			.fc-event-main {
+				background-color: #d9ecf2;
+				border-color: #d9ecf2;
+			}
+		}
+
 		.fas {
 			margin-right: 5px;
 		}

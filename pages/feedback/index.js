@@ -5,6 +5,8 @@ import './index.module.scss';
 import Skeleton from 'react-loading-skeleton';
 import Pagination from 'react-js-pagination';
 import { getLayout } from '~/components/Layout';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 const feedbackDemo = [
 	{
 		id: randomId(),
@@ -76,7 +78,7 @@ const FeedbackRow = ({
 					<Skeleton circle={true} className="avatar" />
 				) : (
 					<img
-						src={stAvatar || '../assets/img/default-avatar.png'}
+						src={stAvatar || '/static/assets/img/default-avatar.png'}
 						alt="avatar"
 						className="avatar"
 					/>
@@ -94,9 +96,17 @@ const FeedbackRow = ({
 							) : (
 								[...Array(5)].map((el, index) =>
 									5 - index <= rating ? (
-										<i key={`${index}`} className="fas fa-star" />
+										<FontAwesomeIcon
+											icon="star"
+											key={`${index}`}
+											className="fas fa-star"
+										/>
 									) : (
-										<i key={`${index}`} className="far fa-star" />
+										<FontAwesomeIcon
+											icon={['far', 'star']}
+											key={`${index}`}
+											className="far fa-star"
+										/>
 									),
 								)
 							)}
@@ -141,14 +151,15 @@ const FeedbackRow = ({
 					{isLoading ? (
 						<Skeleton height={32} width={100} />
 					) : (
-						<a
-							href={FeedbackLink}
-							className="btn btn-sm btn-success mg-r-10"
-							target="_blank"
-							rel="noopener"
-						>
-							<i className="fas fa-vote-yea mg-r-5" /> View evaluation
-						</a>
+						<Link href="/evaluation/detail/[eid]" as={`/evaluation/detail/361`}>
+							<a href={true} className="btn btn-sm btn-success mg-r-10">
+								<FontAwesomeIcon
+									icon="vote-yea"
+									className="fas fa-vote-yea mg-r-5"
+								/>{' '}
+								View evaluation
+							</a>
+						</Link>
 					)}
 				</div>
 			</div>
@@ -222,11 +233,27 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Excellent{' '}
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>{' '}
+									Excellent{' '}
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -249,10 +276,23 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Good
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>{' '}
+									Good
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -275,9 +315,19 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Average
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>{' '}
+									Average
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -300,8 +350,15 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i>
-									<i className="fa fa-star tx-warning"></i> Bad
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>{' '}
+									Bad
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -324,7 +381,11 @@ const RenderSummary = ({ handFilterValue }) => {
 									onChange={_onChangeFilter}
 								/>
 								<span>
-									<i className="fa fa-star tx-warning"></i> Very bad
+									<FontAwesomeIcon
+										icon="star"
+										className="fa fa-star tx-warning"
+									/>{' '}
+									Very bad
 									<span className="number">
 										{isLoading ? (
 											<Skeleton width={15} />
@@ -419,7 +480,7 @@ const StudentFeedback = () => {
 											id: fb.id,
 											stName: fb?.stName ?? '',
 											stAvatar:
-												fb?.stAvatar ?? '../assets/img/default-avatar.png',
+												fb?.stAvatar ?? '/static/assets/img/default-avatar.png',
 											stFeedback: fb?.stFeedback ?? '',
 											lessonTime: fb?.lessonTime ?? '',
 											lessonName: fb?.lessonName ?? '',
@@ -433,13 +494,17 @@ const StudentFeedback = () => {
 								<div className="card card-custom">
 									<div className="card-body tx-center">
 										<img
-											src="../assets/img/empty.svg"
+											src="/static/img/no-data.svg"
 											alt="empty"
 											className="wd-250 mg-x-auto mg-b-30-f mg-t-30"
 										/>
 										<div className="tx-center tx-danger tx-16">
 											No rating {filterValue}{' '}
-											<i className="fa fa-star tx-warning"></i> from students
+											<FontAwesomeIcon
+												icon="star"
+												className="fa fa-star tx-warning"
+											/>{' '}
+											from students
 										</div>
 									</div>
 								</div>

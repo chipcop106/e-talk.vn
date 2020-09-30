@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Header = () => {
+	useEffect(() => {
+		feather && feather.replace();
+	}, []);
 	return (
 		<>
 			<aside className="aside aside-fixed">
@@ -45,19 +48,34 @@ const Header = () => {
 							<ul className="nav nav-aside mg-b-0 ">
 								<li className="nav-label mg-t-25">Account</li>
 								<li className="nav-item">
-									<a href className="nav-link">
-										<FontAwesomeIcon
-											icon="user-edit"
-											className="fas fa-user-edit"
-										/>{' '}
-										<span>Edit Profile</span>
-									</a>
+									<Link href="/profile">
+										<a href className="nav-link">
+											<FontAwesomeIcon
+												icon="user-edit"
+												className="fas fa-user-edit"
+											/>{' '}
+											<span>Edit Profile</span>
+										</a>
+									</Link>
 								</li>
 								<li className="nav-item">
-									<a href className="nav-link">
-										<FontAwesomeIcon icon="key" className="fas fa-key" />{' '}
-										<span>Change password</span>
-									</a>
+									<Link href="/profile/password">
+										<a href className="nav-link">
+											<FontAwesomeIcon icon="key" className="fas fa-key" />{' '}
+											<span>Change password</span>
+										</a>
+									</Link>
+								</li>
+								<li className="nav-item">
+									<Link href="/profile/payment">
+										<a href className="nav-link">
+											<FontAwesomeIcon
+												icon="credit-card"
+												className="fas fa-key"
+											/>{' '}
+											<span>Payment</span>
+										</a>
+									</Link>
 								</li>
 								<li className="nav-item">
 									<a href className="nav-link">
@@ -85,10 +103,24 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/library">
+							<Link href="/monthly-statistics">
 								<a href={true} className="nav-link">
-									<FontAwesomeIcon icon="book" className="fas fa-book" />
-									<span>Libraries</span>
+									<FontAwesomeIcon
+										icon="project-diagram"
+										className="fas fa-project-diagram"
+									/>
+									<span>Monthly Statistics</span>
+								</a>
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link href="/salary">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="money-bill-alt"
+										className="fas fa-money-bill-alt"
+									/>
+									<span>Salary Report</span>
 								</a>
 							</Link>
 						</li>
@@ -172,6 +204,15 @@ const Header = () => {
 
 						<li className="nav-label mg-t-25">Help center</li>
 						<li className="nav-item">
+							<Link href="/library">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon icon="book" className="fas fa-book" />
+									<span>Libraries</span>
+								</a>
+							</Link>
+						</li>
+
+						<li className="nav-item">
 							<a href="/notification" className="nav-link">
 								<FontAwesomeIcon icon="bell" className="fas fa-bell" />{' '}
 								<span>Notification</span>
@@ -180,7 +221,7 @@ const Header = () => {
 						<li className="nav-item">
 							<a href="/support" className="nav-link">
 								<FontAwesomeIcon
-									icon="fa-envelope-open-text"
+									icon="envelope-open-text"
 									className="fas fa-envelope-open-text"
 								/>
 								<span>Ticket support</span>

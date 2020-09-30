@@ -218,6 +218,7 @@ const EvaluateClass = () => {
 
 	return (
 		<>
+			<h1 className="main-title-page">Evaluate class</h1>
 			<div className="row ">
 				<div className="col-xl-4 col-lg-12 mg-b-30">
 					<div className="card lesson-sidebar">
@@ -231,7 +232,10 @@ const EvaluateClass = () => {
 											<div className="st-time">
 												<p className="st-teacher-text d-flex justify-content-between">
 													<span className="">
-														<i className="fa fa-book-open tx-primary st-icon wd-20 mg-r-5"></i>
+														<FontAwesomeIcon
+															icon="book-open"
+															className="fa fa-book-open tx-primary st-icon wd-20 mg-r-5"
+														/>
 														Course:{' '}
 													</span>
 													<span className="">
@@ -249,7 +253,10 @@ const EvaluateClass = () => {
 											<div className="st-time">
 												<p className="st-teacher-text d-flex justify-content-between">
 													<span className="">
-														<i className="fa fa-book-reader tx-primary graduate st-icon wd-20 mg-r-5"></i>
+														<FontAwesomeIcon
+															icon="book-reader"
+															className="fa fa-book-reader tx-primary graduate st-icon wd-20 mg-r-5"
+														/>
 														Lesson:
 													</span>
 													<span className="st-tengv">
@@ -267,7 +274,10 @@ const EvaluateClass = () => {
 											<div className="st-time">
 												<p className="st-teacher-text d-flex justify-content-between">
 													<span className="tx-black tx-normal">
-														<i className="fa fa-clock tx-primary clock st-icon wd-20 mg-r-5"></i>
+														<FontAwesomeIcon
+															icon="clock"
+															className="fa fa-clock tx-primary clock st-icon wd-20 mg-r-5"
+														/>
 														Time:
 													</span>
 													<span className="">
@@ -285,7 +295,10 @@ const EvaluateClass = () => {
 											<div className="st-time">
 												<p className="st-teacher-text d-flex justify-content-between">
 													<span className="">
-														<i className="fa fa-book tx-primary open st-icon wd-20 mg-r-5"></i>
+														<FontAwesomeIcon
+															icon="book"
+															className="fa fa-book tx-primary open st-icon wd-20 mg-r-5"
+														/>
 														Material:
 													</span>
 													<a
@@ -313,7 +326,10 @@ const EvaluateClass = () => {
 											<div className="st-time">
 												<div className="st-teacher-text d-flex justify-content-between align-items-center">
 													<span className="">
-														<i className="fas fa-lightbulb tx-primary open st-icon wd-20 mg-r-5"></i>
+														<FontAwesomeIcon
+															icon="lightbulb"
+															className="fas fa-lightbulb tx-primary open st-icon wd-20 mg-r-5"
+														/>
 														Finished type:
 													</span>
 													<div className="flex-grow-1">
@@ -358,7 +374,10 @@ const EvaluateClass = () => {
 										<div className="st-time">
 											<p className="st-teacher-text d-flex justify-content-between">
 												<span className="">
-													<i className="fa fa-user-graduate  tx-primary st-icon wd-20 mg-r-5"></i>
+													<FontAwesomeIcon
+														icon="user-graduate"
+														className="fa fa-user-graduate  tx-primary st-icon wd-20 mg-r-5"
+													/>
 													Name:{' '}
 												</span>
 												<span className="">
@@ -376,7 +395,7 @@ const EvaluateClass = () => {
 										<div className="st-time">
 											<p className="st-teacher-text d-flex justify-content-between">
 												<span className="">
-													<i className="fa fa-thumbs-up tx-primary st-icon wd-20 mg-r-5"></i>
+													<FontAwesomeIcon className="fa fa-thumbs-up tx-primary st-icon wd-20 mg-r-5" />
 													Feedback:{' '}
 												</span>
 												<span className="tx-primary">
@@ -390,9 +409,17 @@ const EvaluateClass = () => {
 													) : (
 														[...Array(5)].map((el, index) =>
 															5 - index <= state.lessonInfo.StudentRating ? (
-																<i key={`${index}`} className="fas fa-star" />
+																<FontAwesomeIcon
+																	icon="star"
+																	key={`${index}`}
+																	className="fas fa-star"
+																/>
 															) : (
-																<i key={`${index}`} className="far fa-star" />
+																<FontAwesomeIcon
+																	icon={['far', 'star']}
+																	key={`${index}`}
+																	className="far fa-star"
+																/>
 															),
 														)
 													)}
@@ -657,7 +684,11 @@ const EvaluateClass = () => {
 							className="btn btn-icon btn-light mg-r-15"
 							onClick={() => window.history.back()}
 						>
-							<i className="fas fa-arrow-left mg-r-5"></i> Back
+							<FontAwesomeIcon
+								icon="arrow-left"
+								className="fas fa-arrow-left mg-r-5"
+							/>{' '}
+							Back
 						</button>
 					</div>
 				</div>

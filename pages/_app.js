@@ -7,6 +7,7 @@ import { config, library } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { faSkype, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import 'react-toastify/scss/main.scss';
 import '~/components/Header/header.scss';
 import '~/styles/dashforge.scss';
@@ -16,7 +17,8 @@ import '~/styles/responsive.scss';
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css';
 config.autoAddCss = false;
-library.add(fas, far);
+config.searchPseudoElements = true;
+library.add(fas, far, faSkype, faYoutube);
 //Binding events.
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());

@@ -10,6 +10,8 @@ import CancelBookingTeacher from '~components/common/Modal/CancelBookingTeacher'
 import LessonCard from '~/components/common/LessonCard';
 import StudentInformationModal from '~components/common/Modal/StudentInformationModal';
 import Pagination from 'react-js-pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const initialState = [
 	{
 		BookingID: 3,
@@ -157,14 +159,20 @@ const UpComingList = ({ itemShow }) => {
 													<td className="clr-time">
 														<div className="mg-b-5">
 															<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-																<i className="fa fa-clock tx-primary"></i>{' '}
+																<FontAwesomeIcon
+																	icon="clock"
+																	className="fa fa-clock tx-primary"
+																/>{' '}
 																<span className="tx-medium">VN time</span>:
 															</span>
 															<span className="">{ls.ScheduleTimeVN}</span>
 														</div>
 														<div className="">
 															<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-																<i className="fa fa-clock tx-primary"></i>{' '}
+																<FontAwesomeIcon
+																	icon="clock"
+																	className="fa fa-clock tx-primary"
+																/>{' '}
 																<span className="tx-medium">Your time</span>:
 															</span>
 															<span className="">{ls.ScheduleTimeUTC}</span>
@@ -203,7 +211,10 @@ const UpComingList = ({ itemShow }) => {
 															target="_blank"
 															rel="noopener"
 														>
-															<i className="fab fa-skype"></i>{' '}
+															<FontAwesomeIcon
+																className="fab fa-skype"
+																icon={['fab', 'skype']}
+															/>{' '}
 															<span className="d-none d-xl-inline mg-l-5">
 																Join class
 															</span>
@@ -219,7 +230,10 @@ const UpComingList = ({ itemShow }) => {
 																}}
 																className="btn btn-danger btn-sm"
 															>
-																<i class="fas fa-times"></i>
+																<FontAwesomeIcon
+																	icon="times"
+																	class="fas fa-times"
+																/>
 																<span className="d-none d-xl-inline mg-l-5">
 																	Cancel
 																</span>
@@ -232,7 +246,10 @@ const UpComingList = ({ itemShow }) => {
 																title="You can only cancel this lesson before start for 30 minutes !!"
 																data-placement="top"
 															>
-																<i class="fas fa-times"></i>
+																<FontAwesomeIcon
+																	class="fas fa-times"
+																	icon="times"
+																/>
 																<span className="d-none d-xl-inline mg-l-5">
 																	Cancel
 																</span>

@@ -4,7 +4,7 @@ import { getLayout } from '~/components/Layout';
 import Skeleton from 'react-loading-skeleton';
 import { getMissingFeedback } from '~/api/teacherAPI';
 import Link from 'next/link';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const MissingFeedbackRow = ({ data }) => {
 	const {
 		BookingID,
@@ -19,14 +19,14 @@ const MissingFeedbackRow = ({ data }) => {
 			<td className="clr-time">
 				<div className="mg-b-5">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">VN time</span>:
 					</span>
 					<span className="">{ScheduleTimeVN}</span>
 				</div>
 				<div className="">
 					<span className=" mg-r-5 tx-nowrap wd-80 d-inline-block">
-						<i className="fa fa-clock tx-primary"></i>{' '}
+						<FontAwesomeIcon icon="clock" className="fa fa-clock tx-primary" />{' '}
 						<span className="tx-medium">Your time</span>:
 					</span>
 					<span className="">{ScheduleTimeUTC}</span>
@@ -56,7 +56,11 @@ const MissingFeedbackRow = ({ data }) => {
 			<td className="clr-actions">
 				<Link href={`/evaluation/edit/${data.BookingID}`}>
 					<a href={true} className="btn btn-sm btn-secondary rounded-5">
-						<i className="fas fa-file-signature clrm-icon" /> Evaluate
+						<FontAwesomeIcon
+							icon="file-signature"
+							className="fas fa-file-signature clrm-icon"
+						/>{' '}
+						Evaluate
 					</a>
 				</Link>
 			</td>
