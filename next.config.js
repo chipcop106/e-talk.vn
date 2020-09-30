@@ -5,9 +5,9 @@ const withCSS = require('@zeit/next-css');
 const withTM = require('next-transpile-modules')(['@fullcalendar']);
 
 module.exports = withOffline(
-	withTM(
-		withCSS(
-			withSass({
+	withCSS(
+		withSass(
+			withTM({
 				target: process.env.NEXT_TARGET || 'serverless',
 				workboxOpts: {
 					swDest: 'static/service-worker.js',

@@ -46,7 +46,7 @@
 		"swiper": "^6.3.2"
 	},
 	"scripts": {
-		"prestart": "next build",
+		"heroku-prebuild": "rm -rf node_modules",
 		"dev": "next",
 		"start": "next start -p $PORT",
 		"lint": "eslint components",
