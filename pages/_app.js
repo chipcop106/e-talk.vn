@@ -20,7 +20,7 @@ import dynamic from 'next/dynamic';
 import { getLayout } from '~/components/Layout';
 
 config.autoAddCss = false;
-config.searchPseudoElements = true;
+config.autoReplaceSvg = false;
 library.add(fas, far, faSkype, faYoutube);
 //Binding events.
 Router.events.on('routeChangeStart', () => NProgress.start());

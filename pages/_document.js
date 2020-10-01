@@ -16,6 +16,10 @@ class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
 					/>
 					<link rel="stylesheet" href="/static/fonts/PoppinsVN/font.css" />
+					<link
+						rel="stylesheet"
+						href="/static/lib/fontawesome-free-5.15.0-web/css/all.min.css"
+					/>
 					<script src="/static/lib/jquery/dist/jquery.min.js"></script>
 					<script src="/static/js/bootstrap.bundle.min.js"></script>
 					<script src="/static/lib/feather-icons/dist/feather.min.js"></script>

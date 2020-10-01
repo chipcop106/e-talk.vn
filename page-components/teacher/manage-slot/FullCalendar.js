@@ -1,3 +1,4 @@
+import lottie from '~/node_modules/lottie-web/build/player/lottie.min.js';
 import React, { useState, useEffect, useReducer, useRef } from 'react';
 import {
 	getListEventsOfWeek,
@@ -20,10 +21,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { getDifferentMinBetweenTime, convertDDMMYYYYtoMMDDYYYY } from '~/utils';
 import { randomId } from '~/utils';
 import dayjs from 'dayjs';
-import '@fortawesome/fontawesome-free';
+// import '@fortawesome/fontawesome-free';
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
-import lottie from '~/node_modules/lottie-web/build/player/lottie.min.js';
 
 const pad = (n) => (n >= 10 ? n : '0' + n);
 
