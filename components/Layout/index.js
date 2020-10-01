@@ -1,15 +1,28 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import Head from 'next/head';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-const Layout = ({ children }) => {
-	useEffect(() => {
-		feather && feather.replace();
-	}, []);
+
+const Layout = ({
+	children,
+	title = 'E-talk Elearning',
+	isStudent = false,
+}) => {
+	// useEffect(() => {
+	// 	//eslint-disable-next-line no-undef
+	// 	feather && feather.replace();
+	// }, []);
 	return (
 		<>
+			<Head>
+				<title>{title}</title>
+				<script src="/static/assets/js/dashforge.js"></script>
+				<script src="/static/js/dashforge.aside.js"></script>
+				<script src="/static/js/custom.js"></script>
+			</Head>
 			<Header />
 			<div className="content ht-100vh pd-0-f">
 				<div className="content-header">
@@ -137,7 +150,9 @@ const Layout = ({ children }) => {
 								</div>
 								<h6 className="tx-semibold mg-b-5">Mona Media</h6>
 								<p className="mg-b-25 tx-12 tx-color-03">Administrator</p>
-								<Link href="/profile">
+								<Link
+									href={isStudent ? '/student/profile' : '/teacher/profile'}
+								>
 									<a href={true} className="dropdown-item">
 										<i data-feather="user" /> View Profile
 									</a>
@@ -155,13 +170,10 @@ const Layout = ({ children }) => {
 					{children}
 				</div>
 			</div>
-
 			<Footer />
 		</>
 	);
 };
-
-const NoSSRLayout = dynamic(() => Promise.resolve(Layout), { ssr: false });
 
 export const getLayout = (page) => <Layout>{page}</Layout>;
 

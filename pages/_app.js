@@ -16,6 +16,9 @@ import '~/components/Layout/layout.scss';
 import '~/styles/responsive.scss';
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css';
+import dynamic from 'next/dynamic';
+import { getLayout } from '~/components/Layout';
+
 config.autoAddCss = false;
 config.searchPseudoElements = true;
 library.add(fas, far, faSkype, faYoutube);
@@ -24,7 +27,7 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-export default class MyApp extends App {
+class MyApp extends App {
 	static async getInitialProps({ Component, ctx }) {
 		return {
 			pageProps: {
@@ -49,9 +52,6 @@ export default class MyApp extends App {
 
 		return (
 			<>
-				<Head>
-					<title>E-talk Elearning</title>
-				</Head>
 				{getLayout(
 					typeof window !== 'undefined' ? <Component {...pageProps} /> : <></>,
 				)}
@@ -59,3 +59,5 @@ export default class MyApp extends App {
 		);
 	}
 }
+
+export default dynamic(() => Promise.resolve(MyApp), { ssr: false });

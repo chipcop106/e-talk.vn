@@ -6750,7 +6750,7 @@ footer.footer {
 		.course-teacher {
 			/*  background:$secondary-color;
             background: rgb(253,126,20);
-            background: linear-gradient(9deg, $primary-color 0%, $secondary-color 100%); 
+            background: linear-gradient(9deg, $primary-color 0%, $secondary-color 100%);
             color:#fff;*/
 			color: #000;
 			font-weight: 600;
@@ -9115,3 +9115,12 @@ input[type='month'].form-control {
 .star-color {
 	color: $yellow;
 }
+.react-datepicker-wrapper{
+	.react-datepicker__close-icon{
+		padding: 0px 10px 0px 0px;
+		&:after{
+			background-color:#d6d6d6;
+		}
+	}
+}
+

@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Header = () => {
-	useEffect(() => {
-		feather && feather.replace();
-	}, []);
+	// useEffect(() => {
+	// 	feather && feather.replace();
+	// }, []);
 	return (
 		<>
 			<aside className="aside aside-fixed">
 				<div className="aside-header">
-					<Link href="/home">
+					<Link href="/teacher/home">
 						<a href={true} className="aside-logo">
-							Etalk<span style={{ fontWeight: 200 }}> VN</span>
+							<FontAwesomeIcon icon="leaf" className="mg-r-10" />
+							E-talk
 						</a>
 					</Link>{' '}
 					<a href={true} className="aside-menu-link">
@@ -50,7 +51,7 @@ const Header = () => {
 							<ul className="nav nav-aside mg-b-0 ">
 								<li className="nav-label mg-t-25">Account</li>
 								<li className="nav-item">
-									<Link href="/profile">
+									<Link href="/teacher/profile">
 										<a href className="nav-link">
 											<FontAwesomeIcon
 												icon="user-edit"
@@ -61,7 +62,7 @@ const Header = () => {
 									</Link>
 								</li>
 								<li className="nav-item">
-									<Link href="/profile/password">
+									<Link href="/teacher/profile/password">
 										<a href className="nav-link">
 											<FontAwesomeIcon icon="key" className="fas fa-key" />{' '}
 											<span>Change password</span>
@@ -69,7 +70,7 @@ const Header = () => {
 									</Link>
 								</li>
 								<li className="nav-item">
-									<Link href="/profile/payment">
+									<Link href="/teacher/profile/payment">
 										<a href className="nav-link">
 											<FontAwesomeIcon
 												icon="credit-card"
@@ -94,7 +95,7 @@ const Header = () => {
 					<ul className="nav nav-aside">
 						<li className="nav-label mg-t-25">Statistics</li>
 						<li className="nav-item active">
-							<Link href="/home">
+							<Link href="/teacher/home">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="tachometer-alt"
@@ -105,7 +106,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/monthly-statistics">
+							<Link href="/teacher/monthly-statistics">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="project-diagram"
@@ -116,7 +117,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/salary">
+							<Link href="/teacher/salary">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="money-bill-alt"
@@ -130,7 +131,7 @@ const Header = () => {
 						<li className="nav-label mg-t-25">Booking schedule</li>
 
 						<li className="nav-item">
-							<Link href="/schedule/manage-slot">
+							<Link href="/teacher/schedule/manage-slot">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="calendar"
@@ -141,7 +142,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/schedule/schedule-log">
+							<Link href="/teacher/schedule/schedule-log">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon icon="history" className="fas fa-history" />{' '}
 									<span>Schedule log</span>
@@ -151,7 +152,7 @@ const Header = () => {
 
 						<li className="nav-label mg-t-25">Classrooms</li>
 						<li className="nav-item">
-							<Link href="/classes/all-class">
+							<Link href="/teacher/classes/all-class">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="user-friends"
@@ -162,7 +163,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/classes/upcoming-class">
+							<Link href="/teacher/classes/upcoming-class">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="user-clock"
@@ -173,7 +174,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/classes/missing-evaluation">
+							<Link href="/teacher/classes/missing-evaluation">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="comment-dots"
@@ -184,7 +185,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/classes/evaluated-class">
+							<Link href="/teacher/classes/evaluated-class">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="file-signature"
@@ -197,7 +198,18 @@ const Header = () => {
 
 						<li className="nav-label mg-t-25">Students</li>
 						<li className="nav-item">
-							<Link href="/feedback">
+							<Link href="/teacher/attendance-record">
+								<a href={true} className="nav-link">
+									<FontAwesomeIcon
+										icon="user-check"
+										className="fas fa-user-check"
+									/>{' '}
+									<span>Attendance record</span>
+								</a>
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link href="/teacher/feedback">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="comments"
@@ -208,7 +220,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/student-package">
+							<Link href="/teacher/student-package">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="user-graduate"
@@ -221,7 +233,7 @@ const Header = () => {
 
 						<li className="nav-label mg-t-25">Help center</li>
 						<li className="nav-item">
-							<Link href="/library">
+							<Link href="/teacher/library">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon icon="book" className="fas fa-book" />
 									<span>Libraries</span>
@@ -230,7 +242,7 @@ const Header = () => {
 						</li>
 
 						<li className="nav-item">
-							<Link href="/notification">
+							<Link href="/teacher/notification">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon icon="bell" className="fas fa-bell" />{' '}
 									<span>Notification</span>
@@ -238,7 +250,7 @@ const Header = () => {
 							</Link>
 						</li>
 						<li className="nav-item">
-							<Link href="/support">
+							<Link href="/teacher/support">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
 										icon="envelope-open-text"
