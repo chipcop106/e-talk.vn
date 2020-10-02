@@ -116,7 +116,7 @@ const Header = () => {
 								</a>
 							</Link>
 						</li>
-						<li className="nav-item">
+						{/* <li className="nav-item">
 							<Link href="/teacher/salary">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon
@@ -126,7 +126,7 @@ const Header = () => {
 									<span>Salary Report</span>
 								</a>
 							</Link>
-						</li>
+						</li> */}
 
 						<li className="nav-label mg-t-25">Booking schedule</li>
 
@@ -232,14 +232,14 @@ const Header = () => {
 						</li>
 
 						<li className="nav-label mg-t-25">Help center</li>
-						<li className="nav-item">
+						{/* <li className="nav-item">
 							<Link href="/teacher/library">
 								<a href={true} className="nav-link">
 									<FontAwesomeIcon icon="book" className="fas fa-book" />
 									<span>Libraries</span>
 								</a>
 							</Link>
-						</li>
+						</li> */}
 
 						<li className="nav-item">
 							<Link href="/teacher/notification">
