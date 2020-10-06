@@ -81,6 +81,9 @@
 .aside-fixed .nav-aside .nav-item.with-sub.show:not(.active) a {
 	color: #fff;
 	padding: 10px 0;
+	&:hover {
+		padding-left: 15px;
+	}
 }
 .aside-fixed .nav-aside .nav-item.with-sub.show:not(.active) a:hover {
 	color: #fff;
@@ -141,6 +144,8 @@
 	height: auto;
 	flex-grow: 1;
 	overflow: auto;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .nav-aside .nav-item.active .nav-link::before {
@@ -163,6 +168,11 @@
 @media screen and (max-width: 768px) {
 	.content-header .breadcrumb {
 		display: none;
+	}
+	.dropdown.dropdown-profile {
+		.name {
+			display: none;
+		}
 	}
 }
 

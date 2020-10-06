@@ -5,7 +5,7 @@ import './LessonHistoryCard.module.scss';
 const LessonHistoryCard = ({
 	onHandleRatingLesson,
 	BookingID,
-	avatar = 'default-avatar.png',
+	avatar = '/static/assets/img/default-avatar.png',
 	TeacherUID,
 	TeacherName,
 	LessionName,
@@ -35,15 +35,15 @@ const LessonHistoryCard = ({
 						>
 							<img
 								src={
-									avatar === 'default-avatar.png'
-										? `../assets/img/${avatar}`
+									avatar === '/static/assets/img/default-avatar.png'
+										? `/static/assets/img/${avatar}`
 										: avatar
 								}
 								className="teacher-image"
 								alt="Avatar"
 								onError={(e) => {
 									e.target.onerror = null;
-									e.target.src = '../assets/img/default-avatar.png';
+									e.target.src = '/static/assets/img/default-avatar.png';
 								}}
 							/>
 							<p className="course-teacher tx-14 tx-gray-800 tx-normal mg-b-0 tx-center mg-t-5 d-block">
@@ -63,15 +63,15 @@ const LessonHistoryCard = ({
 								</a>
 							</h5>
 							<div className="course-information tx-14">
-								<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+								<span className="mg-r-15 tx-gray-500 d-inline-block">
 									<i className="feather-16 mg-r-5" data-feather="calendar"></i>
 									{date}
 								</span>
-								<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+								<span className="mg-r-15 tx-gray-500 d-inline-block">
 									<i className="feather-16 mg-r-5" data-feather="clock"></i>
 									{`Bắt đầu: ${start}`}
 								</span>
-								<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+								<span className="mg-r-15 tx-gray-500 d-inline-block">
 									<i className="feather-16 mg-r-5" data-feather="clock"></i>
 									{`Kết thúc: ${end}`}
 								</span>

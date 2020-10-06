@@ -20,6 +20,10 @@ class MyDocument extends Document {
 						rel="stylesheet"
 						href="/static/lib/fontawesome-free-5.15.0-web/css/all.min.css"
 					/>
+					<link
+						href="/static/lib/flag-icon-css/css/flag-icon.min.css"
+						rel="stylesheet"
+					/>
 					<script src="/static/lib/jquery/dist/jquery.min.js"></script>
 					<script src="/static/js/bootstrap.bundle.min.js"></script>
 					<script src="/static/lib/feather-icons/dist/feather.min.js"></script>

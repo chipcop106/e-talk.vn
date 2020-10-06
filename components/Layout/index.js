@@ -1,20 +1,77 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Head from 'next/head';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { i18n } from '~/i18n';
+import { I18nContext } from 'next-i18next';
+import Select, { components } from 'react-select';
+import { appSettings } from '~/config';
+
+const LangOptions = [
+	{
+		label: 'Vietnamese',
+		value: 'vi',
+		flag: 'vn',
+	},
+	{
+		label: 'English',
+		value: 'en',
+		flag: 'us',
+	},
+];
+
+const FlatOption = (props) => {
+	const { data } = props;
+	return (
+		<components.Option {...props}>
+			<div className="d-flex align-items-center">
+				<span className={`flag-icon flag-icon-${data.flag}`}></span>
+				<span className="mg-l-10">{data.label}</span>
+			</div>
+		</components.Option>
+	);
+};
 
 const Layout = ({
 	children,
 	title = 'E-talk Elearning',
 	isStudent = false,
 }) => {
-	// useEffect(() => {
-	// 	//eslint-disable-next-line no-undef
-	// 	feather && feather.replace();
-	// }, []);
+	const { i18n } = useContext(I18nContext);
+	const [lang, setLang] = useState(LangOptions[0]);
+
+	const _handleChangeSelect = (selected) => {
+		setLang(selected);
+		i18n.changeLanguage(selected.value === 'en' ? 'en' : 'vi');
+		window.localStorage.setItem('language', JSON.stringify(selected.value));
+	};
+
+	const setSelectLanguage = (key) => {
+		setLang(LangOptions.find((item) => item.value === key));
+	};
+
+	const checkDefaultLanguage = () => {
+		if (typeof window === 'undefined') return;
+		try {
+			const language = window.localStorage.getItem('language');
+			console.log({ language });
+			language !== null && setSelectLanguage(JSON.parse(language));
+			language === null &&
+				window.localStorage.setItem(
+					'language',
+					JSON.stringify(i18n?.language ?? 'en'),
+				);
+		} catch (error) {}
+	};
+	useEffect(() => {
+		isStudent ? (appSettings.UID = 1071) : (appSettings.UID = 20);
+	}, [isStudent]);
+	useEffect(() => {
+		checkDefaultLanguage();
+	}, []);
 	return (
 		<>
 			<Head>
@@ -23,11 +80,42 @@ const Layout = ({
 				<script src="/static/js/dashforge.aside.js"></script>
 				<script src="/static/js/custom.js"></script>
 			</Head>
-			<Header />
-			<div className="content ht-100vh pd-0-f">
+			<Header isStudent={isStudent} />
+			<main className="content ht-100vh pd-0-f">
 				<div className="content-header">
 					<div className="navbar-left"></div>
 					<div className="navbar-right">
+						<Select
+							isSearchable={false}
+							options={LangOptions}
+							formatOptionLabel={(context) => (
+								<div className="d-flex align-items-center">
+									<span
+										className={`flag-icon flag-icon-${context.flag}`}
+									></span>
+									<span className="mg-l-10">{context.label}</span>
+								</div>
+							)}
+							components={{
+								Option: FlatOption,
+								IndicatorSeparator: () => null,
+							}}
+							value={lang}
+							onChange={_handleChangeSelect}
+							className="wd-150 mg-r-15"
+							styles={{
+								control: (oldStyle, state) => {
+									return {
+										...oldStyle,
+										border: 0,
+										outline: 0,
+										boxShadow: 'none',
+										borderRadius: 0,
+										backgroundColor: '#efefef',
+									};
+								},
+							}}
+						/>
 						<div className="dropdown dropdown-notification">
 							<a
 								href
@@ -42,7 +130,7 @@ const Layout = ({
 									<div className="media">
 										<div className="avatar avatar-sm avatar-online">
 											<img
-												src="https://via.placeholder.com/350"
+												src="/static/img/avatar.jpg"
 												className="rounded-circle"
 												alt=""
 											/>
@@ -61,7 +149,7 @@ const Layout = ({
 									<div className="media">
 										<div className="avatar avatar-sm avatar-online">
 											<img
-												src="https://via.placeholder.com/500"
+												src="/static/img/avatar.jpg"
 												className="rounded-circle"
 												alt=""
 											/>
@@ -80,7 +168,7 @@ const Layout = ({
 									<div className="media">
 										<div className="avatar avatar-sm avatar-online">
 											<img
-												src="https://via.placeholder.com/600"
+												src="/static/img/avatar.jpg"
 												className="rounded-circle"
 												alt=""
 											/>
@@ -99,7 +187,7 @@ const Layout = ({
 									<div className="media">
 										<div className="avatar avatar-sm avatar-online">
 											<img
-												src="https://via.placeholder.com/500"
+												src="/static/img/avatar.jpg"
 												className="rounded-circle"
 												alt=""
 											/>
@@ -133,7 +221,7 @@ const Layout = ({
 									/>
 								</div>
 								<div className="d-flex align-items-center">
-									<span className="nam">Huỳnh Thị Phương Loan</span>{' '}
+									<span className="name">Huỳnh Thị Phương Loan</span>{' '}
 									<FontAwesomeIcon
 										icon="angle-down"
 										className="fa fa-angle-down mg-l-5"
@@ -167,14 +255,18 @@ const Layout = ({
 					</div>
 				</div>
 				<div className="content-body" id="body-content">
-					{children}
+					<div className="container">{children}</div>
 				</div>
-			</div>
+			</main>
 			<Footer />
 		</>
 	);
 };
 
 export const getLayout = (page) => <Layout>{page}</Layout>;
+
+export const getStudentLayout = (page) => (
+	<Layout isStudent={true}>{page}</Layout>
+);
 
 export default Layout;

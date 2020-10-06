@@ -9,6 +9,7 @@ import { appSettings } from '~/config';
 import Select from 'react-select';
 import './index.module.scss';
 import { getLayout } from '~/components/Layout';
+import { i18n, Link, withTranslation } from '~/i18n';
 const itemShowOptions = [
 	{
 		value: 999999,
@@ -146,7 +147,7 @@ const NoteForStudentModal = () => {
 	);
 };
 
-const Home = () => {
+const Home = ({ t }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [dashboardInfo, setDashboardInfo] = useState(null);
 	const [selectShow, setSelectShow] = useState(itemShowOptions[0]);
@@ -185,7 +186,8 @@ const Home = () => {
 
 	return (
 		<>
-			<h1 className="main-title-page">Dashboard</h1>
+			<h1 className="main-title-page">{t('title')}</h1>
+
 			<div className="sec-container">
 				<div className="gv-situation mg-b-15">
 					<div className="row">
@@ -237,7 +239,7 @@ const Home = () => {
 									<div className="wd-150">
 										<Select
 											options={itemShowOptions}
-											styles={appSettings.selectStyle}
+											// styles={appSettings.selectStyle}
 											onChange={setSelectShow}
 											defaultValue={selectShow}
 										/>
@@ -269,5 +271,8 @@ const Home = () => {
 };
 
 Home.getLayout = getLayout;
+Home.getInitialProps = async () => ({
+	namespacesRequired: ['common'],
+});
 
-export default Home;
+export default withTranslation('common')(Home);

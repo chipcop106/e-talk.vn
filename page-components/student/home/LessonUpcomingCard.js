@@ -4,7 +4,7 @@ import styles from './LessonUpcomingCard.module.scss';
 
 const LessonUpcomingCard = ({
 	BookingID,
-	avatar = 'default-avatar.png',
+	avatar = null,
 	TeacherUID,
 	TeacherName,
 	LessionName,
@@ -82,16 +82,12 @@ const LessonUpcomingCard = ({
 						href={`/ElearnStudent/teacherDetail?ID=${TeacherUID}`}
 					>
 						<img
-							src={
-								avatar === 'default-avatar.png'
-									? `../assets/img/${avatar}`
-									: avatar
-							}
+							src={avatar === null ? `/static/assets/img/${avatar}` : avatar}
 							className="teacher-image"
 							alt="Avatar"
 							onError={(e) => {
 								e.target.onerror = null;
-								e.target.src = '../assets/img/default-avatar.png';
+								e.target.src = '/static/assets/img/default-avatar.png';
 							}}
 						/>
 						<p className="course-teacher tx-14 tx-gray-800 tx-normal mg-b-0 tx-center mg-t-5 d-block">
@@ -106,15 +102,15 @@ const LessonUpcomingCard = ({
 							<span className="no-hl course-name tx-bold">{LessionName}</span>
 						</h5>
 						<div className="course-information tx-14">
-							<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+							<span className="mg-r-15 tx-gray-500 d-inline-block">
 								<i className="feather-16 mg-r-5" data-feather="calendar"></i>
 								{date}
 							</span>
-							<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+							<span className="mg-r-15 tx-gray-500 d-inline-block">
 								<i className="feather-16 mg-r-5" data-feather="clock"></i>
 								{`Bắt đầu: ${start}`}
 							</span>
-							<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+							<span className="mg-r-15 tx-gray-500 d-inline-block">
 								<i className="feather-16 mg-r-5" data-feather="clock"></i>
 								{`Kết thúc: ${end}`}
 							</span>
@@ -130,7 +126,12 @@ const LessonUpcomingCard = ({
 								<h6 className="mg-b-3 tx-bold">Tài liệu:</h6>
 								<div>
 									{' '}
-									<a href={LessionMaterial} target="_blank">
+									<a
+										href={LessionMaterial}
+										target="_blank"
+										className="tx-info"
+										rel="noreferrer"
+									>
 										{DocumentName}
 									</a>
 								</div>
@@ -149,8 +150,8 @@ const LessonUpcomingCard = ({
 								</div>
 							</a>
 							<a
-								href={'#'}
-								className="btn btn-sm btn-light tx-medium"
+								href={true}
+								className="btn btn-sm btn-success tx-medium"
 								data-toggle="modal"
 								data-target="#js-md-required"
 								onClick={() =>
@@ -176,8 +177,8 @@ const LessonUpcomingCard = ({
 						<div className="action-right">
 							{cancelable ? (
 								<a
-									href={'#'}
-									className="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center tx-medium"
+									href={true}
+									className="btn btn-sm btn-danger d-flex justify-content-center align-items-center tx-medium"
 									rel="noopener"
 									data-toggle="tooltip"
 									title="Bạn chỉ có thể hủy lớp 30 phút trước khi vào học !!"

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/scss/main.scss';
 import { toastInit } from '~/utils';
@@ -12,11 +11,9 @@ import {
 } from '~/components/common/Constant/toast';
 
 import './RequireLessonModal.module.scss';
-
-
 const RequireLessonModal = ({
 	BookingID,
-	avatar = 'default-avatar.png',
+	avatar = null,
 	TeacherUID,
 	TeacherName,
 	LessionMaterial,
@@ -77,7 +74,7 @@ const RequireLessonModal = ({
 
 	useEffect(() => {
 		feather.replace();
-	}, []);
+	});
 
 	return (
 		<div
@@ -102,15 +99,16 @@ const RequireLessonModal = ({
 										>
 											<img
 												src={
-													avatar === 'default-avatar.png'
-														? `../assets/img/${avatar}`
+													avatar === null
+														? `/static/assets/img/${avatar}`
 														: avatar
 												}
 												className="teacher-image"
 												alt="Avatar"
 												onError={(e) => {
 													e.target.onerror = null;
-													e.target.src = '../assets/img/default-avatar.png';
+													e.target.src =
+														'/static/assets/img/default-avatar.png';
 												}}
 											/>
 											<p className="course-teacher tx-14 tx-gray-800 tx-normal mg-b-0 tx-center mg-t-5 d-block">
@@ -131,21 +129,21 @@ const RequireLessonModal = ({
 											</a>
 										</h5>
 										<div className="course-information tx-14">
-											<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+											<span className="mg-r-15 tx-gray-500 d-inline-block">
 												<i
 													className="feather-16 mg-r-5"
 													data-feather="calendar"
 												></i>
 												{date}
 											</span>
-											<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+											<span className="mg-r-15 tx-gray-500 d-inline-block">
 												<i
 													className="feather-16 mg-r-5"
 													data-feather="clock"
 												></i>
 												{`Bắt đầu: ${start}`}
 											</span>
-											<span className="mg-r-15 tx-gray-600 tx-medium d-inline-block">
+											<span className="mg-r-15 tx-gray-500 d-inline-block">
 												<i
 													className="feather-16 mg-r-5"
 													data-feather="clock"
@@ -229,6 +227,5 @@ const RequireLessonModal = ({
 		</div>
 	);
 };
-
 
 export default RequireLessonModal;

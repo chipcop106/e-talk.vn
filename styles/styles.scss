@@ -2507,20 +2507,20 @@ a.no-hl {
 	.form-control,
 	.select__control,
 	.form-control.flatpickr-input {
-		background-color: rgba(244, 244, 244, 0.9);
+		// background-color: rgba(244, 244, 244, 0.9);
 
 		transition: 0.3s;
 		border-radius: 0.25rem;
 
 		&:focus {
-			background-color: rgba($primary-color, 0.1);
-			box-shadow: none;
+			// background-color: rgba($secondary-color, 0.25);
+			// box-shadow: none;
 		}
 	}
 
 	.select__control--is-focused {
-		background-color: rgba($primary-color, 0.1);
-		box-shadow: none;
+		// background-color: rgba($secondary-color, 0.25);
+		// box-shadow: none;
 	}
 
 	input:-webkit-autofill:focus,
@@ -6748,18 +6748,16 @@ footer.footer {
 		width: 175px;
 
 		.course-teacher {
-			/*  background:$secondary-color;
-            background: rgb(253,126,20);
-            background: linear-gradient(9deg, $primary-color 0%, $secondary-color 100%);
-            color:#fff;*/
+			background-color: rgba(246, 246, 246, 1);
+			color: #fff;
 			color: #000;
 			font-weight: 600;
 			margin: 0;
 			padding: 10px;
 			max-width: 100%;
-
+			transition: all 0.3s;
 			&:hover {
-				color: #c35a02;
+				color: $primary-color;
 			}
 		}
 
@@ -6886,7 +6884,7 @@ footer.footer {
 		background: linear-gradient(
 			112.96562deg,
 			$primary-color 4.92708%,
-			$secondary-color 97.84375%
+			rgba($primary-lighten, 0.5) 97.84375%
 		);
 		border: 0;
 		color: #fff;
@@ -6904,8 +6902,8 @@ footer.footer {
 .navigation_slider > button {
 	background: linear-gradient(
 		112.96562deg,
-		$secondary-color 4.92708%,
-		rgba($secondary-color, 10%) 97.84375%
+		$primary-color 4.92708%,
+		rgba($primary-color, 10%) 97.84375%
 	);
 	border: 0;
 	color: #fff;
@@ -8999,12 +8997,35 @@ input[type='month'].form-control {
 }
 
 .react-datepicker-wrapper {
-	display: block;
+	display: block !important;
 }
 
 .react-datepicker {
 	box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.15);
 	border-color: #e1e1e1;
+	.react-datepicker__header,
+	.react-datepicker__day--selected,
+	.react-datepicker__day--in-selecting-range,
+	.react-datepicker__day--in-range,
+	.react-datepicker__month-text--selected,
+	.react-datepicker__month-text--in-selecting-range,
+	.react-datepicker__month-text--in-range,
+	.react-datepicker__quarter-text--selected,
+	.react-datepicker__quarter-text--in-selecting-range,
+	.react-datepicker__quarter-text--in-range,
+	.react-datepicker__year-text--selected,
+	.react-datepicker__year-text--in-selecting-range,
+	.react-datepicker__year-text--in-range {
+		background-color: $primary-color;
+	}
+	.react-datepicker__header {
+		.react-datepicker__current-month,
+		.react-datepicker__day-name,
+		.react-datepicker__day,
+		.react-datepicker__time-name {
+			color: #fff;
+		}
+	}
 }
 .react-datepicker__header {
 	border-color: #e1e1e1;
@@ -9115,12 +9136,25 @@ input[type='month'].form-control {
 .star-color {
 	color: $yellow;
 }
-.react-datepicker-wrapper{
-	.react-datepicker__close-icon{
+.react-datepicker-wrapper {
+	.react-datepicker__close-icon {
 		padding: 0px 10px 0px 0px;
-		&:after{
-			background-color:#d6d6d6;
+		&:after {
+			background-color: #d6d6d6;
 		}
 	}
 }
 
+.react-datepicker {
+	.react-datepicker__time-container
+		.react-datepicker__time
+		.react-datepicker__time-box
+		ul.react-datepicker__time-list
+		li.react-datepicker__time-list-item--selected,
+	.react-datepicker__day--keyboard-selected,
+	.react-datepicker__month-text--keyboard-selected,
+	.react-datepicker__quarter-text--keyboard-selected,
+	.react-datepicker__year-text--keyboard-selected {
+		background-color: $primary-color !important;
+	}
+}

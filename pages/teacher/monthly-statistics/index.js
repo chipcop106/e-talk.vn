@@ -5,6 +5,7 @@ import { getMonthReport } from '~/api/teacherAPI';
 import Skeleton from 'react-loading-skeleton';
 import Select from 'react-select';
 import { appSettings } from '~/config';
+import { i18n, Link, withTranslation } from '~/i18n';
 const timeOptions = [
 	{
 		value: 4,
@@ -24,7 +25,7 @@ const timeOptions = [
 	},
 ];
 
-const MonthlyStatistics = () => {
+const MonthlyStatistics = ({ t }) => {
 	const [isLoading, setIsloading] = React.useState(true);
 	const [state, setState] = React.useState(null);
 	const [select, setSelect] = React.useState(timeOptions[0]);
@@ -46,7 +47,7 @@ const MonthlyStatistics = () => {
 				className="d-md-flex align-items-center justify-content-between pos-relative"
 				style={{ zIndex: 11 }}
 			>
-				<h1 className="main-title-page">Monthly Statistics</h1>
+				<h1 className="main-title-page">{t('title')}</h1>
 				<div className="select-wrap mg-t-15 mg-md-t-0 wd-md-150">
 					<Select
 						options={timeOptions}
@@ -256,5 +257,7 @@ const MonthlyStatistics = () => {
 };
 
 MonthlyStatistics.getLayout = getLayout;
-
-export default MonthlyStatistics;
+MonthlyStatistics.getInitialProps = async () => ({
+	namespacesRequired: ['monthly-statistics'],
+});
+export default withTranslation('monthly-statistics')(MonthlyStatistics);

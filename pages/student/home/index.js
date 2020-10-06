@@ -28,10 +28,11 @@ import {
 	CANCEL_BOOKING_SUCCESS,
 	FETCH_ERROR,
 } from '~components/common/Constant/toast';
-import { getLayout } from '~/components/Layout';
+import { getStudentLayout } from '~/components/Layout';
 import { appSettings } from '~/config';
 import './index.module.scss';
-
+import dayjs from 'dayjs';
+import Link from 'next/link';
 const styledIcon = `
   color: ${appSettings.colors.primary};
   width: 30px;
@@ -246,6 +247,7 @@ const Home = () => {
 
 	return (
 		<>
+			<h1 className="main-title-page">Dashboard</h1>
 			<div className="overall__summary pd-15">
 				{!!courseInfo && !courseInfo.Message ? (
 					<>
@@ -258,11 +260,12 @@ const Home = () => {
 												<img
 													src={`/static/assets/img/course.svg`}
 													className={`wd-60 ht-60 round-circle`}
+													alt={`course`}
 												/>
 											</div>
 											<div className={`flex-grow-1`}>
 												<a
-													href="#"
+													href={true}
 													className="tx-bold d-block mg-b-5 tx-primary"
 												>
 													<span className="course-name">
@@ -302,7 +305,7 @@ const Home = () => {
 														<div className="start-date">
 															<span>
 																{!!courseInfo.StartDate
-																	? moment(courseInfo.StartDate).format(
+																	? dayjs(courseInfo.StartDate).format(
 																			'DD/MM/YYYY',
 																	  )
 																	: 'Chưa bắt đầu'}
@@ -311,7 +314,7 @@ const Home = () => {
 														<div className="end-date">
 															<span>
 																{!!courseInfo.EndDate
-																	? moment(courseInfo.EndDate).format(
+																	? dayjs(courseInfo.EndDate).format(
 																			'DD/MM/YYYY',
 																	  )
 																	: 'Chưa kết thúc'}
@@ -420,6 +423,15 @@ const Home = () => {
 					<div className="lesson mg-t-45 animated fadeInUp am-animation-delay-1">
 						<div className="d-xl-flex align-items-center justify-content-between ">
 							<h4 className="title-section">Buổi học sắp diễn ra</h4>
+							<Link href={'/student/upcoming-classes'}>
+								<a
+									href={true}
+									className="link d-flex align-items-center tx-info"
+								>
+									Xem tất cả
+									<i className="fas fa-chevron-right mg-l-5"></i>
+								</a>
+							</Link>
 						</div>
 						{!!state.UpcomingLessions &&
 						!!state.UpcomingLessions &&
@@ -428,7 +440,7 @@ const Home = () => {
 							<div className="empty-error tx-center mg-y-15 cr-item bg-white rounded-5 pd-15 shadow">
 								<img
 									src="/static/assets/img/no-booking.svg"
-									alt="image"
+									alt="no-data"
 									className="wd-200 mg-b-15"
 								/>
 								<p className=" tx-danger tx-medium">
@@ -481,13 +493,15 @@ const Home = () => {
 					<div className="lesson mg-t-45 animated fadeInUp am-animation-delay-2">
 						<div className="d-xl-flex align-items-center justify-content-between ">
 							<h4 className="title-section">Buổi học đã hoàn thành</h4>
-							<a
-								href={'/ElearnStudent/lessonHistory'}
-								className="link d-flex align-items-center"
-							>
-								<i className="fas fa-list mg-r-5"></i>
-								Xem lịch sử học
-							</a>
+							<Link href={'/student/class-history'}>
+								<a
+									href={true}
+									className="link d-flex align-items-center tx-info"
+								>
+									Xem tất cả
+									<i className="fas fa-chevron-right mg-l-5"></i>
+								</a>
+							</Link>
 						</div>
 						<div className="course-horizental mg-t-15">
 							<ul className="list-wrap">
@@ -562,6 +576,6 @@ const Home = () => {
 	);
 };
 
-Home.getLayout = getLayout;
+Home.getLayout = getStudentLayout;
 
 export default Home;
