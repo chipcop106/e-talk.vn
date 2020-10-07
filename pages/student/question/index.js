@@ -25,7 +25,7 @@ const Faq = () => {
 				<h1 className="main-title-page">CÁC CÂU HỎI THƯỜNG GẶP</h1>
 				<div className="tx-center">
 					<img
-						src="/static/img/f&q.svg"
+						src="/static/img/question.svg"
 						alt="no-data"
 						className="wd-300 mg-b-30"
 					/>

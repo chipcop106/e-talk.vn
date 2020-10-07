@@ -135,6 +135,10 @@ const TicketSupport = () => {
 		hideDetailBox();
 	};
 
+	const handleSubmitFilter = () => {
+		pageNumber === 1 ? getSupportList(1) : setPageNumber(1);
+	};
+
 	// React.useEffect(() => {
 	// 	onChangeState();
 	// },[state, filter])
@@ -298,7 +302,7 @@ const TicketSupport = () => {
 												<button
 													type="button"
 													className="btn btn-primary wd-100p wd-sm-auto"
-													onClick={getSupportList}
+													onClick={handleSubmitFilter}
 												>
 													<FontAwesomeIcon
 														icon="search"

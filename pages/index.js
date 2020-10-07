@@ -13,12 +13,12 @@ const Index = () => (
 		}}
 	>
 		<div className="box">
-			<h1 className="tx-white tx-center tx-60">Choose one role</h1>
-			<div className="d-flex mg-t-45">
+			<h1 className="tx-white tx-center tx-32 mg-b-0">Choose one role</h1>
+			<div className="d-flex mg-t-15 flex-wrap">
 				<Link href="/student">
 					<a
 						href={true}
-						className="btn btn-info btn-lg mg-x-30 tx-24 pd-x-40 pd-y-20"
+						className="btn btn-info btn-lg tx-16 pd-x-20 pd-y-10 mg-20"
 					>
 						Student layout
 					</a>
@@ -26,7 +26,7 @@ const Index = () => (
 				<Link href="/teacher">
 					<a
 						href={true}
-						className="btn btn-warning btn-lg mg-x-30 tx-24 pd-x-40 pd-y-20"
+						className="btn btn-warning btn-lg tx-16 pd-x-20 pd-y-10 mg-20"
 					>
 						Teacher layout
 					</a>
