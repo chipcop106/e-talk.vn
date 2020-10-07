@@ -1,145 +1,246 @@
-import React, { useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { i18n, withTranslation } from '~/i18n';
+import { I18nContext } from 'next-i18next';
+import Select, { components } from 'react-select';
+import { appSettings } from '~/config';
 
-const Header = () => {
+const LangOptions = [
+	{
+		label: 'Vietnamese',
+		value: 'vi',
+		flag: 'vn',
+	},
+	{
+		label: 'English',
+		value: 'en',
+		flag: 'us',
+	},
+];
+
+const FlatOption = (props) => {
+	const { data } = props;
+	return (
+		<components.Option {...props}>
+			<div className="d-flex align-items-center">
+				<span className={`flag-icon flag-icon-${data.flag}`}></span>
+				<span className="mg-l-10">{data.label}</span>
+			</div>
+		</components.Option>
+	);
+};
+
+const Header = ({ t, isStudent }) => {
+	const { i18n } = useContext(I18nContext);
+	const [lang, setLang] = useState(LangOptions[0]);
+
+	const _handleChangeSelect = (selected) => {
+		setLang(selected);
+		i18n.changeLanguage(selected.value === 'en' ? 'en' : 'vi');
+		window.localStorage.setItem('language', JSON.stringify(selected.value));
+	};
+
+	const setSelectLanguage = (key) => {
+		setLang(LangOptions.find((item) => item.value === key));
+	};
+
+	const checkDefaultLanguage = () => {
+		if (typeof window === 'undefined') return;
+		try {
+			const language = window.localStorage.getItem('language');
+			console.log({ language });
+			language !== null && setSelectLanguage(JSON.parse(language));
+			language === null &&
+				window.localStorage.setItem(
+					'language',
+					JSON.stringify(i18n?.language ?? 'en'),
+				);
+		} catch (error) {}
+	};
+	useEffect(() => {
+		isStudent ? (appSettings.UID = 1071) : (appSettings.UID = 20);
+	}, [isStudent]);
+	useEffect(() => {
+		checkDefaultLanguage();
+	}, []);
 	return (
 		<>
-			<aside className="aside aside-fixed">
-				<div className="aside-header">
-					<a href="/home" className="aside-logo">
-						Etalk<span style={{ fontWeight: 200 }}> VN</span>
-					</a>{' '}
-					<a href={true} className="aside-menu-link">
-						<i className="fas fa-bars"></i> <i className="fas fa-times"></i>
-					</a>
-				</div>
-				<div className="aside-body tx-14">
-					<div className="aside-loggedin">
-						<div className="aside-loggedin-user tx-center">
-							<div className="d-flex align-items-center justify-content-center">
-								<a href="#loggedinMenu" data-toggle="collapse" className="">
-									<img
-										src="/static/img/avatar.jpg"
-										className="rounded-circle avatar-xl object-fit"
-										alt=""
-									/>
-								</a>
+			<div className="content-header">
+				<div className="navbar-left"></div>
+				<div className="navbar-right">
+					<Select
+						isSearchable={false}
+						options={LangOptions}
+						formatOptionLabel={(context) => (
+							<div className="d-flex align-items-center">
+								<span className={`flag-icon flag-icon-${context.flag}`}></span>
+								<span className="mg-l-10">{context.label}</span>
 							</div>
-							<a
-								href="#loggedinMenu"
-								className="d-flex align-items-center justify-content-center mg-b-0 mg-t-10"
-								data-toggle="collapse"
-							>
-								<h6 className="tx-semibold tx-16 mg-b-0 tx-white">
-									Huỳnh Thi Phương Loan
-								</h6>
-								<i className="fas fa-angle-down mg-l-10 tx-white"></i>
+						)}
+						components={{
+							Option: FlatOption,
+							IndicatorSeparator: () => null,
+						}}
+						value={lang}
+						onChange={_handleChangeSelect}
+						className="wd-150 mg-r-15"
+						styles={{
+							control: (oldStyle, state) => {
+								return {
+									...oldStyle,
+									border: 0,
+									outline: 0,
+									boxShadow: 'none',
+									borderRadius: 0,
+									backgroundColor: '#efefef',
+								};
+							},
+						}}
+					/>
+					<div className="dropdown dropdown-notification">
+						<a
+							href
+							className="dropdown-link new-indicator"
+							data-toggle="dropdown"
+						>
+							<i data-feather="bell" /> <span>2</span>
+						</a>
+						<div className="dropdown-menu dropdown-menu-right">
+							<div className="dropdown-header">Thông báo</div>
+							<a href className="dropdown-item">
+								<div className="media">
+									<div className="avatar avatar-sm avatar-online">
+										<img
+											src="/static/img/avatar.jpg"
+											className="rounded-circle"
+											alt=""
+										/>
+									</div>
+									<div className="media-body mg-l-15">
+										<p>
+											Nguyễn Hoàng đã nhập 30{' '}
+											<strong>Máy khoan Muraz siêu việt GS-2000</strong>vào Kho
+											Hà Nội
+										</p>
+										<span>Mar 15 12:32pm</span>
+									</div>
+								</div>
 							</a>
-							<p className="tx-white tx-12 mg-b-0 mg-t-5">Teacher</p>
-						</div>
-						<div className="collapse" id="loggedinMenu">
-							<ul className="nav nav-aside mg-b-0 ">
-								<li className="nav-label mg-t-25">Account</li>
-								<li className="nav-item">
-									<a href className="nav-link">
-										<i className="fas fa-user-edit"></i>{' '}
-										<span>Edit Profile</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									<a href className="nav-link">
-										<i className="fas fa-key"></i> <span>Change password</span>
-									</a>
-								</li>
-								<li className="nav-item">
-									<a href className="nav-link">
-										<i className="fas fa-sign-out-alt"></i>{' '}
-										<span>Sign Out</span>
-									</a>
-								</li>
-							</ul>
+							<a href className="dropdown-item">
+								<div className="media">
+									<div className="avatar avatar-sm avatar-online">
+										<img
+											src="/static/img/avatar.jpg"
+											className="rounded-circle"
+											alt=""
+										/>
+									</div>
+									<div className="media-body mg-l-15">
+										<p>
+											Nguyễn Hoàng đã nhập{' '}
+											<strong>30 Máy khoan Muraz siêu việt GS-2000</strong> vào{' '}
+											<strong>Kho Hà Nội</strong>
+										</p>
+										<span>Mar 15 12:32pm</span>
+									</div>
+								</div>
+							</a>
+							<a href className="dropdown-item">
+								<div className="media">
+									<div className="avatar avatar-sm avatar-online">
+										<img
+											src="/static/img/avatar.jpg"
+											className="rounded-circle"
+											alt=""
+										/>
+									</div>
+									<div className="media-body mg-l-15">
+										<p>
+											Trương Thức đã xuất kho 30 sản phẩm{' '}
+											<strong>Máy khoan Muraz siêu việt GS-2000</strong> từ kho
+											HCM
+										</p>
+										<span>Mar 13 02:56am</span>
+									</div>
+								</div>
+							</a>
+							<a href className="dropdown-item">
+								<div className="media">
+									<div className="avatar avatar-sm avatar-online">
+										<img
+											src="/static/img/avatar.jpg"
+											className="rounded-circle"
+											alt=""
+										/>
+									</div>
+									<div className="media-body mg-l-15">
+										<p>
+											Nguyễn Thảo Ly vừa xuất hoá đơn bán lẻ{' '}
+											<strong>#HD332212</strong> số tiền 3.000.000 tại kho HCM
+										</p>
+										<span>Mar 12 10:40pm</span>
+									</div>
+								</div>
+							</a>
+							<div className="dropdown-footer">
+								<a href>Xem tất cả thông báo</a>
+							</div>
 						</div>
 					</div>
-					<ul className="nav nav-aside">
-						<li className="nav-label mg-t-25">Statistics</li>
-						<li className="nav-item active">
-							<Link href="/home">
-								<a href={true} className="nav-link">
-									<i className="fas fa-tachometer-alt"></i>
-									<span>Dashboard</span>
+					<div className="dropdown dropdown-profile">
+						<a
+							href
+							className="dropdown-link d-flex align-items-center tx-black"
+							data-toggle="dropdown"
+							data-display="static"
+						>
+							<div className="avatar avatar-sm mg-r-5">
+								<img
+									src="/static/img/avatar.jpg"
+									className="rounded-circle"
+									alt=""
+								/>
+							</div>
+							<div className="d-flex align-items-center">
+								<span className="name">Huỳnh Thị Phương Loan</span>{' '}
+								<FontAwesomeIcon
+									icon="angle-down"
+									className="fa fa-angle-down mg-l-5"
+								/>
+							</div>
+						</a>
+						<div className="dropdown-menu dropdown-menu-right tx-13">
+							<div className="avatar avatar-lg mg-b-15">
+								<img
+									src="/static/img/avatar.jpg"
+									className="rounded-circle"
+									alt=""
+								/>
+							</div>
+							<h6 className="tx-semibold mg-b-5">Mona Media</h6>
+							<p className="mg-b-25 tx-12 tx-color-03">Administrator</p>
+							<Link href={isStudent ? '/student/profile' : '/teacher/profile'}>
+								<a href={true} className="dropdown-item">
+									<i data-feather="user" /> View Profile
 								</a>
 							</Link>
-						</li>
-
-						<li className="nav-label mg-t-25">Booking schedule</li>
-
-						<li className="nav-item">
-							<Link href="/schedule/manage-slot">
-								<a href={true} className="nav-link">
-									<i className="far fa-calendar"></i>
-									<span>Booking schedule</span>
-								</a>
-							</Link>
-						</li>
-						<li className="nav-item">
-							<Link href="/schedule/booked-slot">
-								<a href={true} className="nav-link">
-									<i className="far fa-calendar-alt"></i>{' '}
-									<span>Booked schedule</span>
-								</a>
-							</Link>
-						</li>
-
-						<li className="nav-label mg-t-25">Classrooms</li>
-						<li className="nav-item">
-							<a href="kho-sanpham.html" className="nav-link">
-								<i className="fas fa-user-friends" /> <span>All classes</span>
+							<div className="dropdown-divider" />
+							<a href={true} className="dropdown-item">
+								<i data-feather="log-out" />
+								Sign Out
 							</a>
-						</li>
-						<li className="nav-item">
-							<a href="kho-danhsach.html" className="nav-link">
-								<i className="fas fa-user-clock" />{' '}
-								<span>Upcoming classes</span>
-							</a>
-						</li>
-						<li className="nav-item">
-							<a href="kho-nhapkho.html" className="nav-link">
-								<i className="fas fa-user-check" />{' '}
-								<span>Finished classes</span>
-							</a>
-						</li>
-						<li className="nav-item">
-							<a href="kho-nhapkho.html" className="nav-link">
-								<i className="fas fa-comment-dots" />{' '}
-								<span>Missing evaluation classes</span>
-							</a>
-						</li>
-
-						<li className="nav-label mg-t-25">Notification</li>
-						<li className="nav-item">
-							<a href="sanpham-danhsach.html" className="nav-link">
-								<i className="fas fa-procedures" /> <span>Holidays</span>
-							</a>
-						</li>
-						<li className="nav-item">
-							<a href="sanpham-danhmuc.html" className="nav-link">
-								<i className="fas fa-user-graduate" />{' '}
-								<span>End date of student's package</span>
-							</a>
-						</li>
-
-						<li className="nav-label mg-t-25">Message</li>
-						<li className="nav-item">
-							<a href="../../components" className="nav-link">
-								<i className="fas fa-envelope-open-text"></i>
-								<span>Message manager</span>
-							</a>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
-			</aside>
+			</div>
 		</>
 	);
 };
 
-export default Header;
+Header.getInitialProps = async () => ({
+	namespacesRequired: ['menu'],
+});
+
+export default withTranslation('menu')(Header);

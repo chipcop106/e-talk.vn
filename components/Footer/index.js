@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Footer = () => {
 	return (
 		<>
 			<a id="scroll-to-top">
-				<i className="fas fa-chevron-up"></i>
+				<FontAwesomeIcon icon="chevron-up" className="fas fa-chevron-up" />
 			</a>
 		</>
 	);

@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 const customParseFormat = require('dayjs/plugin/customParseFormat');
 dayjs.extend(customParseFormat);
 
+export const pad = (n) => (n < 10 ? '0' + n : n);
+
 export const randomId = () => {
 	let dt = new Date().getTime();
 	const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -141,10 +143,8 @@ export const convertDateFromTo = (dateStr) => {
 };
 
 export const checkCancelTime = (startTime) => {
-	console.log(startTime);
 	const diff = getDifferentMinBetweenTime(new Date(startTime), new Date());
-	console.log(diff);
-	return Math.abs(diff) > 30 ? true : false;
+	return diff > 30 ? true : false;
 };
 
 export const getFormattedDate = (dateStr) => {
@@ -164,4 +164,14 @@ export const toastInit = {
 	pauseOnHover: false,
 	draggable: true,
 	progress: undefined,
+};
+
+export const decodeHTML = (encodeHTML) => {
+	let result = encodeHTML;
+	if (window && typeof window !== 'undefined') {
+		const el = document.createElement('textarea');
+		el.innerHTML = encodeHTML;
+		result = el.value;
+	}
+	return result;
 };

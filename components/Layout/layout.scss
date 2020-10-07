@@ -2,6 +2,26 @@
 
 .aside-fixed {
 	width: 300px;
+	.aside-header {
+		.aside-menu-link {
+			display: inline-flex;
+			padding: 0;
+			align-items: center;
+			font-size: 24px;
+			width: 52px;
+			height: 52px;
+			justify-content: center;
+		}
+	}
+	.nav-aside {
+		svg {
+			width: 18px !important;
+			height: 18px;
+			margin-right: 10px;
+			line-height: 18px;
+			color: inherit;
+		}
+	}
 }
 .aside-fixed + .content {
 	padding: 0;
@@ -61,6 +81,9 @@
 .aside-fixed .nav-aside .nav-item.with-sub.show:not(.active) a {
 	color: #fff;
 	padding: 10px 0;
+	&:hover {
+		padding-left: 15px;
+	}
 }
 .aside-fixed .nav-aside .nav-item.with-sub.show:not(.active) a:hover {
 	color: #fff;
@@ -90,6 +113,7 @@
 	flex-shrink: 0;
 	box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
 	border-bottom: 0;
+	z-index: 2;
 }
 
 .content-header .breadcrumb {
@@ -120,6 +144,8 @@
 	height: auto;
 	flex-grow: 1;
 	overflow: auto;
+	padding-left: 0;
+	padding-right: 0;
 }
 
 .nav-aside .nav-item.active .nav-link::before {
@@ -142,6 +168,11 @@
 @media screen and (max-width: 768px) {
 	.content-header .breadcrumb {
 		display: none;
+	}
+	.dropdown.dropdown-profile {
+		.name {
+			display: none;
+		}
 	}
 }
 
@@ -176,4 +207,18 @@
 }
 .aside.minimize .nav-aside .nav-label + .nav-item::before {
 	display: none;
+}
+
+@include max-media($tb-w) {
+	.aside-fixed {
+		.aside-header {
+			padding-right: 0;
+		}
+	}
+}
+
+@include min-media(576px) {
+	.content-header .navbar-right .dropdown {
+		margin-left: 0;
+	}
 }

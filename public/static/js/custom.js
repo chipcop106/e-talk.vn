@@ -7,12 +7,8 @@
 	};
 
 	updateCSSVariables();
-	window.addEventListener('resize', updateCSSVariables);
-	if (window.PerfectScrollbar !== 'undefined') {
-		const ps = new PerfectScrollbar('#body-content', {
-			wheelSpeed: 2,
-			wheelPropagation: true,
-			minScrollbarLength: 20,
-		});
-	}
+
+	window.addEventListener('resize', function () {
+		updateCSSVariables();
+	});
 })();

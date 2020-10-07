@@ -6,6 +6,7 @@ class MyDocument extends Document {
 		return (
 			<html lang="en">
 				<Head>
+					<meta charSet="utf-8" />
 					<meta name="viewport" content="width=device-width, initial-scale=1" />
 					<meta name="theme-color" content="#1F4069" />
 					<link rel="manifest" href="static/manifest.json" />
@@ -15,16 +16,21 @@ class MyDocument extends Document {
 						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
 					/>
 					<link rel="stylesheet" href="/static/fonts/PoppinsVN/font.css" />
-				</Head>
-				<body>
-					<Main />
+					<link
+						rel="stylesheet"
+						href="/static/lib/fontawesome-free-5.15.0-web/css/all.min.css"
+					/>
+					<link
+						href="/static/lib/flag-icon-css/css/flag-icon.min.css"
+						rel="stylesheet"
+					/>
 					<script src="/static/lib/jquery/dist/jquery.min.js"></script>
 					<script src="/static/js/bootstrap.bundle.min.js"></script>
 					<script src="/static/lib/feather-icons/dist/feather.min.js"></script>
 					<script src="/static/lib/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-					<script src="/static/assets/js/dashforge.js"></script>
-					<script src="/static/assets/js/dashforge.aside.js"></script>
-					<script src="/static/js/custom.js"></script>
+				</Head>
+				<body>
+					<Main />
 					<NextScript />
 				</body>
 			</html>

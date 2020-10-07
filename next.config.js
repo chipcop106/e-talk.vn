@@ -1,13 +1,16 @@
 const withOffline = require('next-offline');
-const path = require('path');
 const withSass = require('@zeit/next-sass');
 const withCSS = require('@zeit/next-css');
 const withTM = require('next-transpile-modules')(['@fullcalendar']);
-
+const { nextI18NextRewrites } = require('next-i18next/rewrites');
+const localeSubpaths = {
+	vi: 'vi',
+	en: 'en',
+};
 module.exports = withOffline(
-	withTM(
-		withCSS(
-			withSass({
+	withCSS(
+		withSass(
+			withTM({
 				target: process.env.NEXT_TARGET || 'serverless',
 				workboxOpts: {
 					swDest: 'static/service-worker.js',
@@ -38,6 +41,11 @@ module.exports = withOffline(
 						},
 					],
 				},
+				rewrites: async () => nextI18NextRewrites(localeSubpaths),
+				publicRuntimeConfig: {
+					localeSubpaths,
+				},
+				shallowRender: true,
 			}),
 		),
 	),

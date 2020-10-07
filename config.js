@@ -1,8 +1,8 @@
 export const colors = {
-	primary: '#006cff',
+	primary: '#fa005e',
 	primaryDarken: '#004bb2',
 	primaryLighten: '#3389ff',
-	secondary: '#f50057',
+	secondary: '#d9ecf2',
 	secondaryDarken: '#ab003c',
 	secondaryLighten: '#f73378',
 	green: '#4caf50',
@@ -14,8 +14,8 @@ export const appSettings = {
 	baseURL: 'https://e-learn.monamedia.net/Api',
 	key: 'VnVOQG0zODlNb25hRGV2',
 	colors: {
-		second: '#fd5e8e',
-		primary: '#fd7e14',
+		second: '#d9ecf2',
+		primary: '#fa005e',
 	},
 	selectStyle: {
 		control: (oldStyle, state) => {
@@ -23,11 +23,11 @@ export const appSettings = {
 				...oldStyle,
 				borderColor:
 					state.isFocused || state.isSelected || state.isHovered
-						? '#fd7e14 !important'
+						? '#fa005e !important'
 						: '#c0ccda',
 				outline: 0,
 				boxShadow: state.isFocused
-					? '0 0 0 0.2rem rgba(253, 126, 20, 0.25)'
+					? '0 0 0 0.2rem rgba(250, 0, 94, 0.35)'
 					: 'none',
 				borderRadius: '3px',
 			};
@@ -35,28 +35,29 @@ export const appSettings = {
 		multiValue: (oldStyle, state) => {
 			return {
 				...oldStyle,
-				backgroundColor: '#ff750138',
-				color: '#fd7e14',
+				backgroundColor: '#d9ecf2',
+				color: '#000',
 				fontWeight: '500',
-				border: '1px solid #fd7914',
+				border: '1px solid #d9ecf2',
 			};
 		},
 		multiValueLabel: (oldStyle, state) => {
 			return {
 				...oldStyle,
-				color: '#fd7e14',
+				color: '#000',
 			};
 		},
 		option: (oldStyle, state) => {
 			return {
 				...oldStyle,
 				backgroundColor: state.isSelected
-					? '#fd7e14'
+					? 'rgba(217, 236, 242, 1)'
 					: state.isFocused
-					? 'rgba(253, 126, 20, 0.25)'
+					? 'rgba(217, 236, 242, .4)'
 					: '#fff',
+				color: '#000',
 			};
 		},
 	},
-	UID: 20, //20 teacher || 1071 student
+	UID: 1071, //20 teacher || 1071 student
 };
