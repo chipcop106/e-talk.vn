@@ -1,0 +1,17 @@
+{
+	"dashboard": "Dashboard",
+	"package": "My Packages",
+	"schedule": "Schedule",
+	"booking-schedule": "Booking Schedule",
+	"booked-schedule": "Booked Schedule",
+	"calendar-view": "Calendar View",
+	"table-view": "Table View",
+	"lesson-feedback": "Feedback Of Lessons",
+	"lesson-history": "Lesson History",
+	"course-discount": "Course Discount",
+	"day-off": "Day Off",
+	"other": "Other",
+	"referral": "Referral / Invite",
+	"f&a": "Frequently Asked Questions",
+	"payment-history": "Payment History"
+}

@@ -193,7 +193,7 @@ const StudentMenu = ({ t }) => {
 							icon="tachometer-alt"
 							className="fas fa-tachometer-alt"
 						/>
-						<span>{t('dashboard')}</span>
+						<span>{t('menu-student:dashboard')}</span>
 					</a>
 				</Link>
 			</li>
@@ -201,16 +201,16 @@ const StudentMenu = ({ t }) => {
 				<Link href="/student/package" as="/student/package">
 					<a href={true} className="nav-link">
 						<FontAwesomeIcon icon="cubes" className="fas fa-tachometer-alt" />
-						<span>Gói đã đăng ký</span>
+						<span>{t('menu-student:package')}</span>
 					</a>
 				</Link>
 			</li>
-			<li className="nav-label mg-t-25">Lịch học</li>
+			<li className="nav-label mg-t-25">{t('menu-student:schedule')}</li>
 			<li className="nav-item">
 				<Link href="/student/booking-schedule" as="/student/booking-schedule">
 					<a href={true} className="nav-link">
 						<FontAwesomeIcon icon="calendar" className="far fa-calendar" />
-						<span>{t('booking-schedule')}</span>
+						<span>{t('menu-student:booking-schedule')}</span>
 					</a>
 				</Link>
 			</li>
@@ -220,7 +220,7 @@ const StudentMenu = ({ t }) => {
 						icon="calendar-check"
 						className="fas fa-calendar-check"
 					/>
-					<span>Xem lịch đã đặt</span>
+					<span>{t('menu-student:booked-schedule')}</span>
 				</a>
 				<ul>
 					<li>
@@ -229,7 +229,7 @@ const StudentMenu = ({ t }) => {
 							as="/student/booked-schedule/calendar"
 						>
 							<a href={true}>
-								<span>Lịch calendar</span>
+								<span>{t('menu-student:calendar-view')}</span>
 							</a>
 						</Link>
 					</li>
@@ -239,13 +239,13 @@ const StudentMenu = ({ t }) => {
 							as="/student/booked-schedule/table"
 						>
 							<a href={true}>
-								<span>Lịch table</span>
+								<span>{t('menu-student:table-view')}</span>
 							</a>
 						</Link>
 					</li>
 				</ul>
 			</li>
-			<li className="nav-label mg-t-25">Lớp học</li>
+			<li className="nav-label mg-t-25">{t('classes')}</li>
 			<li className="nav-item">
 				<Link
 					href="/student/classes/attendance-record"
@@ -267,7 +267,7 @@ const StudentMenu = ({ t }) => {
 							icon="file-signature"
 							className="fas fa-file-signature"
 						/>{' '}
-						<span>Nhận xét buổi học</span>
+						<span>{t('menu-student:lesson-feedback')}</span>
 					</a>
 				</Link>
 			</li>
@@ -275,12 +275,12 @@ const StudentMenu = ({ t }) => {
 				<Link href="/student/classes/history" as="/student/classes/history">
 					<a href={true} className="nav-link">
 						<FontAwesomeIcon icon="history" className="fas fa-history" />{' '}
-						<span>Lịch sử đã học</span>
+						<span>{t('menu-student:lesson-history')}</span>
 					</a>
 				</Link>
 			</li>
 
-			<li className="nav-label mg-t-25">Thông báo</li>
+			<li className="nav-label mg-t-25">{t('notification')}</li>
 			<li className="nav-item">
 				<Link
 					href="/student/notification/discount"
@@ -288,7 +288,7 @@ const StudentMenu = ({ t }) => {
 				>
 					<a href={true} className="nav-link">
 						<FontAwesomeIcon icon="tags" className="fas fa-tags" />{' '}
-						<span>Ưu đãi học phí</span>
+						<span>{t('menu-student:course-discount')}</span>
 					</a>
 				</Link>
 			</li>
@@ -299,17 +299,17 @@ const StudentMenu = ({ t }) => {
 							icon="calendar-times"
 							className="fas fa-calendar-times"
 						/>{' '}
-						<span>Ngày nghỉ lễ</span>
+						<span>{t('menu-student:day-off')}</span>
 					</a>
 				</Link>
 			</li>
-			<li className="nav-label mg-t-25">Mục khác</li>
+			<li className="nav-label mg-t-25">{t('menu-student:other')}</li>
 
 			<li className="nav-item">
 				<Link href="/student/referral" as="/student/referral">
 					<a href={true} className="nav-link">
 						<FontAwesomeIcon icon="handshake" className="fas fa-file-alt" />{' '}
-						<span>Referral / Invite</span>
+						<span>{t('menu-student:referral')}</span>
 					</a>
 				</Link>
 			</li>
@@ -320,7 +320,7 @@ const StudentMenu = ({ t }) => {
 							icon="question-circle"
 							className="fas fa-file-alt"
 						/>{' '}
-						<span>Câu hỏi thường gặp</span>
+						<span>{t('menu-student:f&a')}</span>
 					</a>
 				</Link>
 			</li>
@@ -434,7 +434,9 @@ const Menu = ({ t, isStudent }) => {
 												className="fas fa-key"
 											/>{' '}
 											<span>
-												{isStudent ? 'Lịch sử thanh toán' : t('payment')}
+												{isStudent
+													? t('menu-student:payment-history')
+													: t('payment')}
 											</span>
 										</a>
 									</Link>
@@ -459,7 +461,7 @@ const Menu = ({ t, isStudent }) => {
 };
 
 Menu.getInitialProps = async () => ({
-	namespacesRequired: ['menu'],
+	namespacesRequired: ['menu', 'menu-student'],
 });
 
-export default withTranslation('menu')(Menu);
+export default withTranslation(['menu', 'menu-student'])(Menu);
