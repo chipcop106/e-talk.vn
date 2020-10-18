@@ -281,6 +281,9 @@ const TicketSupport = () => {
 														isClearable={!!fromDate ? true : false}
 														startDate={fromDate}
 														endDate={toDate}
+														showMonthDropdown
+														showYearDropdown
+														dropdownMode="select"
 													/>
 												</div>
 												<div className="wd-sm-200 mg-sm-r-10 wd-100p">
@@ -295,6 +298,9 @@ const TicketSupport = () => {
 														startDate={fromDate}
 														endDate={toDate}
 														minDate={fromDate}
+														showMonthDropdown
+														showYearDropdown
+														dropdownMode="select"
 													/>
 												</div>
 											</div>

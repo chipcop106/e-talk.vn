@@ -300,6 +300,9 @@ const AllClasses = () => {
 								isClearable={!!fromDate ? true : false}
 								startDate={fromDate}
 								endDate={toDate}
+								showMonthDropdown
+								showYearDropdown
+								dropdownMode="select"
 							/>
 							{/* <input type="text" name="start-day " onChange={(value) =>  setFromDate(value)} className="form-control datetimepicker from-date" placeholder="From date" /> */}
 						</div>
@@ -315,6 +318,9 @@ const AllClasses = () => {
 								startDate={fromDate}
 								endDate={toDate}
 								minDate={fromDate}
+								showMonthDropdown
+								showYearDropdown
+								dropdownMode="select"
 							/>
 						</div>
 					</div>

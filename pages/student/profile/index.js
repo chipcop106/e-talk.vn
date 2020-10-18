@@ -324,6 +324,7 @@ const StudentProfile = () => {
 												name="Phone"
 												ref={register}
 												defaultValue={profile.Phone}
+												disabled
 											/>
 											{errors.Phone && (
 												<span className="text-danger d-block mt-2">
@@ -350,6 +351,9 @@ const StudentProfile = () => {
 														onChangeRaw={(e) => e.preventDefault()}
 														// selected={profile.BirthDay}
 														name={name}
+														showMonthDropdown
+														showYearDropdown
+														dropdownMode="select"
 														onChange={(value) => {
 															onChange(value);
 															setProfile({
@@ -407,6 +411,7 @@ const StudentProfile = () => {
 												ref={register}
 												defaultValue={profile.FullName}
 												name="FullName"
+												disabled
 											/>
 											{errors.FullName && (
 												<span className="text-danger d-block mt-2">
@@ -427,6 +432,7 @@ const StudentProfile = () => {
 												ref={register}
 												defaultValue={profile.Email}
 												placeholder="Ex:example@domain.com"
+												disabled
 											/>
 											{errors.Email && (
 												<span className="text-danger d-block mt-2">
@@ -553,6 +559,7 @@ const StudentProfile = () => {
 												name="SkypeID"
 												ref={register}
 												defaultValue={profile.SkypeID}
+												disabled
 											/>
 											{errors.SkypeID && (
 												<span className="text-danger d-block mt-2">

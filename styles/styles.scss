@@ -8512,6 +8512,30 @@ blockquote.messageText {
 
 .book__calendar {
 	position: relative;
+	.fc-list-table {
+		.fc-theme-standard .fc-list-day-cushion {
+		}
+		.fc-event {
+			.available-slot {
+				background-color: #fff;
+				border-color: #fff;
+			}
+		}
+		.box-slot {
+			display: none;
+		}
+		.fc-list-event-title {
+			position: relative;
+			.fix-btn {
+				bottom: 50%;
+				transform: translateY(50%);
+				right: 15px;
+				background: $red;
+				color: #fff;
+				padding: 3px 10px;
+			}
+		}
+	}
 }
 
 .loading-style:after {
@@ -9157,4 +9181,29 @@ input[type='month'].form-control {
 	.react-datepicker__year-text--keyboard-selected {
 		background-color: $primary-color !important;
 	}
+}
+
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+	display: block;
+	width: 100%;
+	height: calc(1em + 0.9375rem + 2px);
+	padding: 0 0.625rem;
+	font-size: 0.875rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #596882;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #c0ccda;
+	border-radius: 0.125rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.react-datepicker__header__dropdown{
+	margin: 5px 0;
+}
+
+.table thead th, .table tbody th{
+	font-weight: 600;
 }

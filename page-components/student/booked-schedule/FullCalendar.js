@@ -461,7 +461,7 @@ const FullCalendar = ({ data = [] }) => {
 			titleFormat: { year: 'numeric', month: 'short' },
 			navLinks: true, // can click day/week names to navigate views
 			editable: false,
-			stickyHeaderDates: true,
+			stickyHeaderDates: 'auto',
 			selectable: true,
 			nowIndicator: true,
 			allDaySlot: false,

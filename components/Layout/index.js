@@ -31,10 +31,10 @@ const Layout = ({
 			<main className="content ht-100vh pd-0-f">
 				<Header isStudent={isStudent} />
 				<div className="content-body" id="body-content">
-					<div className="container">{children}</div>
+					{children}
 				</div>
+				<Footer />
 			</main>
-			<Footer />
 		</>
 	);
 };

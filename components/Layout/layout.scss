@@ -30,7 +30,7 @@
 }
 .aside-fixed .aside-header,
 .aside-fixed .aside-body {
-	background-color: $primary-darken;
+	background-color: $primary-color;
 }
 .aside-fixed .aside-body {
 	> .ps__thumb-y {
@@ -91,16 +91,13 @@
 .aside-fixed .nav-aside .nav-item.with-sub.show:not(.active) a svg {
 	color: inherit;
 }
-.aside-fixed .nav-aside .nav-item.active .nav-link {
-	color: $yellow;
+.aside-fixed .nav-aside li.active > a {
+	color: $yellow !important;
 }
 .aside-fixed .aside-logo,
 .aside-fixed .aside-color span,
 .aside-fixed .aside-menu-link {
 	color: #fff;
-}
-.aside-fixed .content-body .container {
-	max-width: 1170px;
 }
 
 .aside-fixed .aside-logo span,
@@ -144,12 +141,12 @@
 	height: auto;
 	flex-grow: 1;
 	overflow: auto;
-	padding-left: 0;
-	padding-right: 0;
 }
-
-.nav-aside .nav-item.active .nav-link::before {
+.nav-aside .nav-link::before {
 	border-color: #fff;
+}
+.nav-aside .nav-item.active > a::before {
+	border-color: $yellow;
 }
 
 @media screen and (min-width: 992px) {
@@ -158,6 +155,7 @@
 	}
 	.content-body {
 		height: auto;
+		padding: 25px;
 	}
 }
 @media screen and (min-width: 1200px) {
@@ -165,6 +163,21 @@
 		margin-left: 300px;
 	}
 }
+
+@include max-media($tb-w) {
+	body:not(.show-aside) {
+		.aside-fixed {
+			.aside-header {
+				background-color: #fff;
+				box-shadow: none;
+				.aside-menu-link {
+					color: #000;
+				}
+			}
+		}
+	}
+}
+
 @media screen and (max-width: 768px) {
 	.content-header .breadcrumb {
 		display: none;
@@ -191,11 +204,16 @@
 		width: 5px;
 	}
 }
+.nav-aside .nav-item ul a {
+	color: #fff;
+}
 
 .nav-aside .with-sub .nav-link::after {
 	font-size: 14px;
 	content: '\f107';
 	font-family: 'Font Awesome 5 Free';
+	font-weight: bold;
+	opacity: 1;
 }
 .nav-aside .with-sub.show .nav-link::after {
 	-webkit-transform: rotate(180deg);
@@ -220,5 +238,43 @@
 @include min-media(576px) {
 	.content-header .navbar-right .dropdown {
 		margin-left: 0;
+	}
+}
+
+.nav-aside .with-sub.show {
+	ul,
+	li {
+		position: relative;
+	}
+	& > ul {
+		&:before {
+			content: '';
+			position: absolute;
+			width: 1px;
+			height: 100%;
+			background: rgba(228, 252, 255, 0.25);
+			top: 0;
+			left: 0;
+			bottom: 0;
+		}
+		& > li {
+			&:last-child {
+				border-bottom: 0;
+			}
+			&.active {
+				&:before {
+					background: $yellow;
+				}
+			}
+			&:before {
+				content: '';
+				position: absolute;
+				width: 20px;
+				height: 1px;
+				background: rgba(228, 252, 255, 0.25);
+				top: 20px;
+				right: calc(100% + 13px);
+			}
+		}
 	}
 }

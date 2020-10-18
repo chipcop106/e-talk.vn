@@ -20,7 +20,7 @@ import './index.module.scss';
 import { getStudentLayout } from '~/components/Layout';
 import dayjs from 'dayjs';
 import Swiper from 'swiper';
-
+import Link from 'next/link';
 const genderArr = [
 	{
 		label: 'Tất cả giới tính',
@@ -60,7 +60,7 @@ const initialState = {
 	levelPurpose: [],
 	selectedLevelPurpose: [],
 	date: dayjs(new Date()).format('DD/MM/YYYY'),
-	startTime: new Date('01/01/2020 06:00'),
+	startTime: new Date('01/01/2020 00:00'),
 	endTime: new Date('01/01/2020 23:00'),
 	searchText: '',
 	nation: nationArr[0],
@@ -101,94 +101,6 @@ const reducer = (prevState, { type, payload }) => {
 
 const pad = (n) => ('' + n >= 10 ? n : '0' + n);
 
-const RenderTeacherLists = ({
-	data,
-	onBookState,
-	bookState,
-	learnTime,
-	date,
-	start,
-	end,
-}) => {
-	return data.map((item) => (
-		<li className="tutor" key={item.TeacherUID}>
-			<div className="totor-detail">
-				<a
-					href={`/ElearnStudent/teacherDetail?ID=${item.TeacherUID}`}
-					className="tutor-wrap no-hl"
-				>
-					<span className="tutor-avatar">
-						<img
-							src={
-								item.TeacherIMG
-									? item.TeacherIMG
-									: '/static/assets/img/default-avatar.png'
-							}
-							alt="Avatar"
-							onError={(e) => {
-								e.target.onerror = null;
-								e.target.src = '/static/assets/img/default-avatar.png';
-							}}
-						/>
-					</span>
-					<div className="tutor-infomation pd-5">
-						<div className="tutor-info">
-							<div className="tutor-rating-star">
-								<div className="rating-stars">
-									<span className="empty-stars">
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-									</span>
-									<span
-										className="filled-stars"
-										style={{ width: `${item.Rate * 20}%` }}
-									>
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-										<i className="star fa fa-star"></i>
-									</span>
-								</div>
-								<div className="tutor-rate-point">{item.Rate.toFixed(1)}</div>
-							</div>
-						</div>
-						<h6 className="mg-t-5">
-							<span
-								className={`flag-icon flag-icon-${
-									item.National ? nationMapToFlag(item.National) : 'vn'
-								} flag-icon-squared`}
-							></span>{' '}
-							{item.TeacherName}
-						</h6>
-					</div>
-				</a>
-				<div className="tutor-schedule d-block custom-student">
-					<ul className="ul-schedule">
-						<ListSchedule
-							onBookStudyTimeID={onBookState.StudyTimeID}
-							onBookTeacherUID={onBookState.TeacherUID}
-							onBookDate={onBookState.date}
-							learnTime={learnTime}
-							TeacherUID={item.TeacherUID}
-							TeacherIMG={item.TeacherIMG}
-							TeacherName={item.TeacherName}
-							Rate={item.Rate}
-							date={state.date}
-							Start={state.startTime}
-							End={state.endTime}
-							handleBooking={onHandleBooking}
-						/>
-					</ul>
-				</div>
-			</div>
-		</li>
-	));
-};
-
 const BookingLesson = () => {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const [teachersList, setTeacherList] = useState(null);
@@ -196,7 +108,7 @@ const BookingLesson = () => {
 	const [onBookState, setOnBookState] = useState(initialOnBookState);
 	const [stateBookLesson, setStateBookLesson] = useState(initialBookLesson);
 	const [learnTime, setLearnTime] = useState([]);
-
+	const [date, setDate] = useState(null);
 	const [page, setPage] = useState(1);
 	const [pageSize, setPageSize] = useState(0);
 	const [totalResult, setTotalResult] = useState(0);
@@ -494,7 +406,7 @@ const BookingLesson = () => {
 	};
 
 	useEffect(() => {
-		initCalendar();
+		//initCalendar();
 		fetchListLevelPurpose();
 
 		/*    $('#display-schedule').on('change', function () {
@@ -513,189 +425,41 @@ const BookingLesson = () => {
 		<>
 			<h1 className="main-title-page">Booking schedule</h1>
 			<div className="media-body-wrap pd-15 shadow">
-				<h5 className="">Tìm kiếm giáo viên:</h5>
-
-				<div className="calendar__picker swiper-container">
-					<div className="calendar-slider swiper-wrapper"></div>
-					<div className="navigation_slider">
-						<button type="button" className="prev-btn">
-							<i className="fa fa-chevron-left" aria-hidden="true"></i>
-						</button>
-						<button type="button" className="next-btn">
-							<i className="fa fa-chevron-right" aria-hidden="true"></i>
-						</button>
-					</div>
-				</div>
-				<a
-					href={true}
-					className="btn btn-secondary mg-b-15"
-					id="js-select-today"
+				<div
+					className="form-row"
+					style={{ maxWidth: 600, zIndex: 2, position: 'relative' }}
 				>
-					<i className="fa fa-calendar mg-r-5"></i>Chọn hôm nay
-				</a>
-				<div className="filter-group-wrap metronic-form">
-					<div className="filter-group pd-t-20">
-						<div className="filter-row row">
-							<div className="left col-md-2">
-								<h6 className="mg-t-15-f tx-normal">THÔNG TIN</h6>
-							</div>
-							<div className="right col-md-10">
-								<div className="form-row">
-									<div className="col-sm-6 col-md-4 item">
-										<Select
-											name="nation"
-											options={nationArr}
-											value={state.nation}
-											getOptionLabel={(option) => option.label}
-											getOptionValue={(option) => option.value}
-											styles={appSettings.selectStyle}
-											className="basic-multi-select"
-											placeholder="Quốc tịch"
-											classNamePrefix="select"
-											onChange={(val) => {
-												dispatch({
-													type: 'STATE_CHANGE',
-													payload: { key: 'nation', value: val },
-												});
-											}}
-										/>
-									</div>
-									<div className="col-sm-6 col-md-4 item">
-										<Select
-											name="gender"
-											options={genderArr}
-											value={state.gender}
-											getOptionLabel={(option) => option.label}
-											getOptionValue={(option) => option.value}
-											styles={appSettings.selectStyle}
-											className="basic-multi-select"
-											placeholder="Giới tính"
-											classNamePrefix="select"
-											onChange={(val) => {
-												dispatch({
-													type: 'STATE_CHANGE',
-													payload: { key: 'gender', value: val },
-												});
-											}}
-										/>
-									</div>
-									<div className="col-sm-12 col-md-4 item">
-										<Select
-											isMulti
-											name="selectedLevelPurpose"
-											options={renderLevelPurpose(state.levelPurpose)}
-											value={state.selectedLevelPurpose}
-											getOptionLabel={(label) => label}
-											getOptionValue={(value) => value}
-											styles={appSettings.selectStyle}
-											className="basic-multi-select"
-											placeholder="Chương trình học"
-											classNamePrefix="select"
-											onChange={(val) => {
-												dispatch({
-													type: 'STATE_CHANGE',
-													payload: { key: 'selectedLevelPurpose', value: val },
-												});
-											}}
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div className="col-sm-3 ">
+						<DatePicker
+							dateFormat="dd/MM/yyyy"
+							className="form-control"
+							placeholderText={`Ngày muốn học`}
+							selected={date}
+							onChange={(date) => setDate(date)}
+							isClearable={!!date ? true : false}
+						/>
 					</div>
-					<div className="filter-group pd-t-20">
-						<div className="filter-row row from-to-group">
-							<div className="left col-md-2">
-								<h6 className="mg-t-15-f  tx-normal">THỜI GIAN</h6>
-							</div>
-							<div className="right col-md-10">
-								<div className="form-row">
-									<div className="col-md-4 item">
-										<input
-											name="date"
-											type="text"
-											className="form-control"
-											placeholder="Date"
-											disabled
-											id="date-selected"
-										/>
-									</div>
-									<div className="col-12 col-sm-6 col-md-4 item">
-										<DatePicker
-											selected={state.startTime}
-											onChange={(date) =>
-												dispatch({
-													type: 'STATE_CHANGE',
-													payload: { key: 'startTime', value: date },
-												})
-											}
-											showTimeSelect
-											showTimeSelectOnly
-											timeIntervals={60}
-											timeCaption="Thời gian từ"
-											timeFormat="HH:mm"
-											dateFormat="HH:mm"
-											minTime={new Date().setHours(5)}
-											maxTime={new Date().setHours(22)}
-											className="form-control"
-										/>
-									</div>
-									<div className="col-12 col-sm-6 col-md-4 item">
-										<DatePicker
-											selected={state.endTime}
-											onChange={(date) => {
-												console.log(date);
-												dispatch({
-													type: 'STATE_CHANGE',
-													payload: { key: 'endTime', value: date },
-												});
-											}}
-											showTimeSelect
-											showTimeSelectOnly
-											timeIntervals={60}
-											timeCaption="Thời gian đến"
-											timeFormat="HH:mm"
-											dateFormat="HH:mm"
-											minTime={new Date().setHours(5)}
-											maxTime={new Date().setHours(22)}
-											className="form-control"
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div className="col-sm-6 item">
+						<input
+							className="form-control"
+							name="searchText"
+							type="text"
+							placeholder="Nhập tên giáo viên..."
+							onChange={handleChange}
+						/>
 					</div>
-					<div className="filter-group pd-t-20">
-						<div className="filter-row row">
-							<div className="left col-md-2">
-								<h6 className="mg-t-15-f  tx-normal">TÊN GIÁO VIÊN</h6>
-							</div>
-							<div className="right col-md-10">
-								<div className="form-row">
-									<div className="col-sm-8 item">
-										<input
-											className="form-control"
-											name="searchText"
-											type="text"
-											placeholder="..."
-											onChange={handleChange}
-										/>
-									</div>
-									<div className="col-sm-4 item search-btn-group">
-										<a
-											href={true}
-											className="submit-search btn btn-primary btn-block"
-											onClick={(e) => onSearch(e, 1)}
-										>
-											<i className="fa fa-search mg-r-5"></i>Search
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div className="col-sm-3 item search-btn-group">
+						<a
+							href={true}
+							className="submit-search btn btn-primary btn-block"
+							onClick={(e) => onSearch(e, 1)}
+						>
+							<i className="fa fa-search mg-r-5"></i>Tìm kiếm
+						</a>
 					</div>
 				</div>
-				<div className="filter-group pd-t-10 mg-t-10 bd-t" id="list-tutor">
+
+				<div className="filter-group pd-t-5 mg-t-15 bd-t" id="list-tutor">
 					<div className="filter-row row">
 						<div className="left col-12">
 							<h5>Danh sách giáo viên</h5>
@@ -725,64 +489,67 @@ const BookingLesson = () => {
 										{teachersList.map((item) => (
 											<li className="tutor" key={item.TeacherUID}>
 												<div className="totor-detail">
-													<a
-														href={`/ElearnStudent/teacherDetail?ID=${item.TeacherUID}`}
-														className="tutor-wrap no-hl"
+													<Link
+														href={`/student/teacher-profile/[tid]`}
+														as={`/student/teacher-profile/${item.TeacherUID}`}
 													>
-														<span className="tutor-avatar">
-															<img
-																src={
-																	item.TeacherIMG
-																		? item.TeacherIMG
-																		: '/static/assets/img/default-avatar.png'
-																}
-																alt="Avatar"
-																onError={(e) => {
-																	e.target.onerror = null;
-																	e.target.src =
-																		'/static/assets/img/default-avatar.png';
-																}}
-															/>
-														</span>
-														<div className="tutor-infomation pd-5">
-															<div className="tutor-info">
-																<div className="tutor-rating-star">
-																	<div className="rating-stars">
-																		<span className="empty-stars">
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																		</span>
-																		<span
-																			className="filled-stars"
-																			style={{ width: `${item.Rate * 20}%` }}
-																		>
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																			<i className="star fa fa-star"></i>
-																		</span>
-																	</div>
-																	<div className="tutor-rate-point">
-																		{item.Rate.toFixed(1)}
+														<a href={true} className="tutor-wrap no-hl">
+															<span className="tutor-avatar">
+																<img
+																	src={
+																		item.TeacherIMG
+																			? item.TeacherIMG
+																			: '/static/assets/img/default-avatar.png'
+																	}
+																	alt="Avatar"
+																	onError={(e) => {
+																		e.target.onerror = null;
+																		e.target.src =
+																			'/static/assets/img/default-avatar.png';
+																	}}
+																/>
+															</span>
+															<div className="tutor-infomation pd-5">
+																<div className="tutor-info">
+																	<div className="tutor-rating-star">
+																		<div className="rating-stars">
+																			<span className="empty-stars">
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																			</span>
+																			<span
+																				className="filled-stars"
+																				style={{ width: `${item.Rate * 20}%` }}
+																			>
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																				<i className="star fa fa-star"></i>
+																			</span>
+																		</div>
+																		<div className="tutor-rate-point">
+																			{item.Rate.toFixed(1)}
+																		</div>
 																	</div>
 																</div>
+																<h6 className="mg-t-5">
+																	<span
+																		className={`flag-icon flag-icon-${
+																			item.National
+																				? nationMapToFlag(item.National)
+																				: 'vn'
+																		} flag-icon-squared`}
+																	></span>{' '}
+																	{item.TeacherName}
+																</h6>
+																<p>Lịch dạy ngày: {'20/10/2020'}</p>
 															</div>
-															<h6 className="mg-t-5">
-																<span
-																	className={`flag-icon flag-icon-${
-																		item.National
-																			? nationMapToFlag(item.National)
-																			: 'vn'
-																	} flag-icon-squared`}
-																></span>{' '}
-																{item.TeacherName}
-															</h6>
-														</div>
-													</a>
+														</a>
+													</Link>
 													<div className="tutor-schedule d-block custom-student">
 														<ul className="ul-schedule">
 															<ListSchedule

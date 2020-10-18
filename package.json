@@ -60,8 +60,8 @@
 		"start": "next start -p $PORT",
 		"lint": "eslint components",
 		"build": "next build",
-		"build:server": "NEXT_TARGET=server next build",
-		"export:server": "NEXT_TARGET=server next export",
+		"build:server": "cross-env NEXT_TARGET=server next build",
+		"export:server": "cross-env NEXT_TARGET=server next export",
 		"export": "npm run build:server && npm run export:server",
 		"start:static": "serve",
 		"now-build": "next build"
@@ -70,6 +70,7 @@
 		"babel-eslint": "^10.1.0",
 		"babel-plugin-root-import": "^6.5.0",
 		"babel-plugin-transform-require-ignore": "^0.1.1",
+		"cross-env": "^7.0.2",
 		"eslint": "^6.8.0",
 		"eslint-config-prettier": "^6.11.0",
 		"eslint-config-react-app": "^5.2.1",

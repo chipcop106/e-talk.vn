@@ -326,9 +326,9 @@ const Home = () => {
 															className="progress-bar-wrap-fill"
 															data-toggle="tooltip"
 															data-placement="top"
-															title={`${parseInt(courseInfo.Process * 100)}%`}
+															title={`${parseInt(40)}%`}
 															style={{
-																width: `${parseInt(courseInfo.Process * 100)}%`,
+																width: `${parseInt(40)}%`,
 															}}
 														></div>
 													</div>
@@ -411,9 +411,16 @@ const Home = () => {
 						)}
 					</>
 				) : (
-					<span className="d-block tx-center tx-danger tx-medium">
-						{courseInfo && courseInfo.Message}
-					</span>
+					<div className="tx-center pd-y-30">
+						<img
+							src={`/static/assets/img/course.svg`}
+							className={`wd-200 mg-b-15 round-circle`}
+							alt={`course`}
+						/>
+						<span className="d-block tx-center tx-danger tx-medium">
+							{courseInfo && courseInfo.Message}
+						</span>
+					</div>
 				)}
 			</div>
 			{!state ? (
@@ -439,17 +446,14 @@ const Home = () => {
 							0 ? (
 							<div className="empty-error tx-center mg-y-15 cr-item bg-white rounded-5 pd-15 shadow">
 								<img
-									src="/static/assets/img/no-booking.svg"
+									src="/static/img/no-data.svg"
 									alt="no-data"
 									className="wd-200 mg-b-15"
 								/>
 								<p className=" tx-danger tx-medium">
 									Bạn không có buổi học nào sắp tới
 								</p>
-								<a
-									href="/ElearnStudent/bookingLesson"
-									className="btn btn-primary"
-								>
+								<a href="/student/booking-schedule" className="btn btn-primary">
 									Đặt lịch học
 								</a>
 							</div>
@@ -509,22 +513,34 @@ const Home = () => {
 									<SkeletonLessonCard />
 								) : (
 									!!state.LessionHistory &&
-									state.LessionHistory.length > 0 &&
-									state.LessionHistory.map((item) => (
-										<LessonHistoryCard
-											key={item.BookingID}
-											BookingID={item.BookingID}
-											TeacherUID={item.TeacherUID}
-											avatar={item.TeacherIMG}
-											TeacherName={item.TeacherName}
-											LessionName={item.LessionName}
-											Status={item.Status}
-											start={convertDateFromTo(item.Schedule).fromTime}
-											end={convertDateFromTo(item.Schedule).endTime}
-											date={convertDateFromTo(item.Schedule).date}
-											Rate={item.Rate}
-											onHandleRatingLesson={handleRatingLesson}
-										/>
+									(state.LessionHistory.length > 0 ? (
+										state.LessionHistory.map((item) => (
+											<LessonHistoryCard
+												key={item.BookingID}
+												BookingID={item.BookingID}
+												TeacherUID={item.TeacherUID}
+												avatar={item.TeacherIMG}
+												TeacherName={item.TeacherName}
+												LessionName={item.LessionName}
+												Status={item.Status}
+												start={convertDateFromTo(item.Schedule).fromTime}
+												end={convertDateFromTo(item.Schedule).endTime}
+												date={convertDateFromTo(item.Schedule).date}
+												Rate={item.Rate}
+												onHandleRatingLesson={handleRatingLesson}
+											/>
+										))
+									) : (
+										<div className="empty-error tx-center mg-y-15 cr-item bg-white rounded-5 pd-15 shadow">
+											<img
+												src="/static/img/no-data.svg"
+												alt="no-data"
+												className="wd-200 mg-b-15"
+											/>
+											<p className=" tx-danger tx-medium">
+												Chưa có buổi học nào.
+											</p>
+										</div>
 									))
 								)}
 							</ul>

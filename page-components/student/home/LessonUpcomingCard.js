@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import styles from './LessonUpcomingCard.module.scss';
-
+import Link from 'next/link';
 const LessonUpcomingCard = ({
 	BookingID,
 	avatar = null,
@@ -77,23 +77,25 @@ const LessonUpcomingCard = ({
 			></div>
 			<div className="media">
 				<div className="teacher-information">
-					<a
-						className="teacher-avatar"
-						href={`/ElearnStudent/teacherDetail?ID=${TeacherUID}`}
+					<Link
+						href={`/student/teacher-profile/[tid]`}
+						as={`/student/teacher-profile/${TeacherUID}`}
 					>
-						<img
-							src={avatar === null ? `/static/assets/img/${avatar}` : avatar}
-							className="teacher-image"
-							alt="Avatar"
-							onError={(e) => {
-								e.target.onerror = null;
-								e.target.src = '/static/assets/img/default-avatar.png';
-							}}
-						/>
-						<p className="course-teacher tx-14 tx-gray-800 tx-normal mg-b-0 tx-center mg-t-5 d-block">
-							{TeacherName}
-						</p>
-					</a>
+						<a href={true} className="teacher-avatar">
+							<img
+								src={avatar === null ? `/static/assets/img/${avatar}` : avatar}
+								className="teacher-image"
+								alt="Avatar"
+								onError={(e) => {
+									e.target.onerror = null;
+									e.target.src = '/static/assets/img/default-avatar.png';
+								}}
+							/>
+							<p className="course-teacher tx-14 tx-gray-800 tx-normal mg-b-0 tx-center mg-t-5 d-block">
+								{TeacherName}
+							</p>
+						</a>
+					</Link>
 				</div>
 				<div className="media-body mg-l-20 pos-relative">
 					<div>

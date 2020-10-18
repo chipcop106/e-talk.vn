@@ -144,8 +144,8 @@ const Package = () => {
 								<thead className="">
 									<tr>
 										<th className="mw-200 tx-left">Khóa học</th>
-										<th>Số buổi Học</th>
-										<th>Đã học </th>
+										<th>Số buổi học</th>
+										<th>Số buổi cộng thêm </th>
 										<th>Bắt đầu</th>
 										<th>Kết thúc</th>
 										<th>Trạng Thái</th>

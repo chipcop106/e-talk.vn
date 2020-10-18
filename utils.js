@@ -71,7 +71,7 @@ export const nationMapToFlag = (nation) => {
 };
 
 export const getDifferentMinBetweenTime = (startDate, endDate) => {
-	const oneMinutes = 1000 * 60 * 60;
+	const oneMinutes = 1000 * 60;
 	const startTime = startDate.getTime();
 	const endTime = endDate.getTime();
 	const diffTime = endTime - startTime;

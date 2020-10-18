@@ -1,86 +1,60 @@
 import React from 'react';
-const CancelSlotModal = ({ data, handleCancelSlot }) => {
-	const {
-		id,
-		date,
-		teacherTime,
-		vnTime,
-		studentName,
-		lessonName,
-		courseName,
-	} = data;
+import { Modal } from 'react-bootstrap';
+const CancelSlotModal = ({
+	data,
+	handleCancelSlot,
+	closeModal,
+	showModal,
+	loading,
+}) => {
 	const [reason, setReason] = React.useState('');
-	const _onSubmit = e => {
+	const _onSubmit = (e) => {
 		e.preventDefault();
-		handleCancelSlot({ ...data, reason });
+		handleCancelSlot(reason);
 		setReason('');
 	};
 	return (
-		<div
-			className="modal fade effect-scale"
-			data-backdrop="static"
-			data-keyboard="false"
-			id="md-cancel-slot"
-			tabIndex={-1}
-			role="dialog"
-			aria-labelledby="cancel-slot"
-			aria-hidden="true"
+		<Modal
+			show={showModal}
+			// backdrop="static"   //Prevent close when click overlay
+			keyboard={false}
+			centered
+			onHide={closeModal}
 		>
-			<div
-				className="modal-dialog modal-dialog-centered modal-sm"
-				role="document"
-			>
-				<div className="modal-content">
-					<div className="modal-header bg-danger">
-						<h5 className="mg-b-0 tx-white">Warning !!</h5>
-					</div>
-					<div className="modal-body">
-						<p>
-							Course: <span className="tx-medium">{courseName}</span>
-						</p>
-						<p>
-							Lesson: <span className="tx-medium">{lessonName}</span>
-						</p>
-						<p>
-							Student name: <span className="tx-medium">{studentName}</span>
-						</p>
-						<p>
-							Your time: <span className="tx-medium">{teacherTime}</span>
-						</p>
-						<p>
-							VN time: <span className="tx-medium">{vnTime}</span>
-						</p>
+			<Modal.Header closeButton>
+				<Modal.Title>Confirm cancel booked</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				<p className="tx-danger">Please enter cancel reason: </p>
 
-						<div className="form-group">
-							<textarea
-								rows={3}
-								className="form-control"
-								placeholder="Reason"
-								value={reason}
-								onChange={e => setReason(e.target.value)}
-							></textarea>
-						</div>
-						<p className="tx-danger">Do you want to cancel this lesson ?</p>
-					</div>
-					<div className="modal-footer bd-t-0 pd-t-0">
-						<button
-							type="button"
-							className="btn btn-light btn-sm"
-							data-dismiss="modal"
-						>
-							Cancel
-						</button>
-						<button
-							type="button"
-							className="btn btn-flat btn-sm tx-primary"
-							onClick={_onSubmit}
-						>
-							Yes, cancel it
-						</button>
-					</div>
+				<div className="form-group mg-b-0">
+					<textarea
+						rows={3}
+						className="form-control"
+						placeholder="Your reason..."
+						value={reason}
+						onChange={(e) => setReason(e.target.value)}
+					></textarea>
 				</div>
-			</div>
-		</div>
+			</Modal.Body>
+			<Modal.Footer>
+				<button
+					type="button"
+					className="btn btn-light btn-sm"
+					onClick={closeModal}
+				>
+					Back
+				</button>
+				<button
+					type="button"
+					className="btn btn-primary btn-sm tx-primary"
+					onClick={_onSubmit}
+					disabled={loading}
+				>
+					Confirm
+				</button>
+			</Modal.Footer>
+		</Modal>
 	);
 };
 

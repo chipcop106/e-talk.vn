@@ -61,8 +61,6 @@ const ListSchedule = ({
 		getAPI({
 			TeacherUID,
 			Date: date,
-			Start,
-			End,
 		});
 	}, [date]);
 
@@ -133,7 +131,7 @@ const ListSchedule = ({
 						<li className={status} key={index}>
 							<span className="time">{item}</span>
 							<span className="status">
-								{status == 'available' ? (
+								{status === 'available' ? (
 									<button
 										className="open-lessionwish"
 										data-toggle="modal"
@@ -155,7 +153,7 @@ const ListSchedule = ({
 									>
 										Đang mở
 									</button>
-								) : status == 'registed' ? (
+								) : status === 'registed' ? (
 									'Đã đăng ký'
 								) : (
 									''

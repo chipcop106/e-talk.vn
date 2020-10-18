@@ -44,12 +44,12 @@ const reducer = (prevState, { type, payload }) => {
 //Add hourse Prototype
 const dayNamesShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-const hotTime = [5, 6, 7, 8, 9, 13, 14, 15, 16];
+// const hotTime = [5, 6, 7, 8, 9, 13, 14, 15, 16];
 
-const date = new Date();
-const d = date.getDate();
-const m = date.getMonth() + 1;
-const y = date.getFullYear();
+// const date = new Date();
+// const d = date.getDate();
+// const m = date.getMonth() + 1;
+// const y = date.getFullYear();
 
 const formatDateString = (dateStr) => {
 	return dayjs(dateStr).format('DD/MM/YYYY');
@@ -60,19 +60,14 @@ const initEvents = [];
 let calendar;
 
 const FullCalendar = ({ data = [] }) => {
-	const [activeDate, setActiveDate] = useState(new Date());
 	const [eventSource, setEventSource] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [showErrorBook, setShowErrorBook] = useState(false);
-	const [activeModal, setActiveModal] = useState({
-		id: '',
-		studentName: '',
-		start: '',
-		end: '',
-		date: '',
-	});
-
+	const [showActiveModal, setShowActiveModal] = useState(false);
+	const [showCancelModal, setShowCancelModal] = useState(false);
+	const [modalData, setModalData] = useState(null);
 	const loadingRef = useRef(true);
+	const [cancelLoading, setCancelLoading] = useState(false);
 
 	const fetchEventByDate = async (date) => {
 		setIsLoading(true);
@@ -118,6 +113,7 @@ const FullCalendar = ({ data = [] }) => {
 			const currentDate = calendar.getDate();
 			console.log(currentDate);
 			fetchEventByDate(currentDate);
+			calendar.next();
 		} catch (error) {}
 	};
 
@@ -127,6 +123,7 @@ const FullCalendar = ({ data = [] }) => {
 			const currentDate = calendar.getDate();
 			console.log(currentDate);
 			fetchEventByDate(currentDate);
+			calendar.prev();
 		} catch (error) {}
 	};
 
@@ -174,18 +171,19 @@ const FullCalendar = ({ data = [] }) => {
 		console.log({ view, el });
 	};
 
-	const _openSlot = async (event) => {
+	const _openSlot = async () => {
+		console.log(modalData);
 		try {
 			calendar.addEvent(
 				{
 					id: randomId(),
 					BookingID: 0,
-					End: event.end,
+					End: modalData.end,
 					OpenDayID: 0,
-					Start: event.start,
+					Start: modalData.start,
 					StudyTimeID: 1,
-					TeacherEnd: event.start,
-					TeacherStart: event.end,
+					TeacherEnd: modalData.start,
+					TeacherStart: modalData.end,
 					TeacherUID: 20,
 					available: true,
 					bookInfo: null,
@@ -193,12 +191,13 @@ const FullCalendar = ({ data = [] }) => {
 					eventType: 0,
 					isEmptySlot: false,
 					title: null,
-					start: event.start,
-					end: event.end,
+					start: modalData.start,
+					end: modalData.end,
 					loading: true,
 				},
 				true,
 			);
+			setShowActiveModal(false);
 		} catch (error) {
 			console.log('Error openSlot !', error);
 			alert('Open slot failed !!');
@@ -227,43 +226,80 @@ const FullCalendar = ({ data = [] }) => {
 	};
 
 	const _closeSlot = async (event) => {
-		let eventInstance = calendar.getEventById(event.id);
-		if (eventInstance) eventInstance.remove();
-		//eventInstance.remove();
-	};
-
-	const afterEventRemoved = async (eventInfo) => {
 		try {
+			event.preventDefault();
+			const closeBtn = event.target;
+			const eventId = JSON.parse(closeBtn.getAttribute('data-schedule'));
+			const eventInstance = calendar.getEventById(eventId);
 			const res = await setEventClose({
-				OpenDayID: data.OpenDayID,
+				OpenDayID: eventInstance.extendedProps.OpenDayID,
 			});
-			if (/*res.Code !== 1*/ false) {
-				eventInfo.revert();
+			if (res.Code === 1) {
+				eventInstance.remove();
+			} else {
 				toast.error('Close slot failed', {
 					position: toast.POSITION.TOP_RIGHT,
 					autoClose: 2000,
 				});
-			} else {
 			}
 		} catch (error) {
-			console.log('Error openSlot !', error);
+			console.log(error);
 		}
 	};
 
-	const _cancelSlot = async (data) => {
-		setIsLoading(true);
-		$('#md-cancel-slot').modal('hide');
+	const showCancelReasonModal = (event) => {
 		try {
+			event.preventDefault();
+			const cancelBtn = event.target;
+			const eventId = cancelBtn.dataset.schedule;
+			setModalData({
+				...modalData,
+				eventId,
+			});
+			setShowCancelModal(true);
+		} catch (error) {
+			console.log(error);
+		}
+		// setIsLoading(true);
+		// try {
+		// 	const res = await cancelLesson({
+		// 		BookingID: data.BookingID,
+		// 		ReasonCancleOfTeacher: data.reason,
+		// 	});
+		// 	if (res.Code === 1) {
+		// 		cancelBookedEvent(data);
+		// 		toast.success('You have canceled a lesson successfully', {
+		// 			position: toast.POSITION.TOP_CENTER,
+		// 			autoClose: 2000,
+		// 		});
+		// 	} else {
+		// 		toast.error(res?.Message ?? 'Cancel slot failed', {
+		// 			position: toast.POSITION.TOP_CENTER,
+		// 			autoClose: 2000,
+		// 		});
+		// 	}
+		// } catch (error) {
+		// 	console.log('Error openSlot !', error);
+		// }
+		// setIsLoading(false);
+	};
+
+	const _cancelSlot = async (reason = '') => {
+		setCancelLoading(true);
+		try {
+			const eventId = modalData.eventId;
+			const eventInstance = calendar.getEventById(eventId);
 			const res = await cancelLesson({
-				BookingID: data.BookingID,
-				ReasonCancleOfTeacher: data.reason,
+				BookingID: eventInstance.extendedProps.BookingID,
+				ReasonCancleOfTeacher: reason,
 			});
 			if (res.Code === 1) {
-				cancelBookedEvent(data);
+				eventInstance && eventInstance.remove();
 				toast.success('You have canceled a lesson successfully', {
 					position: toast.POSITION.TOP_CENTER,
 					autoClose: 2000,
 				});
+				setShowCancelModal(false);
 			} else {
 				toast.error(res?.Message ?? 'Cancel slot failed', {
 					position: toast.POSITION.TOP_CENTER,
@@ -271,13 +307,21 @@ const FullCalendar = ({ data = [] }) => {
 				});
 			}
 		} catch (error) {
-			console.log('Error openSlot !', error);
+			console.log(error);
 		}
-		setIsLoading(false);
+		setCancelLoading(false);
 	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
+	};
+
+	const emptyCellSelect = (selection) => {
+		setModalData({
+			start: selection.startStr,
+			end: selection.endStr,
+		});
+		setShowActiveModal(true);
 	};
 
 	let $toggleCheckbox;
@@ -320,8 +364,15 @@ const FullCalendar = ({ data = [] }) => {
 				// });
 			}
 
-			let diff = getDifferentMinBetweenTime(new Date(), new Date(event.start));
-			let cancelable = diff > 60 ? true : false;
+			const diff = getDifferentMinBetweenTime(
+				new Date(),
+				new Date(event.start),
+			);
+			const popWhitelist = $.fn.tooltip.Constructor.Default.whiteList; //White list data attribute;
+			popWhitelist.a.push('data-skype');
+			popWhitelist.a.push('data-schedule');
+			popWhitelist.a.push('disabled');
+			const cancelable = diff > 60 ? true : false;
 			!!el &&
 				[...el.classList].includes('booked-slot') &&
 				$(el)
@@ -329,33 +380,43 @@ const FullCalendar = ({ data = [] }) => {
 						html: true,
 						container: 'body',
 						trigger: 'focus',
-						title: 'Booked information',
+						title: event.extendedProps.bookInfo?.timeZone ?? 'GTM + 7',
 						content: `  
-                <p class="mg-b-5"><span class="mg-r-5">Course:</span><span class="tx-medium">${
-									event.extendedProps.bookInfo?.DocumentName ?? ''
+								<p class="mg-b-5 tx-light"><span class="mg-r-5">Student UID:</span><span class="tx-medium">${
+									event.extendedProps.bookInfo?.studentUID ?? 'example UID 1232'
 								}</span></p>
-                <p class="mg-b-5"><span class="mg-r-5">Lesson:</span><span class="tx-medium">${
-									event.extendedProps.bookInfo?.LessonName ?? ''
-								}</span></p>
-                <p class="mg-b-5"><span class="mg-r-5">Student:</span><span class="tx-medium">${
+								<p class="mg-b-5 tx-light"><span class="mg-r-5">Student:</span><span class="tx-medium">${
 									event.extendedProps.bookInfo?.name ?? ''
 								}</span></p>
-                <p class="mg-b-5"><span class="mg-r-5">Your time:</span><span class="tx-medium">${dayjs(
+								<p class="mg-b-5 tx-light"><span class="mg-r-5">Packgage:</span><span class="tx-medium">${
+									event.extendedProps.bookInfo?.package ??
+									'Example package name'
+								}</span></p>
+                <p class="mg-b-5 tx-light"><span class="mg-r-5">Course:</span><span class="tx-medium">${
+									event.extendedProps.bookInfo?.DocumentName ?? ''
+								}</span></p>
+                <p class="mg-b-5 tx-light"><span class="mg-r-5">Lesson:</span><span class="tx-medium">${
+									event.extendedProps.bookInfo?.LessonName ?? ''
+								}</span></p>
+                <p class="mg-b-5 tx-light"><span class="mg-r-5">Your time:</span><span class="tx-medium">${dayjs(
 									event.extendedProps?.TeacherStart ?? new Date(),
 								).format('DD/MM/YYYY hh:mm A')}</span></p>
-                <p class="mg-b-0"><span class="mg-r-5">VN time:</span><span class="tx-medium">${dayjs(
+                <p class="mg-b-5 tx-light"><span class="mg-r-5">VN time:</span><span class="tx-medium">${dayjs(
 									event.start,
 								).format('DD/MM/YYYY hh:mm A')}</span></p>
-
+								${
+									!args.isPast &&
+									`
+								<p class="mg-b-0 tx-light"><span class="mg-r-5">Skype ID:</span><span class="tx-medium">${
+									event.extendedProps.bookInfo?.skypeID ?? 'example.skypeid'
+								}</span></p>
                 <div class="action mg-t-15">
                     <a href="#" data-schedule='${JSON.stringify(
 											data,
-										)}' class="btn btn-sm btn-info btn-block tx-white-f mg-b-10 join-class-skype" target="_blank" rel="noopener">Go to Classroom</a>
+										)}' class="btn btn-sm btn-info btn-block tx-white-f mg-b-10 join-class-skype" target="_blank" rel="noreferrer"><i class="fab fa-skype"></i> Join class</a>
                     ${
 											cancelable
-												? `<a href="#" class="btn btn-sm btn-danger btn-block cancel-schedule" data-schedule='${JSON.stringify(
-														data,
-												  )}'>Cancel lesson</a>`
+												? `<a href="#" class="btn btn-sm btn-danger btn-block cancel-schedule" data-schedule="${event.id}">Cancel lesson</a>`
 												: `<a href="#" class="btn btn-sm btn-block btn-disabled">Cancel lesson</a>`
 										}
                     ${
@@ -364,6 +425,9 @@ const FullCalendar = ({ data = [] }) => {
 												: '<p class="mg-b-0 tx-danger mg-t-10">Sorry, you cannot cancel the class</p>'
 										}
                 </div>
+								`
+								}
+							
 
                 `,
 					})
@@ -409,13 +473,6 @@ const FullCalendar = ({ data = [] }) => {
 				}
 		};
 
-		const emptyCellSelect = (selection) => {
-			_openSlot({
-				start: selection.startStr,
-				end: selection.endStr,
-			});
-		};
-
 		const eventClick = (args) => {
 			const element = args.el;
 			const { start, end, id, extendedProps } = args.event;
@@ -439,36 +496,26 @@ const FullCalendar = ({ data = [] }) => {
 				![...element.classList].includes('empty-slot')
 			)
 				return;
-			// const diff = getDifferentMinBetweenTime(new Date(), start);
-			// if (diff < 60) {
-			// 	setShowErrorBook(true);
-			// 	return;
-			// }
-
-			/*  setActiveModal({
-                ...activeModal,
-                ...args.event.extendedProps,
-                date: dayjs(start).format("DD/MM/YYYY"),
-                start: dayjs(start).format("HH:mm A"),
-                end: dayjs(end).format("HH:mm A")
-            });
-            $("#md-active-slot").appendTo('body').modal("show");
-            */
+			const diff = getDifferentMinBetweenTime(new Date(), start);
+			if (diff < 60) {
+				setShowErrorBook(true);
+				return;
+			}
 		};
 
 		calendar = new Calendar(calendarEl, {
 			plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
 			height: 550,
 			expandRows: true,
-			slotMinTime: '06:00',
-			slotMaxTime: '23:00',
+			slotMinTime: '00:00',
+			slotMaxTime: '24:00',
 			events: data
 				.filter((x) => x.isEmptySlot === false)
 				.map((y) => ({
 					...y,
 					id: randomId(),
 					loading: false,
-				})),
+				})), //Filter for demo
 			// event: [],
 			headerToolbar: {
 				start: 'timeGridWeek,dayGridMonth,listWeek', // will normally be on the left. if RTL, will be on the right
@@ -478,7 +525,7 @@ const FullCalendar = ({ data = [] }) => {
 			titleFormat: { year: 'numeric', month: 'short' },
 			navLinks: true, // can click day/week names to navigate views
 			editable: false,
-			stickyHeaderDates: true,
+			stickyHeaderDates: 'auto',
 			selectable: true,
 			nowIndicator: true,
 			allDaySlot: false,
@@ -492,14 +539,12 @@ const FullCalendar = ({ data = [] }) => {
 			slotEventOverlap: false,
 			viewDidMount: onViewChange,
 			eventAdd: afterEventAdded,
-			eventRemove: afterEventRemoved,
 			selectOverlap: function (event) {
 				return event.rendering === 'background';
 			},
 			select: emptyCellSelect,
 			slotLabelContent: function (arg) {
 				//  console.log('slotLabelContent', arg);
-				const hour = arg.date.getHours();
 
 				let templateEl = document.createElement('div');
 				templateEl.setAttribute('class', 'slot-label');
@@ -591,16 +636,21 @@ const FullCalendar = ({ data = [] }) => {
 														  }
 														${
 															available
-																? `<a href="javascript:;" class="fix-btn close-schedule" data-schedule='${JSON.stringify(
-																		data,
-																  )}' data-events='${
-																		calendar.getEventSources().length > 0
-																			? calendar.getEventSources()[0]
-																					.internalEventSource.meta
-																			: {}
-																  }'>Close</a>`
+																? `
+																${
+																	// <a href="javascript:;" class="fix-btn close-schedule" data-schedule='${JSON.stringify(
+																	// 	data,
+																	// )}' data-events='${
+																	// 		calendar.getEventSources().length > 0
+																	// 			? calendar.getEventSources()[0]
+																	// 					.internalEventSource.meta
+																	// 			: {}
+																	//   }'>Close</a>  //close schedule btn
+																	''
+																}`
 																: ''
-														}`
+														}
+														`
 												}
                         
                         </div>
@@ -620,31 +670,9 @@ const FullCalendar = ({ data = [] }) => {
 
 		calendar.render();
 
-		$('body').on('click', '.cancel-schedule', function (e) {
-			e.preventDefault();
-			const eventData = JSON.parse(this.getAttribute('data-schedule'));
-			console.log(eventData);
-			setActiveModal({
-				...activeModal,
-				...eventData,
-				studentName: eventData.bookInfo?.name ?? '',
-				courseName: eventData.bookInfo?.DocumentName ?? '',
-				lessonName: eventData.bookInfo?.LessonName ?? '',
-				teacherTime: dayjs(eventData?.TeacherStart ?? new Date()).format(
-					'DD/MM/YYYY hh:mm A',
-				),
-				vnTime: dayjs(eventData.start).format('DD/MM/YYYY hh:mm A'),
-			});
+		$('body').on('click', '.cancel-schedule', showCancelReasonModal);
 
-			$cancelModal.appendTo('body').modal('show');
-			// alert("Cancel schedule ID : " + eventData);
-		});
-
-		$('body').on('click', '.close-schedule', function (e) {
-			e.preventDefault();
-			const eventData = JSON.parse(this.getAttribute('data-schedule'));
-			_closeSlot(eventData);
-		});
+		$('body').on('click', '.close-schedule', _closeSlot);
 
 		$('body').on('click', '.join-class-skype', async function (e) {
 			e.preventDefault();
@@ -712,39 +740,50 @@ const FullCalendar = ({ data = [] }) => {
 					)}
 				</>
 				<div id="js-book-calendar" className="fc fc-unthemed fc-ltr"></div>
-				{/* <ActiveSlotModal data={activeModal} handleOpenSlot={_openSlot} />
 
-			<CloseSlotModal data={activeModal} handleCloseSlot={_closeSlot} />
-
-			<CancelSlotModal data={activeModal} handleCancelSlot={_cancelSlot} /> */}
-				{/* <Modal
-				show={showErrorBook}
-				onHide={() => setShowErrorBook(false)}
-				size="sm"
-				centered
-				bsPrefix="modal"
-			>
-				<Modal.Header bsPrefix="modal-header bg-danger tx-white pd-10">
-					<Modal.Title bsPrefix="modal-title tx-white">
-						Open slot failed !
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<p className="mg-b-0">
-						Sorry, you cannot open this class. It is less than 60 mins to
-						starting time.
-					</p>
-					<div className="tx-right mg-t-15">
-						<Button
-							size="sm"
-							variant="light"
-							onClick={() => setShowErrorBook(false)}
-						>
-							Close
-						</Button>
-					</div>
-				</Modal.Body>
-			</Modal> */}
+				<Modal
+					show={showErrorBook}
+					onHide={() => setShowErrorBook(false)}
+					size="sm"
+					centered
+					bsPrefix="modal"
+				>
+					<Modal.Header bsPrefix="modal-header bg-danger tx-white pd-10">
+						<Modal.Title bsPrefix="modal-title tx-white">
+							Open slot failed !
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<p className="mg-b-0">
+							Sorry, you cannot open this class. It is less than 60 mins to
+							starting time.
+						</p>
+						<div className="tx-right mg-t-15">
+							<Button
+								size="sm"
+								variant="light"
+								onClick={() => setShowErrorBook(false)}
+							>
+								Close
+							</Button>
+						</div>
+					</Modal.Body>
+				</Modal>
+				<CancelSlotModal
+					showModal={showCancelModal}
+					closeModal={() => setShowCancelModal(false)}
+					handleCancelSlot={_cancelSlot}
+					loading={cancelLoading}
+				/>
+				<ActiveSlotModal
+					data={{
+						start: dayjs(modalData?.start).format('DD/MM/YYYY HH:mm A') ?? '',
+						end: dayjs(modalData?.end).format('DD/MM/YYYY HH:mm A') ?? '',
+					}}
+					showModal={showActiveModal}
+					closeModal={() => setShowActiveModal(false)}
+					handleOpenSlot={_openSlot}
+				/>
 			</div>
 		</>
 	);

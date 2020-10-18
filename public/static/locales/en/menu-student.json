@@ -8,10 +8,13 @@
 	"table-view": "Table View",
 	"lesson-feedback": "Feedback Of Lessons",
 	"lesson-history": "Lesson History",
-	"course-discount": "Course Discount",
-	"day-off": "Day Off",
+	"course-discount": "Promotion",
+	"day-off": "Holidays",
 	"other": "Other",
 	"referral": "Referral / Invite",
 	"f&a": "Frequently Asked Questions",
-	"payment-history": "Payment History"
+	"payment-history": "Payment History",
+	"classes": "Classes",
+	"tuition-others": "Tuition & Others",
+	"teacher-list": "Teachers"
 }

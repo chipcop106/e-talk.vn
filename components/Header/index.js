@@ -62,13 +62,26 @@ const Header = ({ t, isStudent }) => {
 	useEffect(() => {
 		isStudent ? (appSettings.UID = 1071) : (appSettings.UID = 20);
 	}, [isStudent]);
+
 	useEffect(() => {
 		checkDefaultLanguage();
 	}, []);
 	return (
 		<>
 			<div className="content-header">
-				<div className="navbar-left"></div>
+				<div className="navbar-left">
+					<span
+						className="d-inline-flex align-items-center tx-dark"
+						style={{ backgroundColor: '#efefef', padding: '8px 10px' }}
+					>
+						<FontAwesomeIcon
+							icon="globe-europe"
+							className="fas fa-globe-europe mg-r-5"
+						/>
+						Timezone:
+						<span className="tx-medium mg-l-10 tx-primary">GTM +7</span>
+					</span>
+				</div>
 				<div className="navbar-right">
 					<Select
 						isSearchable={false}
@@ -99,6 +112,7 @@ const Header = ({ t, isStudent }) => {
 							},
 						}}
 					/>
+
 					<div className="dropdown dropdown-notification">
 						<a
 							href

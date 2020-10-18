@@ -10,6 +10,8 @@ import Skeleton from 'react-loading-skeleton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import './table.module.scss';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 const fakeData = [
 	{
 		BookingID: 2,
@@ -146,7 +148,10 @@ const TableView = () => {
 			<h1 className="main-title-page">Booked schedule</h1>
 			<div className="card">
 				<div className="card-body">
-					<div className="d-flex from-to-group mg-b-15" id="filter-time">
+					<div
+						className="d-flex from-to-group mg-b-15 flex-wrap"
+						id="filter-time"
+					>
 						<div className="d-flex flex-wrap-0">
 							<div className="wd-sm-200 mg-sm-r-10 wd-100p mg-b-10 mg-sm-b-0">
 								<DatePicker
@@ -191,13 +196,18 @@ const TableView = () => {
 						<table className="table table-borderless responsive-table">
 							<thead>
 								<tr>
-									<th>Schedule</th>
-									<th>Classes</th>
-									<th>Teacher</th>
-									<th className="tx-right">Actions</th>
+									<th>Giáo viên</th>
+									<th>Gói học</th>
+									<th>Khóa học</th>
+									<th>Giáo trình</th>
+									<th>Thời lượng</th>
+									<th>Ngày</th>
+									<th>Giờ</th>
+									<th>Lớp học</th>
+									<th>Trạng thái</th>
 								</tr>
 							</thead>
-							<tbody>
+							<PerfectScrollbar component="tbody">
 								{isLoading ? (
 									<tr>
 										<td>
@@ -205,6 +215,20 @@ const TableView = () => {
 										</td>
 										<td>
 											<Skeleton count={1} />
+										</td>
+										<td>
+											<Skeleton count={1} />
+										</td>
+										<td>
+											<Skeleton count={1} />
+										</td>
+										<td>
+											<Skeleton count={1} />
+										</td>
+										<td>
+											<Skeleton count={1} />
+										</td>
+										<td>
 											<Skeleton count={1} />
 										</td>
 										<td>
@@ -217,81 +241,20 @@ const TableView = () => {
 								) : !!schedules && schedules.length > 0 ? (
 									[...schedules].map((ls, index) => (
 										<tr key={`${index}`}>
-											<td className="clr-time">
-												<div className="mg-b-5">
-													<span className="">{ls.ScheduleTimeVN}</span>
-												</div>
-											</td>
-											<td className="clr-lesson">
-												<div className="mg-b-5">
-													<span className=" mg-r-5 tx-medium">Course:</span>
-													<span className="">{ls.DocumentName}</span>
-												</div>
-												<div className="">
-													<span className=" mg-r-5 tx-medium">Lesson:</span>
-													<span className="">{ls.LessonName}</span>
-												</div>
-											</td>
-											<td className="lg-valign-middle">{ls.TeacherName}</td>
-											<td className="tx-nowrap tx-right">
-												<a
-													onClick={(e) => {
-														e.preventDefault();
-													}}
-													href={`skype:${ls.SkypeID}?chat`}
-													className="btn btn-info btn-sm mg-r-10 "
-													target="_blank"
-													rel="noeferrer"
-												>
-													<FontAwesomeIcon
-														className="fab fa-skype"
-														icon={['fab', 'skype']}
-													/>{' '}
-													<span className="d-none d-xl-inline mg-l-5">
-														Join class
-													</span>
-												</a>
-												{checkCancelTime(
-													cvDate(ls.ScheduleTimeVN).dateObject,
-												) ? (
-													<a
-														href={true}
-														onClick={(e) => {
-															e.preventDefault();
-														}}
-														className="btn btn-danger btn-sm"
-													>
-														<FontAwesomeIcon
-															icon="times"
-															class="fas fa-times"
-														/>
-														<span className="d-none d-xl-inline mg-l-5">
-															Cancel
-														</span>
-													</a>
-												) : (
-													<button
-														disabled
-														className="btn btn-disabled btn-sm"
-														data-toggle="tooltip"
-														title="You can only cancel this lesson before start for 30 minutes !!"
-														data-placement="top"
-													>
-														<FontAwesomeIcon
-															class="fas fa-times"
-															icon="times"
-														/>
-														<span className="d-none d-xl-inline mg-l-5">
-															Cancel
-														</span>
-													</button>
-												)}
-											</td>
+											<td>Jane Jurry</td>
+											<td>Gói học plus</td>
+											<td>Luyện phản xạ chuyên nghiệp</td>
+											<td>Giáo trình 1</td>
+											<td>50</td>
+											<td>15/10/2020</td>
+											<td>19:00 - 19:50 PM</td>
+											<td>Lớp chính thức</td>
+											<td>Sắp diễn ra</td>
 										</tr>
 									))
 								) : (
 									<tr>
-										<td colSpan={4}>
+										<td colSpan={9}>
 											<div className="empty-error tx-center mg-y-30 bg-white mg-x-auto">
 												<img
 													src="/static/img/no-data.svg"
@@ -305,7 +268,7 @@ const TableView = () => {
 										</td>
 									</tr>
 								)}
-							</tbody>
+							</PerfectScrollbar>
 						</table>
 					</div>
 					{totalResult > pageSize && (

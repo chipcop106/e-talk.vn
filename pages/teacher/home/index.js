@@ -194,7 +194,7 @@ const Home = ({ t }) => {
 						<div className="col-12 col-md-4 mg-b-15">
 							<SituationBlock
 								isLoading={isLoading}
-								link={dashboardInfo?.OpenSlotURL}
+								link={'/teacher/schedule/manage-slot'}
 								linkTitle="Manage slot"
 								title="Slots Opened"
 								value={dashboardInfo?.OpenSlot}
@@ -205,7 +205,7 @@ const Home = ({ t }) => {
 						<div className="col-12 col-md-4  mg-b-15">
 							<SituationBlock
 								isLoading={isLoading}
-								link={dashboardInfo?.BookedSlotURl}
+								link={'/teacher/schedule/manage-slot'}
 								linkTitle="Manage slot"
 								title="Slots Booked"
 								value={dashboardInfo?.BookedSlot}
@@ -216,7 +216,7 @@ const Home = ({ t }) => {
 						<div className="col-12 col-md-4  mg-b-15">
 							<SituationBlock
 								isLoading={isLoading}
-								link={dashboardInfo?.FeedbackURL}
+								link={'/teacher/classes/missing-evaluation'}
 								linkTitle="Submit Feedback"
 								title="Missing Feedbacks"
 								value={dashboardInfo?.Feedback}
